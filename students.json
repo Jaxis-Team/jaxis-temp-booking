@@ -1,0 +1,16 @@
+{
+  "last_updated": "2026-07-01",
+  "students": {
+    "Ruby": { "points": null, "schedule": [], "attendance": [] },
+    "Jasper": { "points": null, "schedule": [], "attendance": [] },
+    "Dorothy": { "points": null, "schedule": [], "attendance": [] },
+    "Hannah": { "points": null, "schedule": [], "attendance": [] },
+    "Ray": { "points": null, "schedule": [], "attendance": [] },
+    "Chih": { "points": null, "schedule": [], "attendance": [] },
+    "Kate": { "points": null, "schedule": [], "attendance": [] },
+    "AL": { "points": null, "schedule": [], "attendance": [] },
+    "Dodo": { "points": null, "schedule": [], "attendance": [] },
+    "Ally Lu": { "points": null, "schedule": [], "attendance": [] },
+    "Jason": { "points": null, "schedule": [], "attendance": [] }
+  }
+}
