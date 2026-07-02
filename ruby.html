@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ruby — Class Dashboard</title>
+<style>
+  :root{
+    --bg:#F7F5F1; --ink:#1F2A24; --line:#DDD7CC;
+    --accent:#C1662F; --active:#2F6B4F; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:40px 20px; background:var(--bg); color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif;
+  }
+  .wrap{max-width:760px; margin:0 auto;}
+  header{margin-bottom:28px;}
+  .eyebrow{font-family:Arial,sans-serif; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8A8272;}
+  h1{font-size:32px; margin:4px 0 2px; font-weight:600;}
+  .sub{font-family:Arial,sans-serif; font-size:13px; color:#6B6456;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:24px; margin-bottom:20px;}
+  .points-row{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;}
+  .points-num{font-size:48px; font-weight:700; color:var(--active); line-height:1;}
+  .points-label{font-family:Arial,sans-serif; font-size:13px; color:#6B6456;}
+  .meta{font-family:Arial,sans-serif; font-size:12.5px; color:#6B6456; margin-top:10px;}
+  .meta b{color:var(--ink);}
+
+  h2{font-family:Arial,sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:.08em; color:#6B6456; margin:0 0 12px;}
+
+  table{width:100%; border-collapse:collapse; font-family:Arial,sans-serif; font-size:13px;}
+  th,td{text-align:left; padding:8px 6px; border-bottom:1px solid var(--line);}
+  th{font-weight:600; color:#6B6456; font-size:11.5px; text-transform:uppercase; letter-spacing:.04em;}
+  tr:last-child td{border-bottom:none;}
+  .tag{display:inline-block; font-family:Arial,sans-serif; font-size:11px; padding:2px 8px; border-radius:99px; background:#EFE9DC; color:var(--accent);}
+
+  button{
+    font-family:Arial,sans-serif; font-size:13px; font-weight:600; color:#fff;
+    background:var(--active); border:none; padding:11px 18px; border-radius:7px;
+    cursor:pointer; margin-top:14px;
+  }
+  button:hover{opacity:.9;}
+  footer{font-family:Arial,sans-serif; font-size:11px; color:#9A9384; margin-top:24px; text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">JAXIS 線上美語 · Student Tracking</div>
+    <h1>Ruby</h1>
+    <div class="sub">Parent: 張舒甯 · Instructor: Teacher Anthony (安東尼老師)</div>
+  </header>
+
+  <div class="card">
+    <div class="points-row">
+      <div class="points-num" id="ptsRemaining">140</div>
+      <div class="points-label">points remaining<br>on active 500點 pass</div>
+    </div>
+    <div class="meta">Used <b>360 / 500</b> · Expires <b>2026-10-02</b> · 6 points per class</div>
+  </div>
+
+  <div class="card">
+    <h2>Old Term — Leftover (3 booked)</h2>
+    <table id="oldTermTable">
+      <thead><tr><th>#</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>New Term (20 classes)</h2>
+    <table id="newTermTable">
+      <thead><tr><th>#</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <button onclick="downloadSummary()">Download points + schedule (CSV)</button>
+  </div>
+
+  <footer>Internal tracking tool — not synced to any live booking system.</footer>
+</div>
+
+<script>
+const oldTerm = [
+  ["2026-07-06","09:00"],["2026-07-07","09:00"],["2026-07-08","09:35"]
+];
+const newTerm = [
+  ["2026-07-14","09:00"],["2026-07-15","09:35"],["2026-07-20","09:00"],["2026-07-21","09:00"],
+  ["2026-07-22","09:35"],["2026-07-27","09:00"],["2026-07-28","09:00"],["2026-07-29","09:35"],
+  ["2026-08-03","09:00"],["2026-08-04","09:00"],["2026-08-05","09:35"],["2026-08-10","09:00"],
+  ["2026-08-11","09:00"],["2026-08-12","09:35"],["2026-08-17","09:00"],["2026-08-18","09:00"],
+  ["2026-08-19","09:35"],["2026-08-31","13:30"],["2026-09-02","13:05"],["2026-09-03","13:05"]
+];
+
+function fillTable(id, data){
+  const tbody = document.querySelector(`#${id} tbody`);
+  data.forEach((row, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td><span class="tag">Upcoming</span></td>`;
+    tbody.appendChild(tr);
+  });
+}
+fillTable("oldTermTable", oldTerm);
+fillTable("newTermTable", newTerm);
+
+function downloadSummary(){
+  let csv = "Ruby - Points & Schedule Summary\n";
+  csv += "Points Remaining,140\n";
+  csv += "Used,360 / 500\n";
+  csv += "Expires,2026-10-02\n\n";
+  csv += "Old Term (leftover)\n#,Date,Time,Status\n";
+  oldTerm.forEach((row,i)=>{ csv += `${i+1},${row[0]},${row[1]},Upcoming\n`; });
+  csv += "\nNew Term\n#,Date,Time,Status\n";
+  newTerm.forEach((row,i)=>{ csv += `${i+1},${row[0]},${row[1]},Upcoming\n`; });
+
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "Ruby_points_schedule_summary.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
