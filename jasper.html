@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jasper & Win Win — JAXIS Tracker</title>
+<style>
+  :root{
+    --ink:#1c2330; --muted:#6b7688; --line:#e7ebf1; --bg:#f5f7fb;
+    --card:#ffffff; --accent:#2f6df6; --accent-soft:#eaf1ff;
+    --good:#0f9d58; --warn:#c77700; --warn-soft:#fff4e0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg);color:var(--ink);padding:24px;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto}
+  header{margin-bottom:20px}
+  h1{font-size:22px;margin:0 0 4px}
+  .meta{color:var(--muted);font-size:14px}
+  .meta b{color:var(--ink)}
+  .cards{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;flex:1;min-width:200px}
+  .card .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .card .big{font-size:30px;font-weight:700;margin:6px 0 2px}
+  .card .sub{font-size:13px;color:var(--muted)}
+  .pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:20px;font-weight:600}
+  .pill-active{background:var(--accent-soft);color:var(--accent)}
+  .leftover{background:var(--warn-soft);border-color:#f0dcb4}
+  .leftover .big{color:var(--warn);font-size:22px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;margin-bottom:16px}
+  .sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .sec-head h2{font-size:15px;margin:0}
+  .count{font-size:12px;color:var(--muted);background:var(--bg);padding:2px 10px;border-radius:20px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+  th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+  td.slots span{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    padding:2px 8px;border-radius:6px;font-size:12px;margin-right:6px;font-weight:600}
+  .today td{background:#fffbe8}
+  .btn{background:var(--accent);color:#fff;border:none;border-radius:10px;
+    padding:11px 18px;font-size:14px;font-weight:600;cursor:pointer}
+  .btn:hover{background:#255fd8}
+  .toggle{display:flex;gap:8px;margin-bottom:14px}
+  .tbtn{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:9px 20px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer}
+  .tbtn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  footer{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Jasper &amp; Win Win</h1>
+    <div class="meta">Parent: <b>Sherry Tseng</b> &nbsp;·&nbsp; Instructor: <b>Teacher Anthony 安東尼老師</b> &nbsp;·&nbsp; 6 pts / class</div>
+  </header>
+
+  <div class="cards">
+    <div class="card">
+      <div class="lbl">Active Pass — points left</div>
+      <div class="big">500</div>
+      <div class="sub">0 / 500 used · expires 2026-12-15 · <span class="pill pill-active">Active</span></div>
+    </div>
+    <div class="card leftover">
+      <div class="lbl">Old pass — leftover</div>
+      <div class="big">29</div>
+      <div class="sub">480 / 509 used · expires 2026-09-22</div>
+    </div>
+  </div>
+
+  <div class="toggle">
+    <button class="tbtn active" data-kid="jasper" onclick="showKid('jasper')">Jasper</button>
+    <button class="tbtn" data-kid="winwin" onclick="showKid('winwin')">Win Win</button>
+  </div>
+
+  <section id="view-jasper">
+    <div class="sec-head">
+      <h2>Jasper — Upcoming Classes</h2>
+      <span class="count">24 classes · 12 days</span>
+    </div>
+    <table id="tbl">
+      <thead><tr><th>Date</th><th>Day</th><th>Slots</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="view-winwin" style="display:none">
+    <div class="sec-head">
+      <h2>Win Win — Upcoming Classes</h2>
+      <span class="count">0 classes</span>
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin:6px 0">No upcoming classes booked yet.</p>
+  </section>
+
+  <button class="btn" onclick="exportCSV()">⬇ Download summary (CSV)</button>
+
+  <footer>
+    Manual tracking record — not linked to any live booking platform.<br>
+    Last updated: 2026-07-07 · Jul 2 &amp; Jun 30 marked attended.
+  </footer>
+</div>
+
+<script>
+const upcoming = [
+  "2026-07-07","2026-07-09","2026-07-14","2026-07-16","2026-07-21","2026-07-23",
+  "2026-07-28","2026-07-30","2026-08-04","2026-08-06","2026-08-11","2026-08-13"
+];
+const TODAY = "2026-07-07";
+const dayName = d => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(d+"T00:00:00").getDay()];
+const tb = document.querySelector("#tbl tbody");
+upcoming.forEach(d=>{
+  const tr=document.createElement("tr");
+  if(d===TODAY) tr.className="today";
+  tr.innerHTML=`<td>${d}${d===TODAY?" (today)":""}</td><td>${dayName(d)}</td>
+    <td class="slots"><span>09:35</span><span>10:05</span></td>`;
+  tb.appendChild(tr);
+});
+
+function showKid(kid){
+  document.getElementById("view-jasper").style.display = kid==="jasper"?"":"none";
+  document.getElementById("view-winwin").style.display = kid==="winwin"?"":"none";
+  document.querySelectorAll(".tbtn").forEach(b=>b.classList.toggle("active",b.dataset.kid===kid));
+}
+
+function exportCSV(){
+  let rows=[["Jasper & Win Win — Summary"],[],
+    ["Parent","Sherry Tseng"],["Instructor","Teacher Anthony"],[],
+    ["Active pass","0 / 500","exp 2026-12-15","500 pts left"],
+    ["Old pass (leftover)","480 / 509","exp 2026-09-22","29 pts left"],[],
+    ["Upcoming Classes (24)"],["Date","Day","Slot 1","Slot 2"]];
+  upcoming.forEach(d=>rows.push([d,dayName(d),"09:35","10:05"]));
+  const csv=rows.map(r=>r.map(x=>`"${x}"`).join(",")).join("\n");
+  const blob=new Blob([csv],{type:"text/csv"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="jasper_winwin_summary.csv";
+  a.click();
+}
+</script>
+</body>
+</html>
