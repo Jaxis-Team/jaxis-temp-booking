@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>素欣家 — JAXIS Booking Tracker</title>
+<style>
+  :root {
+    --surface-0: #f4f3ee;
+    --surface-1: #ffffff;
+    --surface-2: #ffffff;
+    --border: #e3e1d8;
+    --border-strong: #cfccc0;
+    --text-primary: #1f1e1b;
+    --text-secondary: #6b6a63;
+    --text-muted: #9a988f;
+    --accent: #0c447c;
+    --accent-bg: #e6f1fb;
+    --old-term: #854f0b;
+    --old-term-bg: #faeeda;
+    --new-term: #0f6e56;
+    --new-term-bg: #e1f5ee;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header { margin-bottom: 1.5rem; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  .sub { font-size: 13px; color: var(--text-secondary); }
+  .points-card {
+    background: var(--surface-1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .metric-label { font-size: 12px; color: var(--text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .metric-value { font-size: 22px; font-weight: 600; margin: 0; }
+  .metric-value.low { color: #a32d2d; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .tab-btn {
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface-1);
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--text-secondary);
+  }
+  .tab-btn.active { background: var(--text-primary); color: #fff; border-color: var(--text-primary); }
+  .student-panel { display: none; }
+  .student-panel.active { display: block; }
+  .section-title { font-size: 13px; font-weight: 600; margin: 1.25rem 0 8px; padding: 3px 10px; border-radius: 6px; display: inline-block; }
+  .section-title.old { color: var(--old-term); background: var(--old-term-bg); }
+  .section-title.new { color: var(--new-term); background: var(--new-term-bg); }
+  table { width: 100%; border-collapse: collapse; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; }
+  th, td { text-align: left; padding: 8px 12px; font-size: 13px; border-bottom: 0.5px solid var(--border); }
+  th { color: var(--text-muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.02em; }
+  tr:last-child td { border-bottom: none; }
+  .empty-note { font-size: 13px; color: var(--text-muted); padding: 10px 4px; }
+  .count-badge { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+  .footer-note { font-size: 12px; color: var(--text-muted); margin-top: 2rem; line-height: 1.6; }
+  button.download {
+    margin-top: 1.5rem;
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface-1);
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  button.download:hover { background: var(--accent-bg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>素欣家 (AL媽) — JAXIS 一對一課程追蹤</h1>
+    <div class="sub">Instructor: 安東尼老師 Teacher Anthony &nbsp;·&nbsp; Shared pass pool across Katy, AL, Ariel &amp; Kate</div>
+  </header>
+
+  <div class="points-card">
+    <div>
+      <p class="metric-label">Remaining points</p>
+      <p class="metric-value low" id="remaining-pts">2</p>
+    </div>
+    <div>
+      <p class="metric-label">Usage</p>
+      <p class="metric-value" style="font-size:16px;">504 / 506</p>
+    </div>
+    <div>
+      <p class="metric-label">Pass</p>
+      <p class="metric-value" style="font-size:16px;">500點 - $39,500</p>
+    </div>
+    <div>
+      <p class="metric-label">Expires</p>
+      <p class="metric-value" style="font-size:16px;">2026-10-23</p>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="panels"></div>
+
+  <button class="download" onclick="downloadSummary()">Download summary (CSV)</button>
+
+  <p class="footer-note">
+    This is a manual tracking dashboard, not connected to the live JAXIS booking system.
+    Update it whenever bookings or attendance change. Shared 500點 pass — remaining balance applies across all 4 students.
+  </p>
+</div>
+
+<script>
+const students = {
+  "AL": {
+    points: 6,
+    oldTerm: [
+      { time: "2026-07-20 18:45" },
+      { time: "2026-07-21 18:45" },
+      { time: "2026-07-22 18:45" },
+      { time: "2026-07-23 18:45" },
+      { time: "2026-07-27 18:45" },
+      { time: "2026-07-29 18:45" },
+      { time: "2026-07-30 18:45" },
+      { time: "2026-08-10 18:45" }
+    ],
+    newTerm: []
+  },
+  "Katy": {
+    points: 6,
+    oldTerm: [
+      { time: "2026-07-02 15:45" },
+      { time: "2026-07-06 16:55" },
+      { time: "2026-07-09 15:45" }
+    ],
+    newTerm: []
+  },
+  "Ariel": {
+    points: 6,
+    oldTerm: [
+      { time: "2026-07-06 16:20" },
+      { time: "2026-07-07 16:55" }
+    ],
+    newTerm: []
+  },
+  "Kate": {
+    points: 8,
+    oldTerm: [
+      { time: "2026-07-07 11:15" },
+      { time: "2026-07-09 10:40" },
+      { time: "2026-07-21 11:15" },
+      { time: "2026-07-23 10:40" },
+      { time: "2026-07-28 11:15" },
+      { time: "2026-07-30 10:40" }
+    ],
+    newTerm: []
+  }
+};
+
+function fmt(t) {
+  const [d, time] = t.split(" ");
+  const [y, m, day] = d.split("-");
+  return `${parseInt(m)}/${parseInt(day)}/${y} ${time}`;
+}
+
+function buildTable(rows, pts) {
+  if (!rows.length) return '<p class="empty-note">None scheduled.</p>';
+  let html = '<table><thead><tr><th>Date</th><th>Points</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    html += `<tr><td>${fmt(r.time)}</td><td>${pts}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  return html;
+}
+
+const tabsEl = document.getElementById("tabs");
+const panelsEl = document.getElementById("panels");
+const names = Object.keys(students);
+
+names.forEach((name, i) => {
+  const btn = document.createElement("button");
+  btn.className = "tab-btn" + (i === 0 ? " active" : "");
+  btn.textContent = name;
+  btn.onclick = () => switchTab(name);
+  btn.id = "tab-" + name;
+  tabsEl.appendChild(btn);
+
+  const s = students[name];
+  const panel = document.createElement("div");
+  panel.className = "student-panel" + (i === 0 ? " active" : "");
+  panel.id = "panel-" + name;
+  panel.innerHTML = `
+    <span class="section-title old">Old term — leftover <span class="count-badge">(${s.oldTerm.length})</span></span>
+    ${buildTable(s.oldTerm, s.points)}
+    <span class="section-title new">New term <span class="count-badge">(${s.newTerm.length})</span></span>
+    ${buildTable(s.newTerm, s.points)}
+  `;
+  panelsEl.appendChild(panel);
+});
+
+function switchTab(name) {
+  names.forEach(n => {
+    document.getElementById("tab-" + n).classList.toggle("active", n === name);
+    document.getElementById("panel-" + n).classList.toggle("active", n === name);
+  });
+}
+
+function downloadSummary() {
+  let csv = "Student,Term,Date,Points\n";
+  names.forEach(name => {
+    const s = students[name];
+    s.oldTerm.forEach(r => { csv += `${name},Old Term Leftover,${fmt(r.time)},${s.points}\n`; });
+    s.newTerm.forEach(r => { csv += `${name},New Term,${fmt(r.time)},${s.points}\n`; });
+  });
+  csv += `\nShared Pass,,Usage,504 / 506\nShared Pass,,Remaining,2\nShared Pass,,Expires,2026-10-23\n`;
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "su_xin_family_booking_summary.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ray — JAXIS Booking Tracker</title>
+<style>
+  :root {
+    --ink: #1c2b2e;
+    --paper: #f7f5f0;
+    --card: #ffffff;
+    --line: #e2ddd2;
+    --teal: #2f6f68;
+    --teal-dim: #e8f1ef;
+    --amber: #b9722e;
+    --amber-dim: #fbeee0;
+    --muted: #8a8577;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 32px 16px 64px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  header h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  header .sub { font-size: 13px; color: var(--muted); }
+  header .meta { text-align: right; font-size: 13px; color: var(--muted); line-height: 1.6; }
+  header .meta b { color: var(--ink); font-weight: 600; }
+
+  .points-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .points-card .balance { font-size: 34px; font-weight: 700; color: var(--teal); }
+  .points-card .balance span { font-size: 15px; font-weight: 500; color: var(--muted); margin-left: 6px; }
+  .points-card .detail { font-size: 13px; color: var(--muted); text-align: right; line-height: 1.7; }
+  .points-card .detail b { color: var(--ink); }
+  .pass-status {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--teal-dim);
+    color: var(--teal);
+  }
+
+  section { margin-bottom: 28px; }
+  section h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .count {
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1px 8px;
+    border-radius: 20px;
+  }
+  section.old h2 .count { background: var(--amber); }
+  section.new h2 .count { background: var(--teal); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 9px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  th { background: #faf8f3; font-weight: 600; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  tr:last-child td { border-bottom: none; }
+  td.status { text-align: right; }
+  .badge { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; }
+  .badge.upcoming { background: var(--teal-dim); color: var(--teal); }
+  .badge.done { background: #eee; color: #888; }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    margin-top: 32px;
+    line-height: 1.6;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 9px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  .download-btn:hover { background: #33474b; }
+
+  @media (max-width: 520px) {
+    header { flex-direction: column; align-items: flex-start; }
+    header .meta { text-align: left; }
+    .points-card { flex-direction: column; align-items: flex-start; }
+    .points-card .detail { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Ray — Booking Tracker</h1>
+      <div class="sub">JAXIS 一對一課程 · 吳婕琳</div>
+    </div>
+    <div class="meta">
+      Instructor: <b>安東尼老師 Teacher Anthony</b><br>
+      Pass expires: <b>2026-10-27</b>
+    </div>
+  </header>
+
+  <div class="points-card">
+    <div>
+      <div class="balance">0 <span>points remaining</span></div>
+    </div>
+    <div class="detail">
+      <span class="pass-status">Active</span><br>
+      <b>240 / 240</b> used · 一對一專屬課卡(40堂)
+    </div>
+  </div>
+
+  <section class="old">
+    <h2>Old Term — Leftover <span class="count">1</span></h2>
+    <table>
+      <thead><tr><th>Date</th><th>Time</th><th class="status">Status</th></tr></thead>
+      <tbody id="old-term-body"></tbody>
+    </table>
+  </section>
+
+  <section class="new">
+    <h2>New Term <span class="count">20</span></h2>
+    <table>
+      <thead><tr><th>Date</th><th>Time</th><th class="status">Status</th></tr></thead>
+      <tbody id="new-term-body"></tbody>
+    </table>
+  </section>
+
+  <button class="download-btn" onclick="downloadCSV()">⬇ Download summary CSV</button>
+
+  <div class="footer-note">
+    Manual tracking dashboard — not connected to any live booking platform. Update the source CSVs and rebuild this page whenever bookings or attendance change.
+  </div>
+
+</div>
+
+<script>
+const oldTerm = [
+  { date: "2026-07-06", time: "13:30", status: "Upcoming" }
+];
+
+const newTerm = [
+  { date: "2026-07-08", time: "13:30", status: "Upcoming" },
+  { date: "2026-07-09", time: "13:30", status: "Upcoming" },
+  { date: "2026-07-27", time: "13:30", status: "Upcoming" },
+  { date: "2026-07-29", time: "13:30", status: "Upcoming" },
+  { date: "2026-07-30", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-03", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-05", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-06", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-10", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-12", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-13", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-17", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-19", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-20", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-27", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-31", time: "13:30", status: "Upcoming" },
+  { date: "2026-09-03", time: "13:40", status: "Upcoming" },
+  { date: "2026-09-07", time: "14:10", status: "Upcoming" },
+  { date: "2026-09-10", time: "13:40", status: "Upcoming" },
+  { date: "2026-09-14", time: "14:10", status: "Upcoming" }
+];
+
+function renderTable(rows, targetId) {
+  const body = document.getElementById(targetId);
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r.date}</td>
+      <td>${r.time}</td>
+      <td class="status"><span class="badge ${r.status === 'Upcoming' ? 'upcoming' : 'done'}">${r.status}</span></td>
+    </tr>
+  `).join('');
+}
+renderTable(oldTerm, 'old-term-body');
+renderTable(newTerm, 'new-term-body');
+
+function downloadCSV() {
+  let csv = "Section,Date,Time,Status\n";
+  oldTerm.forEach(r => csv += `Old Term,${r.date},${r.time},${r.status}\n`);
+  newTerm.forEach(r => csv += `New Term,${r.date},${r.time},${r.status}\n`);
+  csv += `\nPoints Summary\n`;
+  csv += `Remaining,0\n`;
+  csv += `Used/Total,240 / 240\n`;
+  csv += `Pass Expiration,2026-10-27\n`;
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "ray_booking_summary.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
