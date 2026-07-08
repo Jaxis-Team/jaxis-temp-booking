@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dorothy · JAXIS Class Tracker</title>
+<style>
+  :root{
+    --ink:#1c2434; --muted:#6b7686; --line:#e6e9ef; --bg:#f4f6fa;
+    --brand:#2f6df0; --brand-soft:#eaf1fe; --good:#128a5b; --good-soft:#e5f6ee;
+    --warn:#b8710a; --warn-soft:#fdf2df; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
+    padding:28px 16px;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto}
+  header{margin-bottom:20px}
+  h1{font-size:24px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px}
+  .sub b{color:var(--ink)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 24px}
+  @media(max-width:560px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .card .big{font-size:30px;font-weight:700;margin-top:2px}
+  .card .big span{font-size:15px;font-weight:500;color:var(--muted)}
+  .bar{height:7px;background:var(--line);border-radius:6px;margin-top:10px;overflow:hidden}
+  .bar>i{display:block;height:100%;background:var(--brand);border-radius:6px}
+  .meta{font-size:12px;color:var(--muted);margin-top:8px}
+  .sec-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;margin:22px 0 10px}
+  .pill{font-size:12px;font-weight:600;padding:2px 9px;border-radius:20px}
+  .pill.old{background:var(--warn-soft);color:var(--warn)}
+  .pill.new{background:var(--brand-soft);color:var(--brand)}
+  table{width:100%;border-collapse:collapse;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+  th{background:#fafbfd;text-align:left;padding:9px 14px;font-size:12px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+  td{padding:9px 14px;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  .num{color:var(--muted);width:34px}
+  .tag{font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px}
+  .tag.up{background:var(--brand-soft);color:var(--brand)}
+  .tag.tbd{background:var(--warn-soft);color:var(--warn)}
+  .btn{display:inline-flex;align-items:center;gap:7px;margin-top:22px;
+    background:var(--ink);color:#fff;border:none;border-radius:10px;
+    padding:11px 18px;font-size:14px;font-weight:600;cursor:pointer}
+  .btn:hover{opacity:.9}
+  footer{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Dorothy</h1>
+    <div class="sub">Parent <b>陳韋帆</b> &nbsp;·&nbsp; Instructor <b>安東尼老師 Teacher Anthony</b></div>
+  </header>
+
+  <div class="cards">
+    <div class="card">
+      <div class="lbl">Points Remaining</div>
+      <div class="big" id="ptsRemain">40 <span>pts</span></div>
+      <div class="bar"><i id="ptsBar" style="width:85.7%"></i></div>
+      <div class="meta"><span id="ptsUsed">240</span> / <span id="ptsTotal">280</span> used · active pass 200點</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Pass Expiration</div>
+      <div class="big" style="font-size:24px">2026-10-10</div>
+      <div class="meta">40 pts ≈ 6 classes of buffer · 6 pts per class</div>
+    </div>
+  </div>
+
+  <div class="sec-title">Old Term — Leftover <span class="pill old" id="oldCount">1</span></div>
+  <table>
+    <thead><tr><th class="num">#</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+    <tbody id="oldBody"></tbody>
+  </table>
+
+  <div class="sec-title">New Term <span class="pill new" id="newCount">20</span></div>
+  <table>
+    <thead><tr><th class="num">#</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+    <tbody id="newBody"></tbody>
+  </table>
+
+  <button class="btn" onclick="downloadCSV()">⬇ Download summary CSV</button>
+
+  <footer>
+    Manual tracking sheet — not linked to any live booking platform. Balances are
+    updated by hand and may lag the actual system. Last updated 2026-07-08.
+  </footer>
+</div>
+
+<script>
+  const oldTerm = [
+    {date:"2026-07-10", time:"09:00", status:"Upcoming"}
+  ];
+  const newTerm = [
+    {date:"2026-07-13", time:"9:35:00", status:"Upcoming"},
+    {date:"2026-07-24", time:"9:00:00", status:"Upcoming"},
+    {date:"2026-07-27", time:"9:35:00", status:"Upcoming"},
+    {date:"2026-07-31", time:"9:00:00", status:"Upcoming"},
+    {date:"2026-08-03", time:"9:35:00", status:"Upcoming"},
+    {date:"2026-08-07", time:"9:00:00", status:"Upcoming"},
+    {date:"2026-08-10", time:"9:35:00", status:"Upcoming"},
+    {date:"2026-08-14", time:"9:00:00", status:"Upcoming"},
+    {date:"2026-08-17", time:"9:35:00", status:"Upcoming"},
+    {date:"2026-08-21", time:"9:00:00", status:"Upcoming"},
+    {date:"2026-08-24", time:"9:35:00", status:"Upcoming"},
+    {date:"2026-08-31", time:"9:35:00", status:"Upcoming"},
+    {date:"2026-09-04", time:"細節待確認", status:"Upcoming"},
+    {date:"2026-09-07", time:"細節待確認", status:"Upcoming"},
+    {date:"2026-09-11", time:"細節待確認", status:"Upcoming"},
+    {date:"2026-09-14", time:"細節待確認", status:"Upcoming"},
+    {date:"2026-09-18", time:"細節待確認", status:"Upcoming"},
+    {date:"2026-09-21", time:"細節待確認", status:"Upcoming"},
+    {date:"2026-09-25", time:"細節待確認", status:"Upcoming"},
+    {date:"2026-09-28", time:"細節待確認", status:"Upcoming"},
+  ];
+  const pts = {used:240, total:280};
+
+  function row(r,i){
+    const tbd = r.time==="細節待確認";
+    const tag = tbd ? '<span class="tag tbd">TBD</span>'
+                    : '<span class="tag up">Upcoming</span>';
+    return `<tr><td class="num">${i+1}</td><td>${r.date}</td><td>${r.time}</td><td>${tag}</td></tr>`;
+  }
+  document.getElementById("oldBody").innerHTML = oldTerm.map(row).join("");
+  document.getElementById("newBody").innerHTML = newTerm.map(row).join("");
+  document.getElementById("oldCount").textContent = oldTerm.length;
+  document.getElementById("newCount").textContent = newTerm.length;
+  const remain = pts.total - pts.used;
+  document.getElementById("ptsRemain").innerHTML = remain + ' <span>pts</span>';
+  document.getElementById("ptsUsed").textContent = pts.used;
+  document.getElementById("ptsTotal").textContent = pts.total;
+  document.getElementById("ptsBar").style.width = (pts.used/pts.total*100).toFixed(1)+"%";
+
+  function downloadCSV(){
+    let L = [];
+    L.push("Dorothy — JAXIS Class Tracker");
+    L.push("Parent,陳韋帆");
+    L.push("Instructor,安東尼老師 Teacher Anthony");
+    L.push("Points used,"+pts.used);
+    L.push("Points total,"+pts.total);
+    L.push("Points remaining,"+remain);
+    L.push("Pass expiration,2026-10-10");
+    L.push("");
+    L.push("Old Term - Leftover ("+oldTerm.length+")");
+    L.push("#,Date,Time,Status");
+    oldTerm.forEach((r,i)=>L.push([i+1,r.date,r.time,r.status].join(",")));
+    L.push("");
+    L.push("New Term ("+newTerm.length+")");
+    L.push("#,Date,Time,Status");
+    newTerm.forEach((r,i)=>L.push([i+1,r.date,r.time,r.status].join(",")));
+    const blob = new Blob(["\uFEFF"+L.join("\n")], {type:"text/csv;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "dorothy_summary.csv";
+    a.click();
+  }
+</script>
+</body>
+</html>
