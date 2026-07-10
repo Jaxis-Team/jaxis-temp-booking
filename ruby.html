@@ -49,6 +49,9 @@
     <div class="eyebrow">JAXIS 線上美語 · Student Tracking</div>
     <h1>Ruby</h1>
     <div class="sub">Parent: 張舒甯 · Instructor: Teacher Anthony (安東尼老師)</div>
+    <a href="https://us02web.zoom.us/j/82548576225" target="_blank" style="text-decoration:none;">
+      <button style="margin-top:14px;">進入教室</button>
+    </a>
   </header>
 
   <div class="card">
@@ -60,7 +63,7 @@
   </div>
 
   <div class="card">
-    <h2>Old Term — Leftover (3 booked)</h2>
+    <h2>Old Term — Leftover (3 booked, all attended)</h2>
     <table id="oldTermTable">
       <thead><tr><th>#</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
       <tbody></tbody>
@@ -81,21 +84,22 @@
 
 <script>
 const oldTerm = [
-  ["2026-07-06","09:00"],["2026-07-07","09:00"],["2026-07-08","09:35"]
+  ["2026-07-06","09:00","Attended"],["2026-07-07","09:00","Attended"],["2026-07-08","09:35","Attended"]
 ];
 const newTerm = [
-  ["2026-07-14","09:00"],["2026-07-15","09:35"],["2026-07-20","09:00"],["2026-07-21","09:00"],
-  ["2026-07-22","09:35"],["2026-07-27","09:00"],["2026-07-28","09:00"],["2026-07-29","09:35"],
-  ["2026-08-03","09:00"],["2026-08-04","09:00"],["2026-08-05","09:35"],["2026-08-10","09:00"],
-  ["2026-08-11","09:00"],["2026-08-12","09:35"],["2026-08-17","09:00"],["2026-08-18","09:00"],
-  ["2026-08-19","09:35"],["2026-08-31","13:30"],["2026-09-02","13:05"],["2026-09-03","13:05"]
+  ["2026-07-13","09:00","Upcoming"],["2026-07-15","09:35","Upcoming"],["2026-07-20","09:00","Upcoming"],["2026-07-21","09:00","Upcoming"],
+  ["2026-07-22","09:35","Upcoming"],["2026-07-27","09:00","Upcoming"],["2026-07-28","09:00","Upcoming"],["2026-07-29","09:35","Upcoming"],
+  ["2026-08-03","09:00","Upcoming"],["2026-08-04","09:00","Upcoming"],["2026-08-05","09:35","Upcoming"],["2026-08-10","09:00","Upcoming"],
+  ["2026-08-11","09:00","Upcoming"],["2026-08-12","09:35","Upcoming"],["2026-08-17","09:00","Upcoming"],["2026-08-18","09:00","Upcoming"],
+  ["2026-08-19","09:35","Upcoming"],["2026-08-31","13:30","Upcoming"],["2026-09-02","13:05","Upcoming"],["2026-09-03","13:05","Upcoming"]
 ];
 
 function fillTable(id, data){
   const tbody = document.querySelector(`#${id} tbody`);
   data.forEach((row, i) => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td><span class="tag">Upcoming</span></td>`;
+    const tagColor = row[2] === "Attended" ? "background:#DCEEE1;color:#2F6B4F;" : "";
+    tr.innerHTML = `<td>${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td><span class="tag" style="${tagColor}">${row[2]}</span></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -108,9 +112,9 @@ function downloadSummary(){
   csv += "Used,360 / 500\n";
   csv += "Expires,2026-10-02\n\n";
   csv += "Old Term (leftover)\n#,Date,Time,Status\n";
-  oldTerm.forEach((row,i)=>{ csv += `${i+1},${row[0]},${row[1]},Upcoming\n`; });
+  oldTerm.forEach((row,i)=>{ csv += `${i+1},${row[0]},${row[1]},${row[2]}\n`; });
   csv += "\nNew Term\n#,Date,Time,Status\n";
-  newTerm.forEach((row,i)=>{ csv += `${i+1},${row[0]},${row[1]},Upcoming\n`; });
+  newTerm.forEach((row,i)=>{ csv += `${i+1},${row[0]},${row[1]},${row[2]}\n`; });
 
   const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
   const url = URL.createObjectURL(blob);
