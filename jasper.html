@@ -59,13 +59,13 @@
   <div class="cards">
     <div class="card">
       <div class="lbl">Active Pass — points left</div>
-      <div class="big">500</div>
-      <div class="sub">0 / 500 used · expires 2026-12-15 · <span class="pill pill-active">Active</span></div>
+      <div class="big">476</div>
+      <div class="sub">24 / 500 used · expires 2026-12-15 · <span class="pill pill-active">Active</span></div>
     </div>
     <div class="card leftover">
       <div class="lbl">Old pass — leftover</div>
-      <div class="big">29</div>
-      <div class="sub">480 / 509 used · expires 2026-09-22</div>
+      <div class="big">53</div>
+      <div class="sub">456 / 509 used · expires 2026-09-22</div>
     </div>
   </div>
 
@@ -97,16 +97,26 @@
 
   <footer>
     Manual tracking record — not linked to any live booking platform.<br>
-    Last updated: 2026-07-07 · Jul 2 &amp; Jun 30 marked attended.
+    Last updated: 2026-07-10 · 7/14 &amp; 7/16 cancelled, Aug 18 &amp; Aug 20 added.
   </footer>
 </div>
 
 <script>
 const upcoming = [
-  "2026-07-07","2026-07-09","2026-07-14","2026-07-16","2026-07-21","2026-07-23",
-  "2026-07-28","2026-07-30","2026-08-04","2026-08-06","2026-08-11","2026-08-13"
+  "2026-07-07",
+  "2026-07-09",
+  "2026-07-21",
+  "2026-07-23",
+  "2026-07-28",
+  "2026-07-30",
+  "2026-08-04",
+  "2026-08-06",
+  "2026-08-11",
+  "2026-08-13",
+  "2026-08-18",
+  "2026-08-20"
 ];
-const TODAY = "2026-07-07";
+const TODAY = "2026-07-10";
 const dayName = d => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(d+"T00:00:00").getDay()];
 const tb = document.querySelector("#tbl tbody");
 upcoming.forEach(d=>{
