@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leroy — Trip & Class Schedule (Jul 11–19)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2ecf5 100%);
+    color: #1a2634; padding: 16px; min-height: 100vh;
+  }
+  .container { max-width: 640px; margin: 0 auto; }
+  h1 {
+    font-size: 20px; font-weight: 700; text-align: center;
+    margin-bottom: 4px; color: #0c447c;
+  }
+  .subtitle { text-align: center; font-size: 13px; color: #6b7a8d; margin-bottom: 20px; }
+  .day-buttons {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px;
+  }
+  .day-btn {
+    padding: 10px 6px; border: none; border-radius: 10px;
+    background: #fff; color: #33475b; font-size: 12px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.15s; text-align: center; line-height: 1.4;
+  }
+  .day-btn:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+  .day-btn.active { background: #0c447c; color: #fff; }
+  .day-btn .dow { display: block; font-size: 10px; opacity: 0.7; margin-bottom: 2px; }
+  .day-btn.has-class { border: 1.5px solid #f0a500; }
+  .day-btn.overview-btn { grid-column: span 3; background: #eaf3de; color: #27500a; }
+  .day-btn.overview-btn.active { background: #27500a; color: #fff; }
+
+  .card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 16px;
+  }
+  .day-title { font-size: 17px; font-weight: 700; color: #0c447c; margin-bottom: 14px; }
+  .class-slot {
+    background: #fff8e6; border-left: 4px solid #f0a500;
+    padding: 10px 14px; border-radius: 8px; margin-bottom: 12px;
+    font-weight: 600; font-size: 14px; color: #7a5200;
+  }
+  .itinerary { list-style: none; }
+  .itinerary li {
+    padding: 8px 0 8px 26px; position: relative;
+    font-size: 14px; line-height: 1.5; border-bottom: 1px solid #f0f0f0;
+  }
+  .itinerary li:last-child { border-bottom: none; }
+  .itinerary li::before {
+    content: '📍'; position: absolute; left: 0; font-size: 13px;
+  }
+  .no-activity { color: #99a5b3; font-style: italic; font-size: 14px; padding: 8px 0; }
+
+  /* Overview */
+  .ov-day { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid #eef2f6; }
+  .ov-day:last-child { border-bottom: none; margin-bottom: 0; }
+  .ov-day-title { font-weight: 700; font-size: 14px; color: #0c447c; margin-bottom: 4px; }
+  .ov-class { color: #b8860b; font-weight: 600; font-size: 13px; }
+  .ov-text { font-size: 13px; color: #4a5a6a; line-height: 1.5; }
+
+  .note {
+    background: #f3e8fb; border-radius: 10px; padding: 14px;
+    font-size: 13px; color: #5b1a8a; line-height: 1.6; margin-top: 16px;
+  }
+  .footer { text-align: center; font-size: 11px; color: #a0acbb; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🗓 Leroy — Trip & Class Schedule</h1>
+  <div class="subtitle">July 11 – 19, 2026</div>
+
+  <div class="day-buttons" id="dayButtons"></div>
+  <div id="content"></div>
+
+  <div class="footer">Tap a day to view details · Schedule subject to change</div>
+</div>
+
+<script>
+const schedule = [
+  { key: 'ov', label: 'Overview', dow: '', overview: true },
+  { key: '7/11', dow: 'Sat', date: 'Sat 7/11', title: 'Batu Caves + City', hasClass: false,
+    items: ['Batu Caves', 'Kim Tuck bak kut teh (Kepong)', 'Muzium Negara'] },
+  { key: '7/12', dow: 'Sun', date: 'Sun 7/12', title: 'Putrajaya', hasClass: false,
+    items: ['Village Park brunch (PJ Damansara)', 'Masjid Putra (Putrajaya)'] },
+  { key: '7/13', dow: 'Mon', date: 'Mon 7/13', title: 'Malacca Day 1 (overnight)', hasClass: true,
+    classSlot: '09:00 – 09:30 — Ruby (before departure)',
+    items: ['10:00 depart for Malacca', 'Nyonya lunch', 'Baba Nyonya Museum', 'Kampung Morten',
+            "A Famosa / St Paul's Church", 'Floating mosque sunset', 'Malacca River Cruise'] },
+  { key: '7/14', dow: 'Tue', date: 'Tue 7/14', title: 'Malacca Day 2 → back to KL', hasClass: false,
+    items: ['Chicken rice ball breakfast', 'Cheng Hoon Teng / souvenirs', 'Back to KL after lunch'] },
+  { key: '7/15', dow: 'Wed', date: 'Wed 7/15', title: 'Pulau Ketam + Night Market', hasClass: true,
+    classSlot: '09:30 – 10:00 — Ruby',
+    items: ['Pulau Ketam (seafood)', 'Evening: Connaught night market (Wed only)'] },
+  { key: '7/16', dow: 'Thu', date: 'Thu 7/16', title: 'Bentong Day 1 (overnight)', hasClass: false,
+    items: ['GLO Durian Farm (Karak)', 'Stay overnight'] },
+  { key: '7/17', dow: 'Fri', date: 'Fri 7/17', title: 'Bentong Day 2', hasClass: false,
+    items: ['Morning market', 'Hot spring', 'Thong Kee', 'Murals', 'Yuen Kee wonton noodles',
+            'Tofu pudding', 'Kow Po ice cream', 'Purple Cane tea', 'Canton Kitchen dinner'] },
+  { key: '7/18', dow: 'Sat', date: 'Sat 7/18', title: 'PJ / KL City', hasClass: false,
+    items: ['Kwong Wah kopitiam (PJ Sec 17)', 'Mid Valley', 'Petaling Street', 'KLCC'] },
+  { key: '7/19', dow: 'Sun', date: 'Sun 7/19', title: 'Departure', hasClass: false,
+    items: [], noActivity: true },
+];
+
+const btnContainer = document.getElementById('dayButtons');
+const content = document.getElementById('content');
+
+schedule.forEach((day, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'day-btn' + (day.overview ? ' overview-btn' : '') + (day.hasClass ? ' has-class' : '');
+  if (day.overview) {
+    btn.innerHTML = '📋 Full Overview';
+  } else {
+    btn.innerHTML = `<span class="dow">${day.dow}</span>${day.key}${day.hasClass ? ' ⭐' : ''}`;
+  }
+  btn.onclick = () => selectDay(i);
+  btnContainer.appendChild(btn);
+});
+
+function selectDay(i) {
+  document.querySelectorAll('.day-btn').forEach((b, idx) => {
+    b.classList.toggle('active', idx === i);
+  });
+  const day = schedule[i];
+  if (day.overview) { renderOverview(); return; }
+
+  let html = `<div class="card"><div class="day-title">${day.date} — ${day.title}</div>`;
+  if (day.classSlot) html += `<div class="class-slot">⭐ ${day.classSlot}</div>`;
+  if (day.noActivity) {
+    html += `<div class="no-activity">No activities</div>`;
+  } else {
+    html += '<ul class="itinerary">';
+    day.items.forEach(it => html += `<li>${it}</li>`);
+    html += '</ul>';
+  }
+  html += '</div>';
+  content.innerHTML = html;
+}
+
+function renderOverview() {
+  let html = '<div class="card">';
+  schedule.filter(d => !d.overview).forEach(day => {
+    html += `<div class="ov-day"><div class="ov-day-title">${day.date} — ${day.title}</div>`;
+    if (day.classSlot) html += `<div class="ov-class">⭐ ${day.classSlot}</div>`;
+    if (day.noActivity) {
+      html += `<div class="ov-text">No activities</div>`;
+    } else {
+      html += `<div class="ov-text">${day.items.join(' → ')}</div>`;
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  html += `<div class="note">📌 <strong>Note:</strong> Schedule in KL is subject to change — to be discussed together with Kiki's mom after their arrival.</div>`;
+  content.innerHTML = html;
+}
+
+// Default to overview
+selectDay(0);
+</script>
+</body>
+</html>
