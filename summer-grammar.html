@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAXIS Summer Grammar · Zoom 連結</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --jaxis-coral: #FF8C61;
+    --jaxis-navy:  #1A3263;
+    --jaxis-yellow:#FFD93D;
+    --jaxis-teal:  #4ECDC4;
+    --jaxis-bg:    #F0EBE3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+    background: var(--jaxis-bg);
+    color: var(--jaxis-navy);
+    line-height: 1.5;
+    padding: 20px 16px 48px;
+    display: flex;
+    justify-content: center;
+  }
+  .wrap { width: 100%; max-width: 460px; }
+
+  /* Header */
+  .hero {
+    background: var(--jaxis-navy);
+    color: #fff;
+    border-radius: 20px;
+    padding: 26px 22px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(26,50,99,0.18);
+  }
+  .brand { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: var(--jaxis-yellow); }
+  .hero h1 { font-size: 24px; font-weight: 800; margin: 8px 0 4px; }
+  .hero .cn { font-size: 15px; font-weight: 600; opacity: 0.9; }
+  .meta {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px; font-weight: 700;
+  }
+  .pill.time { background: var(--jaxis-coral); border-color: var(--jaxis-coral); }
+
+  /* Action buttons */
+  .actions { margin: 18px 0 8px; display: grid; gap: 12px; }
+  .btn {
+    border: none; border-radius: 14px; cursor: pointer;
+    font-family: inherit; font-size: 17px; font-weight: 800;
+    padding: 16px; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: transform 0.08s ease, box-shadow 0.2s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-join {
+    background: var(--jaxis-coral); color: #fff;
+    border: 2.5px solid var(--jaxis-navy);
+    box-shadow: 0 6px 16px rgba(255,140,97,0.4);
+    text-decoration: none;
+  }
+  .btn-copy {
+    background: var(--jaxis-yellow); color: var(--jaxis-navy);
+    border: 2.5px solid var(--jaxis-navy);
+  }
+  .btn-copy.copied { background: var(--jaxis-teal); border-color: var(--jaxis-navy); color: var(--jaxis-navy); }
+  .id-line {
+    text-align: center; font-size: 14px; font-weight: 700;
+    color: var(--jaxis-navy); opacity: 0.75; margin-top: 2px;
+  }
+  .id-line b { letter-spacing: 1px; }
+
+  /* Schedule */
+  .sched-title {
+    font-size: 16px; font-weight: 800; margin: 26px 4px 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sched-title::before { content: "📅"; }
+  .week { margin-bottom: 14px; }
+  .week-label {
+    font-size: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--jaxis-coral); margin: 0 4px 6px;
+  }
+  .days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .day {
+    background: #fff; border-radius: 12px; padding: 10px 4px;
+    text-align: center; border: 1.5px solid transparent;
+  }
+  .day .dow { font-size: 10px; font-weight: 700; color: #94A3B8; }
+  .day .date { font-size: 16px; font-weight: 800; margin-top: 2px; }
+
+  .footer { text-align: center; font-size: 12px; color: #94A3B8; margin-top: 26px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="brand">JAXIS ENGLISH</div>
+    <h1>Summer Grammar</h1>
+    <div class="cn">故事文法共學</div>
+    <div class="meta">
+      <span class="pill">週一至五 Mon–Fri</span>
+      <span class="pill time">19:55 – 20:25</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a class="btn btn-join" href="https://us02web.zoom.us/j/84841127969" target="_blank" rel="noopener">
+      🎥 進入 Zoom 教室
+    </a>
+    <button class="btn btn-copy" id="copyBtn" onclick="copyId()">
+      📋 複製會議 ID
+    </button>
+  </div>
+  <div class="id-line">Meeting ID：<b>848 4112 7969</b>（無需密碼）</div>
+
+  <div class="sched-title">上課日期 · 7/20 – 8/14</div>
+  <div id="schedule"></div>
+
+  <div class="footer">JAXIS English · 暑期線上課程 2026</div>
+</div>
+
+<script>
+  // 4 weeks, Mon–Fri
+  const weeks = [
+    { label: "Week 1", days: [["7/20","Mon"],["7/21","Tue"],["7/22","Wed"],["7/23","Thu"],["7/24","Fri"]] },
+    { label: "Week 2", days: [["7/27","Mon"],["7/28","Tue"],["7/29","Wed"],["7/30","Thu"],["7/31","Fri"]] },
+    { label: "Week 3", days: [["8/3","Mon"],["8/4","Tue"],["8/5","Wed"],["8/6","Thu"],["8/7","Fri"]] },
+    { label: "Week 4", days: [["8/10","Mon"],["8/11","Tue"],["8/12","Wed"],["8/13","Thu"],["8/14","Fri"]] },
+  ];
+
+  const container = document.getElementById("schedule");
+  weeks.forEach(w => {
+    let daysHtml = w.days.map(([d, dow]) => {
+      return `<div class="day"><div class="dow">${dow}</div><div class="date">${d}</div></div>`;
+    }).join("");
+    container.insertAdjacentHTML("beforeend",
+      `<div class="week"><div class="week-label">${w.label}</div><div class="days">${daysHtml}</div></div>`);
+  });
+
+  function copyId() {
+    const id = "848 4112 7969";
+    const btn = document.getElementById("copyBtn");
+    const done = () => {
+      btn.classList.add("copied");
+      btn.textContent = "✅ 已複製！";
+      setTimeout(() => { btn.classList.remove("copied"); btn.textContent = "📋 複製會議 ID"; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(id).then(done).catch(() => fallback(id, done));
+    } else { fallback(id, done); }
+  }
+  function fallback(text, cb) {
+    const t = document.createElement("textarea");
+    t.value = text; t.style.position = "fixed"; t.style.opacity = "0";
+    document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); cb(); } catch(e) {}
+    document.body.removeChild(t);
+  }
+</script>
+</body>
+</html>
