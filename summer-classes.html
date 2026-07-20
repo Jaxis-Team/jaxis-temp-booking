@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAXIS 2026 暑假課程</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --jaxis-coral: #FF8C61;
+    --jaxis-navy:  #1A3263;
+    --jaxis-yellow:#FFD93D;
+    --jaxis-teal:  #4ECDC4;
+    --jaxis-bg:    #F0EBE3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+    background: var(--jaxis-bg);
+    color: var(--jaxis-navy);
+    line-height: 1.55;
+    padding: 20px 16px 48px;
+    display: flex;
+    justify-content: center;
+  }
+  .wrap { width: 100%; max-width: 460px; }
+
+  .hero {
+    background: var(--jaxis-navy); color: #fff;
+    border-radius: 20px; padding: 26px 22px; text-align: center;
+    box-shadow: 0 8px 24px rgba(26,50,99,0.18);
+  }
+  .brand { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: var(--jaxis-yellow); }
+  .hero h1 { font-size: 21px; font-weight: 800; margin: 8px 0 2px; }
+  .hero .sub { font-size: 13px; opacity: 0.85; font-weight: 600; }
+
+  .class-card {
+    background: #fff; border-radius: 18px; padding: 20px; margin-top: 18px;
+    border: 1.5px solid rgba(26,50,99,0.08);
+  }
+  .class-head { text-align: center; margin-bottom: 14px; }
+  .class-name { font-size: 19px; font-weight: 800; }
+  .class-name .cn { font-size: 14px; font-weight: 700; color: var(--jaxis-coral); display: block; margin-top: 2px; }
+  .meta { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .pill {
+    background: var(--jaxis-bg); border: 1.5px solid rgba(26,50,99,0.15);
+    border-radius: 999px; padding: 5px 12px; font-size: 12.5px; font-weight: 700;
+  }
+  .pill.time { background: var(--jaxis-navy); color: #fff; border-color: var(--jaxis-navy); }
+
+  .actions { margin-top: 14px; display: grid; gap: 10px; }
+  .btn {
+    border: 2.5px solid var(--jaxis-navy); border-radius: 14px; cursor: pointer;
+    font-family: inherit; font-size: 16px; font-weight: 800;
+    padding: 14px; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    text-decoration: none; transition: transform 0.08s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-join.grammar { background: var(--jaxis-coral); color: #fff; }
+  .btn-join.phonics { background: var(--jaxis-teal); color: var(--jaxis-navy); }
+  .btn-copy { background: var(--jaxis-yellow); color: var(--jaxis-navy); }
+  .btn-copy.copied { background: #C9F0EA; }
+  .id-line { text-align: center; font-size: 13px; font-weight: 700; opacity: 0.7; margin-top: 4px; }
+  .id-line b { letter-spacing: 1px; }
+
+  .sched-title {
+    font-size: 15px; font-weight: 800; margin: 22px 4px 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .week { margin-bottom: 12px; }
+  .week-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--jaxis-coral); margin: 0 4px 6px;
+  }
+  .days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .day {
+    background: #fff; border-radius: 10px; padding: 8px 4px; text-align: center;
+    border: 1.5px solid rgba(26,50,99,0.06);
+  }
+  .day .dow { font-size: 9px; font-weight: 700; color: #94A3B8; }
+  .day .date { font-size: 14px; font-weight: 800; margin-top: 1px; }
+
+  .guide-anchor { scroll-margin-top: 16px; }
+  .guide-title {
+    font-size: 18px; font-weight: 800; margin: 30px 4px 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .guide-sub { font-size: 12.5px; color: #7A8AA8; margin: 0 4px 12px; font-weight: 600; }
+  .card {
+    background: #fff; border-radius: 16px; padding: 20px 18px;
+    margin-top: 12px; border: 1.5px solid rgba(26,50,99,0.08);
+  }
+  .card h2 {
+    font-size: 16px; font-weight: 800; color: var(--jaxis-navy);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  }
+  .card h3 { font-size: 13.5px; font-weight: 800; color: var(--jaxis-coral); margin: 14px 0 6px; }
+  .warn {
+    background: #FFF6E5; border-left: 4px solid var(--jaxis-yellow);
+    border-radius: 8px; padding: 10px 12px; font-size: 13px; font-weight: 600; margin-bottom: 12px;
+  }
+  ol { margin: 0 0 4px 20px; font-size: 13.5px; }
+  ol li { margin-bottom: 5px; }
+  .lead { font-size: 13.5px; margin: 12px 0 4px; }
+
+  .linkbtn {
+    display: block; text-align: center; text-decoration: none;
+    border-radius: 12px; padding: 12px; font-size: 14.5px; font-weight: 800;
+    margin-top: 8px; border: 2.5px solid var(--jaxis-navy);
+  }
+  .linkbtn.grammar { background: var(--jaxis-coral); color: #fff; }
+  .linkbtn.phonics { background: var(--jaxis-teal); color: var(--jaxis-navy); }
+  .linkbtn.yellow  { background: var(--jaxis-yellow); color: var(--jaxis-navy); }
+
+  .jumpnav { display: flex; gap: 8px; margin-top: 16px; }
+  .jumpnav a {
+    flex: 1; text-align: center; text-decoration: none;
+    background: #fff; border: 2px solid var(--jaxis-navy); color: var(--jaxis-navy);
+    border-radius: 12px; padding: 10px; font-size: 13px; font-weight: 800;
+  }
+
+  .footer { text-align: center; font-size: 12px; color: #94A3B8; margin-top: 26px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="brand">JAXIS ENGLISH</div>
+    <h1>2026 暑假線上課程</h1>
+    <div class="sub">Zoom 連結 · 課表 · 上課須知</div>
+  </div>
+
+  <div class="jumpnav">
+    <a href="#grammar">📘 故事文法</a>
+    <a href="#phonics">📗 自然發音</a>
+    <a href="#guide">📖 上課須知</a>
+  </div>
+
+  <!-- ===== GRAMMAR ===== -->
+  <div class="class-card" id="grammar">
+    <div class="class-head">
+      <div class="class-name">Summer Grammar<span class="cn">故事文法共學</span></div>
+      <div class="meta">
+        <span class="pill">週一至五 Mon–Fri</span>
+        <span class="pill time">19:55 – 20:25</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-join grammar" href="https://us02web.zoom.us/j/84841127969" target="_blank" rel="noopener">🎥 進入 Zoom 教室</a>
+      <button class="btn btn-copy" onclick="copyId('848 4112 7969', this)">📋 複製會議 ID</button>
+    </div>
+    <div class="id-line">Meeting ID：<b>848 4112 7969</b>（無需密碼）</div>
+
+    <div class="sched-title">📅 上課日期 · 7/20 – 8/14</div>
+    <div id="sched-grammar"></div>
+  </div>
+
+  <!-- ===== PHONICS ===== -->
+  <div class="class-card" id="phonics">
+    <div class="class-head">
+      <div class="class-name">Summer Phonics<span class="cn">自然發音</span></div>
+      <div class="meta">
+        <span class="pill">週一至五 Mon–Fri</span>
+        <span class="pill time">19:20 – 19:50</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-join phonics" href="https://us02web.zoom.us/j/88440648737" target="_blank" rel="noopener">🎥 進入 Zoom 教室</a>
+      <button class="btn btn-copy" onclick="copyId('884 4064 8737', this)">📋 複製會議 ID</button>
+    </div>
+    <div class="id-line">Meeting ID：<b>884 4064 8737</b>（無需密碼）</div>
+
+    <div class="sched-title">📅 上課日期 · 7/20 – 8/14</div>
+    <div id="sched-phonics"></div>
+  </div>
+
+  <!-- ===== GUIDE (in-page) ===== -->
+  <div class="guide-anchor" id="guide">
+    <div class="guide-title">📖 上課須知</div>
+    <div class="guide-sub">故事文法 + 自然發音 通用</div>
+
+    <div class="card">
+      <h2>📁 複習教材觀看須知</h2>
+      <div class="warn">
+        ⚠️ 讀取教材資料夾時，請確認您登入的是<b>「您在表單裡給小編開權限的信箱」</b>，否則將無法讀取。
+      </div>
+      <a class="linkbtn grammar" href="https://drive.google.com/drive/folders/1JArZU6-KcyPQjTkwiWF_YYPpwJ1Sjk5g?usp=drive_link" target="_blank" rel="noopener">📘 開啟【故事文法】教材資料夾</a>
+      <a class="linkbtn phonics" href="https://drive.google.com/drive/folders/1U_KKPpeGGtG_fd-kBTU2hHa21bYNIwnF?usp=drive_link" target="_blank" rel="noopener">📗 開啟【自然發音】教材資料夾</a>
+      <p class="lead">若尚未提供信箱讓小編開通權限：</p>
+      <a class="linkbtn yellow" href="https://forms.gle/DywenLWX7oqBP2ZR9" target="_blank" rel="noopener">📝 填寫開通表單</a>
+    </div>
+
+    <div class="card">
+      <h2>📌 如何固定老師的畫面（Zoom）</h2>
+
+      <h3>💻 筆電 / 電腦　PART 1 — 固定老師</h3>
+      <ol>
+        <li>先找到同學們的人像畫面</li>
+        <li>點選老師的畫面</li>
+        <li>點入老師畫面右上角的按鈕</li>
+        <li>選擇「固定」→ 老師畫面就會放大</li>
+      </ol>
+
+      <h3>💻 筆電 / 電腦　PART 2 — 老師分享投影片時</h3>
+      <ol>
+        <li>畫面會自動切換至投影片，旁邊會有老師的人頭</li>
+        <li>出現「切換至螢幕分享」按鈕，點下去就能看到投影片</li>
+      </ol>
+
+      <h3>📱 手機 / 平板　PART 1 — 固定老師</h3>
+      <ol>
+        <li>先找到同學們的畫面</li>
+        <li>點選老師的畫面</li>
+        <li>在老師畫面點兩下 → 老師畫面放大（＝固定）</li>
+      </ol>
+
+      <h3>📱 手機 / 平板　PART 2 — 老師分享投影片時</h3>
+      <ol>
+        <li>畫面會自動切換至投影片，旁邊會有老師的人頭</li>
+        <li>出現「切換至螢幕分享」按鈕，點下去就能看到投影片</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>🎧 線上上課環境維護</h2>
+      <ol>
+        <li>請在安靜的空間上課，避免背景聲音蓋過老師講話</li>
+        <li>家長若需與孩子對話，請先<b>【靜音】🔇</b>，避免聲音從其他同學喇叭放大，蓋過老師聲音</li>
+        <li>使用麥克風的孩子，請提醒不要敲打，會有很大的噪音唷！</li>
+        <li>⏰ 上課僅有 30 分鐘，感謝大家一起維護良好學習品質 💛</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="footer">JAXIS English · 暑期線上課程 2026</div>
+</div>
+
+<script>
+  const weeks = [
+    { label: "Week 1", days: [["7/20","Mon"],["7/21","Tue"],["7/22","Wed"],["7/23","Thu"],["7/24","Fri"]] },
+    { label: "Week 2", days: [["7/27","Mon"],["7/28","Tue"],["7/29","Wed"],["7/30","Thu"],["7/31","Fri"]] },
+    { label: "Week 3", days: [["8/3","Mon"],["8/4","Tue"],["8/5","Wed"],["8/6","Thu"],["8/7","Fri"]] },
+    { label: "Week 4", days: [["8/10","Mon"],["8/11","Tue"],["8/12","Wed"],["8/13","Thu"],["8/14","Fri"]] },
+  ];
+
+  function renderSchedule(containerId) {
+    const container = document.getElementById(containerId);
+    weeks.forEach(w => {
+      let daysHtml = w.days.map(([d, dow]) =>
+        `<div class="day"><div class="dow">${dow}</div><div class="date">${d}</div></div>`
+      ).join("");
+      container.insertAdjacentHTML("beforeend",
+        `<div class="week"><div class="week-label">${w.label}</div><div class="days">${daysHtml}</div></div>`);
+    });
+  }
+  renderSchedule("sched-grammar");
+  renderSchedule("sched-phonics");
+
+  function copyId(id, btn) {
+    const done = () => {
+      btn.classList.add("copied");
+      const original = btn.textContent;
+      btn.textContent = "✅ 已複製！";
+      setTimeout(() => { btn.classList.remove("copied"); btn.textContent = original; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(id).then(done).catch(() => fallback(id, done));
+    } else { fallback(id, done); }
+  }
+  function fallback(text, cb) {
+    const t = document.createElement("textarea");
+    t.value = text; t.style.position = "fixed"; t.style.opacity = "0";
+    document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); cb(); } catch(e) {}
+    document.body.removeChild(t);
+  }
+</script>
+</body>
+</html>
