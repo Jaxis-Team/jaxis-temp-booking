@@ -99,7 +99,7 @@
 
   <footer>
     Manual tracking record — not linked to any live booking platform.<br>
-    Last updated: 2026-07-28 · 7/28 &amp; 7/30 cancelled (Jasper taking off); no pass/points change.
+    Last updated: 2026-07-28 · 7/28 &amp; 7/30 cancelled, 待補課 (Jasper taking off); no pass/points change.
   </footer>
 </div>
 
@@ -126,7 +126,7 @@ upcoming.forEach(d=>{
   if(isCancelled) tr.className="cancelled";
   else if(d===TODAY) tr.className="today";
   const slotCell = isCancelled
-    ? `<td><span class="cancelled-badge">Cancelled</span></td>`
+    ? `<td><span class="cancelled-badge">Cancelled, 待補課</span></td>`
     : `<td class="slots"><span>09:35</span><span>10:05</span></td>`;
   tr.innerHTML=`<td>${d}${d===TODAY?" (today)":""}</td><td>${dayName(d)}</td>${slotCell}`;
   tb.appendChild(tr);
