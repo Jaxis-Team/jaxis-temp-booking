@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: sans-serif; padding: 1.5rem; background: #fff; color: #222; font-size: 12px; }
+  h1 { font-size: 15px; font-weight: 600; margin-bottom: 0.5rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; font-size: 11px; }
+  .week-block { margin-bottom: 2rem; }
+  .week-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .week-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+  .tag-vacation { background: #FFE8E8; color: #991111; }
+  .tag-group-new { background: #E6F1FB; color: #0C447C; }
+  .tag-original { background: #EAF3DE; color: #27500A; }
+  .tag-normal { background: #f0f0f0; color: #888; }
+  table { width: 100%; border-collapse: collapse; }
+  th { padding: 6px 8px; background: #f4f4f4; border: 0.5px solid #ddd; font-weight: 500; text-align: center; font-size: 11px; color: #555; }
+  th.time-col { width: 95px; text-align: left; }
+  td { padding: 5px 8px; border: 0.5px solid #eee; text-align: center; vertical-align: middle; font-size: 11px; }
+  td.time-col { text-align: left; color: #aaa; font-size: 10px; white-space: nowrap; }
+  td.vacation-cell { background: #fff5f5; color: #ccc; font-style: italic; }
+  .section-label { font-size: 10px; color: #bbb; text-align: left; padding: 3px 8px; border: 0.5px solid #eee; background: #fafafa; text-transform: uppercase; letter-spacing: 0.05em; }
+  .ruby    { background: #FAECE7; color: #712B13; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .jasper  { background: #EAF3DE; color: #27500A; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .hannah  { background: #EAF3DE; color: #27500A; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .dorothy { background: #EAF3DE; color: #27500A; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .chih    { background: #EAF3DE; color: #27500A; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .dodo    { background: #EAF3DE; color: #27500A; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .ally    { background: #EAF3DE; color: #27500A; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .ray     { background: #FAEEDA; color: #633806; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .al      { background: #F3E8FB; color: #5B1A8A; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .kate    { background: #FEF3C7; color: #92400E; border-radius: 3px; padding: 1px 5px; display: inline-block; }
+  .group-orig { background: #D6EED6; color: #1A4D1A; border-radius: 3px; padding: 1px 5px; display: inline-block; font-weight: 600; }
+  .group-new  { background: #E6F1FB; color: #0C447C; border-radius: 3px; padding: 1px 5px; display: inline-block; font-weight: 600; }
+  .off     { background: #f5f5f5; color: #bbb; border-radius: 3px; padding: 1px 5px; display: inline-block; font-style: italic; }
+  .empty   { color: #ddd; }
+  .sub     { font-size: 9px; color: #aaa; display: block; margin-top: 1px; }
+  .note    { font-size: 10px; color: #999; margin-top: 5px; line-height: 1.7; }
+  .divider { border: none; border-top: 2px dashed #ddd; margin: 2rem 0 1.5rem; }
+</style>
+</head>
+<body>
+<h1>Leroy — Week by Week · Jul 1 – Aug 30, 2026</h1>
+<div class="legend">
+  <span class="group-orig">SS1/A/B/C/D/SS2</span> = original group &nbsp;|&nbsp;
+  <span class="group-new">Grammar/Phonic</span> = summer group &nbsp;|&nbsp;
+  <span class="kate">Kate</span> = until Jul 30 only &nbsp;|&nbsp;
+  AL = 7 specific classes Jul 20–30 only
+</div>
+
+<!-- WEEK 1 -->
+<div class="week-block">
+  <div class="week-title">Week 1 · Jun 29 – Jul 3 <span class="week-tag tag-original">Original term · New slots from Wed Jul 1</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Jun 29</th><th>Tue Jun 30</th><th>Wed Jul 1</th><th>Thu Jul 2</th><th>Fri Jul 3</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="section-label" colspan="6">Morning</td></tr>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+        <td><span class="hannah">Hannah</span></td><td><span class="dorothy">Dorothy</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:05–10:35</td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:40–11:10</td>
+        <td class="empty">—</td><td><span class="al">AL</span></td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">11:15–11:55</td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Afternoon</td></tr>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td><span class="ruby">Ruby</span></td><td class="empty">—</td>
+        <td><span class="ray">Ray</span></td><td><span class="ray">Ray</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">14:10–14:40</td>
+        <td><span class="ray">Ray</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50–16:20</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:45–16:15</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+        <td><span class="kate">Katy</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:55–17:25</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+        <td><span class="off">Chih OFF</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Evening — Original Group Classes</td></tr>
+      <tr>
+        <td class="time-col">17:35–18:05</td>
+        <td><span class="group-orig">SS1</span></td><td><span class="group-orig">SS1</span></td>
+        <td><span class="group-orig">SS1</span></td><td><span class="group-orig">SS1</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">18:10–18:40</td>
+        <td><span class="group-orig">A</span></td><td><span class="group-orig">A</span></td>
+        <td><span class="group-orig">A</span></td><td><span class="group-orig">A</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">18:45–19:15</td>
+        <td><span class="group-orig">B</span></td><td><span class="group-orig">B</span></td>
+        <td><span class="group-orig">B</span></td><td><span class="group-orig">B</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:20–19:50</td>
+        <td><span class="group-orig">C</span></td><td><span class="group-orig">SS2</span></td>
+        <td><span class="group-orig">C</span></td><td><span class="group-orig">SS2</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:55–20:25</td>
+        <td><span class="group-orig">D</span></td><td><span class="group-orig">D</span></td>
+        <td><span class="group-orig">D</span></td><td><span class="group-orig">D</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">20:30–21:00</td>
+        <td><span class="dodo">Dodo</span></td><td><span class="ally">Ally Lu</span></td>
+        <td class="empty">—</td><td><span class="dodo">Dodo</span></td><td class="empty">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Ruby Mon 13:30 pre-cutover · Ray Mon 14:10 pre-cutover · New slots (Ruby Wed / Ray Wed+Thu) start Jul 1 · AL Tue Jun 30 10:40 (original slot) · Chih off Thu Jul 2 · Ruby Thu Jul 2 cancelled</p>
+</div>
+
+<!-- WEEK 2 -->
+<div class="week-block">
+  <div class="week-title">Week 2 · Jul 6 – Jul 10 <span class="week-tag tag-original">Original term · Last group class week</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Jul 6</th><th>Tue Jul 7</th><th>Wed Jul 8</th><th>Thu Jul 9</th><th>Fri Jul 10</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="section-label" colspan="6">Morning</td></tr>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td><span class="ruby">Ruby</span></td><td><span class="ruby">Ruby</span></td>
+        <td class="empty">—</td><td><span class="hannah">Hannah</span></td><td><span class="dorothy">Dorothy</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:05–10:35</td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:40–11:10</td>
+        <td class="empty">—</td><td class="empty">—</td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">11:15–11:55</td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Afternoon</td></tr>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td><span class="ray">Ray</span></td><td class="empty">—</td>
+        <td><span class="ray">Ray</span></td><td><span class="ray">Ray</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50–16:20</td>
+        <td class="empty">—</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:45–16:15</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+        <td><span class="kate">Katy</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:20–16:50</td>
+        <td><span class="kate">Ariel</span></td><td class="empty">—</td><td class="empty">—</td>
+        <td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:55–17:25</td>
+        <td><span class="kate">Katy</span></td><td><span class="kate">Ariel</span></td><td class="empty">—</td>
+        <td><span class="off">Chih OFF</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Evening — Original Group Classes (Last Week)</td></tr>
+      <tr>
+        <td class="time-col">17:35–18:05</td>
+        <td><span class="group-orig">SS1</span></td><td><span class="group-orig">SS1</span></td>
+        <td><span class="group-orig">SS1</span></td><td><span class="group-orig">SS1</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">18:10–18:40</td>
+        <td><span class="group-orig">A</span></td><td><span class="group-orig">A</span></td>
+        <td><span class="group-orig">A</span></td><td><span class="group-orig">A</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">18:45–19:15</td>
+        <td><span class="group-orig">B</span></td><td><span class="group-orig">B</span></td>
+        <td><span class="group-orig">B</span></td><td><span class="group-orig">B</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:20–19:50</td>
+        <td><span class="group-orig">C</span></td><td><span class="group-orig">SS2</span></td>
+        <td><span class="group-orig">C</span></td><td><span class="group-orig">SS2</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:55–20:25</td>
+        <td><span class="group-orig">D</span></td><td><span class="group-orig">D</span></td>
+        <td><span class="group-orig">D</span></td><td><span class="group-orig">D</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">20:30–21:00</td>
+        <td><span class="dodo">Dodo</span></td><td><span class="ally">Ally Lu</span></td>
+        <td class="empty">—</td><td><span class="dodo">Dodo</span></td><td class="empty">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Chih off Thu Jul 9 · Last original group class week · Summer arrangement starts Jul 20</p>
+</div>
+
+<hr class="divider">
+
+<!-- WEEK 3 VACATION -->
+<div class="week-block">
+  <div class="week-title">Week 3 · Jul 13 – Jul 17 <span class="week-tag tag-vacation">🏖 Family Vacation — Mostly Off</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Jul 13</th><th>Tue Jul 14</th><th>Wed Jul 15</th><th>Thu Jul 16</th><th>Fri Jul 17</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td class="vacation-cell">OFF</td>
+        <td><span class="ruby">Ruby</span></td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+      </tr>
+      <tr>
+        <td class="time-col">All other</td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Mon Jul 13 fully off · Tue Jul 14 Ruby 9:00 · Wed Jul 15 Ruby 9:35 · Thu–Fri fully off</p>
+</div>
+
+<hr class="divider">
+
+<!-- WEEK 4 -->
+<div class="week-block">
+  <div class="week-title">Week 4 · Jul 20 – Jul 24 <span class="week-tag tag-group-new">☀️ Summer schedule begins · AL classes 1–4 · Chih session 1/4</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Jul 20 🚗</th><th>Tue Jul 21</th><th>Wed Jul 22</th><th>Thu Jul 23 stay put</th><th>Fri Jul 24 🚗</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="section-label" colspan="6">Morning</td></tr>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td><span class="ruby">Ruby</span></td><td><span class="ruby">Ruby</span></td>
+        <td class="empty">—</td><td><span class="hannah">Hannah</span></td><td><span class="dorothy">Dorothy</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:05–10:35</td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:40–11:10</td>
+        <td class="empty">—</td><td class="empty">—</td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">11:15–11:55</td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Afternoon</td></tr>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td><span class="off">Ray OFF</span></td><td class="empty">—</td>
+        <td><span class="off">Ray OFF</span></td><td><span class="off">Ray OFF</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50–16:20</td>
+        <td class="empty">—</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:55–17:25</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+        <td><span class="chih">Chih</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Evening</td></tr>
+      <tr>
+        <td class="time-col">18:45–19:15</td>
+        <td><span class="al">AL</span></td><td><span class="al">AL</span></td>
+        <td><span class="al">AL</span></td><td><span class="al">AL</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:20–19:50</td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">19:55–20:25</td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">20:30–21:00</td>
+        <td><span class="dodo">Dodo</span></td><td><span class="ally">Ally Lu</span></td>
+        <td><span class="group-new">Live Class</span></td><td><span class="dodo">Dodo</span></td><td class="empty">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Ray off (vacation week) · AL classes 1–4 of 7 (Mon–Thu 18:45) · Kate: Tue Jul 21 11:15 + Thu Jul 23 10:40 · Chih session 1/4 (Thu Jul 23 16:55) · 📢 Live Class Wed Jul 22 20:30</p>
+</div>
+
+<!-- WEEK 5 -->
+<div class="week-block">
+  <div class="week-title">Week 5 · Jul 27 – Jul 31 <span class="week-tag tag-group-new">☀️ Ray 3x/week · AL classes 5–7 (done) · Chih sessions 2+3 · Kate last week</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Jul 27 🚗</th><th>Tue Jul 28</th><th>Wed Jul 29</th><th>Thu Jul 30 stay put</th><th>Fri Jul 31 🚗</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="section-label" colspan="6">Morning</td></tr>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td><span class="ruby">Ruby</span></td><td><span class="ruby">Ruby</span></td>
+        <td class="empty">—</td><td><span class="hannah">Hannah</span></td><td><span class="dorothy">Dorothy</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td><span class="off">Jasper OFF, 待補課</span></td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td><span class="off">Jasper OFF, 待補課</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:05–10:35</td>
+        <td class="empty">—</td><td><span class="off">Jasper OFF, 待補課</span></td>
+        <td class="empty">—</td><td><span class="off">Jasper OFF, 待補課</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:40–11:10</td>
+        <td class="empty">—</td><td class="empty">—</td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">11:15–11:55</td>
+        <td class="empty">—</td><td><span class="kate">Kate</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Afternoon</td></tr>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td><span class="ray">Ray</span></td><td class="empty">—</td>
+        <td><span class="ray">Ray</span></td><td><span class="ray">Ray</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50–16:20</td>
+        <td class="empty">—</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:55–17:25</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+        <td><span class="chih">Chih</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Evening</td></tr>
+      <tr>
+        <td class="time-col">18:45–19:15</td>
+        <td><span class="al">AL</span></td>
+        <td><span class="chih">Chih</span></td>
+        <td><span class="al">AL</span></td>
+        <td><span class="al">AL</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:20–19:50</td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">19:55–20:25</td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">20:30–21:00</td>
+        <td><span class="dodo">Dodo</span></td><td><span class="ally">Ally Lu</span></td>
+        <td class="empty">—</td><td><span class="dodo">Dodo</span></td><td class="empty">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">AL classes 5–7 of 7 (Mon Jul 27 / Wed Jul 29 / Thu Jul 30) — AL done for summer · Kate last classes: Tue Jul 28 11:15 + Thu Jul 30 10:40 · Chih session 2/4 Tue Jul 28 18:45 · Chih session 3/4 Thu Jul 30 16:55 · Jasper OFF Tue Jul 28 &amp; Thu Jul 30 (待補課)</p>
+</div>
+
+<!-- WEEK 6 -->
+<div class="week-block">
+  <div class="week-title">Week 6 · Aug 3 – Aug 7 <span class="week-tag tag-group-new">☀️ Ray off · No AL · No Kate · No Chih</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Aug 3 🚗</th><th>Tue Aug 4</th><th>Wed Aug 5</th><th>Thu Aug 6 stay put</th><th>Fri Aug 7 🚗</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="section-label" colspan="6">Morning</td></tr>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td><span class="ruby">Ruby</span></td><td><span class="ruby">Ruby</span></td>
+        <td class="empty">—</td><td><span class="off">Hannah OFF</span></td><td><span class="dorothy">Dorothy</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:05–10:35</td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Afternoon</td></tr>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td><span class="ray">Ray</span></td><td class="empty">—</td>
+        <td><span class="ray">Ray</span></td><td><span class="ray">Ray</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50–16:20</td>
+        <td class="empty">—</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Evening</td></tr>
+      <tr>
+        <td class="time-col">18:45–19:15</td>
+        <td class="empty">—</td><td><span class="hannah">Hannah</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:20–19:50</td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">19:55–20:25</td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">20:30–21:00</td>
+        <td><span class="dodo">Dodo</span></td><td><span class="ally">Ally Lu</span></td>
+        <td class="empty">—</td><td><span class="dodo">Dodo</span></td><td class="empty">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Hannah makeup Tue Aug 4 18:45 (for missed 7/16) · Hannah off Thu Aug 6 (rescheduled to 8/18) · No AL · No Kate · No Chih</p>
+</div>
+
+<!-- WEEK 7 -->
+<div class="week-block">
+  <div class="week-title">Week 7 · Aug 10 – Aug 14 <span class="week-tag tag-group-new">☀️ Ray active · AL class 8 · Last Grammar+Phonic week</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Aug 10 🚗</th><th>Tue Aug 11</th><th>Wed Aug 12</th><th>Thu Aug 13 stay put</th><th>Fri Aug 14 🚗</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="section-label" colspan="6">Morning</td></tr>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td><span class="ruby">Ruby</span></td><td><span class="ruby">Ruby</span></td>
+        <td class="empty">—</td><td><span class="hannah">Hannah</span></td><td><span class="dorothy">Dorothy</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:05–10:35</td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Afternoon</td></tr>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td><span class="ray">Ray</span></td><td class="empty">—</td>
+        <td><span class="ray">Ray</span></td><td><span class="ray">Ray</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50–16:20</td>
+        <td class="empty">—</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Evening</td></tr>
+      <tr>
+        <td class="time-col">18:45–19:15</td>
+        <td><span class="al">AL</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">19:20–19:50</td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+        <td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td><td><span class="group-new">Phonic</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">19:55–20:25</td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+        <td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td><td><span class="group-new">Grammar</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">20:30–21:00</td>
+        <td><span class="dodo">Dodo</span></td><td><span class="ally">Ally Lu</span></td>
+        <td class="empty">—</td><td><span class="dodo">Dodo</span></td><td class="empty">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">AL class 8 Mon Aug 10 18:45 · Last Grammar + Phonic group class Thu Aug 14</p>
+</div>
+
+<!-- WEEK 8 -->
+<div class="week-block">
+  <div class="week-title">Week 8 · Aug 17 – Aug 21 <span class="week-tag tag-normal">☀️ Private lessons only · Chih session 4/4 (final)</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Aug 17 🚗</th><th>Tue Aug 18</th><th>Wed Aug 19</th><th>Thu Aug 20 stay put</th><th>Fri Aug 21 🚗</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="section-label" colspan="6">Morning</td></tr>
+      <tr>
+        <td class="time-col">9:00–9:30</td>
+        <td><span class="ruby">Ruby</span></td><td><span class="ruby">Ruby</span></td>
+        <td class="empty">—</td><td><span class="hannah">Hannah</span></td><td><span class="dorothy">Dorothy</span></td>
+      </tr>
+      <tr>
+        <td class="time-col">9:35–10:05</td>
+        <td><span class="dorothy">Dorothy</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td><span class="ruby">Ruby</span><span class="sub">(9:30–10:00)</span></td>
+        <td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:05–10:35</td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td>
+        <td class="empty">—</td><td><span class="jasper">Jasper</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Afternoon</td></tr>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td><span class="ray">Ray</span></td><td class="empty">—</td>
+        <td><span class="ray">Ray</span></td><td><span class="ray">Ray</span></td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50–16:20</td>
+        <td class="empty">—</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:55–17:25</td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+        <td><span class="chih">Chih</span></td><td class="empty">—</td>
+      </tr>
+      <tr><td class="section-label" colspan="6">Evening</td></tr>
+      <tr>
+        <td class="time-col">19:55–20:25</td>
+        <td class="empty">—</td><td><span class="hannah">Hannah</span></td>
+        <td class="empty">—</td><td class="empty">—</td><td class="empty">—</td>
+      </tr>
+      <tr>
+        <td class="time-col">20:30–21:00</td>
+        <td><span class="dodo">Dodo</span></td><td><span class="ally">Ally Lu</span></td>
+        <td class="empty">—</td><td><span class="dodo">Dodo</span></td><td class="empty">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Hannah makeup Tue Aug 18 19:55 (for missed 8/6) · Chih session 4/4 — final (Thu Aug 20 16:55) · Group classes ended last week</p>
+</div>
+
+<hr class="divider">
+
+<!-- WEEK 9 VACATION -->
+<div class="week-block">
+  <div class="week-title">Week 9 · Aug 24 – Aug 28 <span class="week-tag tag-vacation">🏖 Family Vacation — All Off</span></div>
+  <table>
+    <thead><tr>
+      <th class="time-col">Time</th>
+      <th>Mon Aug 24</th><th>Tue Aug 25</th><th>Wed Aug 26</th><th>Thu Aug 27</th><th>Fri Aug 28</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="time-col">13:30–14:00</td>
+        <td class="vacation-cell">OFF</td><td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+        <td><span class="ray">Ray</span></td>
+        <td class="vacation-cell">OFF</td>
+      </tr>
+      <tr>
+        <td class="time-col">All other</td>
+        <td class="vacation-cell">OFF</td><td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td><td class="vacation-cell">OFF</td>
+        <td class="vacation-cell">OFF</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Ray Thu Aug 27 13:30 online from vacation · New term resumes September</p>
+</div>
+
+</body>
+</html>
