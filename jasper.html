@@ -101,19 +101,9 @@
 
   <div id="view-jasper">
     <div class="card">
-      <h2>7月課程（已出席） <span class="batch-tag">· attended</span></h2>
+      <h2>本期課程 Current Term <span class="batch-tag">· 7/21 – 8/20</span></h2>
       <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
-        <tbody id="tb-jul"></tbody></table>
-    </div>
-    <div class="card">
-      <h2>8月課程（原訂） <span class="batch-tag">· booked 2026-06-12</span></h2>
-      <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
-        <tbody id="tb-orig"></tbody></table>
-    </div>
-    <div class="card">
-      <h2>8月加課 <span class="batch-tag">· booked 2026-07-10</span></h2>
-      <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
-        <tbody id="tb-add"></tbody></table>
+        <tbody id="tb-term"></tbody></table>
     </div>
   </div>
 
@@ -124,14 +114,6 @@
     </div>
   </div>
 
-  <div id="view-history" style="display:none">
-    <div class="card" id="history-card">
-      <h2>上課紀錄 Attended History <span class="batch-tag">· 98 堂</span></h2>
-      <div id="history-body"></div>
-    </div>
-  </div>
-  <button class="dl" style="margin-bottom:10px" onclick="toggleHistory()">📋 上課紀錄 / Hide History</button>
-  <br>
   <button class="dl" onclick="exportCSV()">⬇ 下載課表 (CSV)</button>
 
   <footer>
@@ -143,43 +125,33 @@
 <script>
 const orig = ["2026-08-04","2026-08-06","2026-08-11","2026-08-13"];
 const add  = ["2026-08-18","2026-08-20"];
-const julAttended = ["2026-07-02","2026-07-07","2026-07-09","2026-07-21","2026-07-23"];
-const julMakeup = ["2026-07-28","2026-07-30"];
+const term = [
+  {d:"2026-07-21", s:"yes"},
+  {d:"2026-07-23", s:"yes"},
+  {d:"2026-07-28", s:"makeup"},
+  {d:"2026-07-30", s:"makeup"},
+  {d:"2026-08-04", s:"up"},
+  {d:"2026-08-06", s:"up"},
+  {d:"2026-08-11", s:"up"},
+  {d:"2026-08-13", s:"up"},
+  {d:"2026-08-18", s:"up"},
+  {d:"2026-08-20", s:"up"}
+];
 const zh = ["日","一","二","三","四","五","六"];
 const dow = d => zh[new Date(d+"T00:00:00").getDay()];
-function fillAttended(id,arr){
-  const tb=document.getElementById(id);
-  arr.forEach(d=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${d}</td><td>週${dow(d)}</td>
-      <td class="slots"><span>09:35</span><span>10:05</span></td>
-      <td><span class="badge" style="background:#E4F5E9;color:#1E7A44">✓ 出席</span></td>`;
-    tb.appendChild(tr);
-  });
-}
-function fillMakeup(id,arr){
-  const tb=document.getElementById(id);
-  arr.forEach(d=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${d}</td><td>週${dow(d)}</td>
-      <td class="slots"><span>09:35</span><span>10:05</span></td>
-      <td><span class="badge" style="background:#FDE7EA;color:#B02234">待補課</span></td>`;
-    tb.appendChild(tr);
-  });
-}
-fillAttended("tb-jul",julAttended);
-fillMakeup("tb-jul",julMakeup);
-function fill(id,arr){
-  const tb=document.getElementById(id);
-  arr.forEach(d=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${d}</td><td>週${dow(d)}</td>
-      <td class="slots"><span>09:35</span><span>10:05</span></td>
-      <td><span class="badge b-up">Upcoming</span></td>`;
-    tb.appendChild(tr);
-  });
-}
-fill("tb-orig",orig); fill("tb-add",add);
+const badge = {
+  yes:'<span class="badge" style="background:#E4F5E9;color:#1E7A44">✓ 出席</span>',
+  makeup:'<span class="badge" style="background:#FDE7EA;color:#B02234">待補課</span>',
+  up:'<span class="badge b-up">Upcoming</span>'
+};
+const tb=document.getElementById("tb-term");
+term.forEach(r=>{
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td>${r.d}</td><td>週${dow(r.d)}</td>
+    <td class="slots"><span>09:35</span><span>10:05</span></td>
+    <td>${badge[r.s]}</td>`;
+  tb.appendChild(tr);
+});
 
 function showKid(kid){
   document.getElementById("view-jasper").style.display = kid==="jasper"?"":"none";
@@ -187,40 +159,14 @@ function showKid(kid){
   document.querySelectorAll(".tbtn").forEach(b=>b.classList.toggle("active",b.dataset.kid===kid));
 }
 
-const history = {"2026-01": ["2026-01-27 10:00", "2026-01-27 10:30", "2026-01-28 08:30", "2026-01-29 10:00", "2026-01-29 10:30"], "2026-02": ["2026-02-03 10:00", "2026-02-03 10:30", "2026-02-05 10:00", "2026-02-05 10:30", "2026-02-10 10:00", "2026-02-10 10:30", "2026-02-12 10:00", "2026-02-12 10:30", "2026-02-24 09:35", "2026-02-24 10:05", "2026-02-25 21:00", "2026-02-26 09:35", "2026-02-26 10:05"], "2026-03": ["2026-03-03 09:35", "2026-03-03 10:05", "2026-03-05 09:35", "2026-03-05 10:05", "2026-03-10 09:35", "2026-03-10 10:05", "2026-03-12 09:35", "2026-03-12 10:05", "2026-03-17 09:35", "2026-03-17 10:05", "2026-03-19 09:35", "2026-03-19 10:05", "2026-03-24 09:35", "2026-03-24 10:05", "2026-03-26 09:35", "2026-03-26 10:05", "2026-03-31 09:35", "2026-03-31 10:05"], "2026-04": ["2026-04-02 09:35", "2026-04-02 10:05", "2026-04-07 09:35", "2026-04-07 10:05", "2026-04-09 09:35", "2026-04-09 10:05", "2026-04-14 09:35", "2026-04-14 10:05", "2026-04-16 09:35", "2026-04-16 10:05", "2026-04-21 09:35", "2026-04-21 10:05", "2026-04-23 09:35", "2026-04-23 10:05", "2026-04-28 09:35", "2026-04-28 10:05", "2026-04-30 09:35", "2026-04-30 10:05"], "2026-05": ["2026-05-05 09:35", "2026-05-05 10:05", "2026-05-07 09:35", "2026-05-07 10:05", "2026-05-12 09:35", "2026-05-12 10:05", "2026-05-14 09:35", "2026-05-14 10:05", "2026-05-19 09:35", "2026-05-19 10:05", "2026-05-21 09:35", "2026-05-21 10:05", "2026-05-26 09:35", "2026-05-26 10:05", "2026-05-28 09:35", "2026-05-28 10:05"], "2026-06": ["2026-06-02 09:35", "2026-06-02 10:05", "2026-06-04 09:35", "2026-06-04 10:05", "2026-06-09 09:35", "2026-06-09 10:05", "2026-06-11 09:35", "2026-06-11 10:05", "2026-06-16 09:35", "2026-06-16 10:05", "2026-06-18 09:35", "2026-06-18 10:05", "2026-06-23 09:35", "2026-06-23 10:05", "2026-06-25 09:35", "2026-06-25 10:05", "2026-06-30 09:35", "2026-06-30 10:05"], "2026-07": ["2026-07-02 09:35", "2026-07-02 10:05", "2026-07-07 09:35", "2026-07-07 10:05", "2026-07-09 09:35", "2026-07-09 10:05", "2026-07-21 09:35", "2026-07-21 10:05", "2026-07-23 09:35", "2026-07-23 10:05"]};
-const monthLabel = {"2026-01":"January","2026-02":"February","2026-03":"March","2026-04":"April","2026-05":"May","2026-06":"June","2026-07":"July"};
-let historyBuilt = false;
-function toggleHistory(){
-  const v=document.getElementById("view-history");
-  const showing = v.style.display!=="none";
-  v.style.display = showing ? "none" : "";
-  if(!historyBuilt && !showing){
-    const body=document.getElementById("history-body");
-    Object.keys(history).sort().reverse().forEach(ym=>{
-      const slots=history[ym];
-      // group by date
-      const byDate={};
-      slots.forEach(s=>{const[d,t]=s.split(" ");(byDate[d]=byDate[d]||[]).push(t);});
-      const days=Object.keys(byDate).sort().reverse();
-      let html=`<div style="margin-bottom:14px"><div style="font-weight:bold;font-size:13px;color:var(--muted);margin-bottom:6px">${monthLabel[ym]} ${ym.split("-")[0]} · ${slots.length} 堂</div><table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead><tbody>`;
-      days.forEach(d=>{
-        html+=`<tr><td>${d}</td><td>週${dow(d)}</td><td class="slots">${byDate[d].map(t=>`<span>${t}</span>`).join("")}</td><td><span class="badge" style="background:#E4F5E9;color:#1E7A44">✓ 出席</span></td></tr>`;
-      });
-      html+=`</tbody></table></div>`;
-      body.innerHTML+=html;
-    });
-    historyBuilt=true;
-  }
-}
-
 function exportCSV(){
-  let rows=[["Jasper — 課表"],[],["家長","Sherry Tseng"],["老師","安東尼老師 Teacher Anthony"],[],
+  const label={yes:"出席",makeup:"待補課",up:"Upcoming"};
+  let rows=[["Jasper — 本期課程 7/21–8/20"],[],
+    ["家長","Sherry Tseng"],["老師","安東尼老師 Teacher Anthony"],[],
     ["Active pass","0 / 500","500 pts left","exp 2026-12-15"],
     ["Old pass","480 / 509","29 pts left","exp 2026-09-22"],[],
-    ["8月課程（原訂）"],["日期","星期","時段1","時段2","狀態"]];
-  orig.forEach(d=>rows.push([d,"週"+dow(d),"09:35","10:05","Upcoming"]));
-  rows.push([],["8月加課"],["日期","星期","時段1","時段2","狀態"]);
-  add.forEach(d=>rows.push([d,"週"+dow(d),"09:35","10:05","Upcoming"]));
+    ["日期","星期","時段1","時段2","狀態"]];
+  term.forEach(r=>rows.push([r.d,"週"+dow(r.d),"09:35","10:05",label[r.s]]));
   const csv="\ufeff"+rows.map(r=>r.map(x=>`"${x}"`).join(",")).join("\n");
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
