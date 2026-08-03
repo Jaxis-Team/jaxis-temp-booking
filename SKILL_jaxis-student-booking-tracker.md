@@ -36,6 +36,7 @@ git clone https://Jaxis-Team:<TOKEN>@github.com/Jaxis-Team/jaxis-temp-booking.gi
 - **Points per class**: confirm with the user (commonly 6 pts), don't assume without checking their history pattern.
 - **Instructor**: stays the same for a given student unless told otherwise — check history file for the existing instructor and reuse it.
 - **Attendance values**: `Yes`, `Upcoming`, `待補課` (pending makeup). Never invent new values without confirming.
+- **"Took off" a class = 待補課 + 補課去 button.** If the user says a student *took off / took a day off / skipped / didn't come / 請假 / 沒來* for a class, this AUTOMATICALLY means: set that row's `Attendance` to `待補課`, and in the dashboard render that row's status cell as a clickable **補課去** button (not a plain badge) linking to the makeup form. No confirmation needed — this mapping is fixed. Points do NOT change (already deducted at booking).
 - **Makeup classes**: free makeups do NOT deduct points. Note the makeup date in the `Dependency` column of the original missed class row. Do not add a separate row for the makeup unless instructed.
 - **Parent name**: the CSV filename often contains the parent's Chinese name — use it in the dashboard header.
 
@@ -62,7 +63,9 @@ git clone https://Jaxis-Team:<TOKEN>@github.com/Jaxis-Team/jaxis-temp-booking.gi
 
 ## Workflow: marking 待補課 (pending makeup)
 
-- Change `Attendance` from `Upcoming` → `待補課` for the missed class.
+- Triggered whenever the user says a student **took off / skipped / didn't attend / 請假 / 沒來** a class — this automatically means 待補課.
+- Change `Attendance` from `Upcoming` (or `Yes`) → `待補課` for that class.
+- In the dashboard, that row's status cell must render as a clickable **補課去** button, NOT a plain badge (see Dashboard spec below).
 - When the makeup is completed, note the makeup date/time in the `Dependency` column of the original missed row (e.g. `已於 7/28 18:45 補課`).
 - Do NOT write `（免費）` or similar in the note — keep it clean.
 - No points change for free makeups.
@@ -95,7 +98,7 @@ Single self-contained HTML file per student. Always follow this design:
 - Payment buttons (points cards): `#2E7D4B` (dark green)
 - Payment button (一對一課程40堂): `#F2B90C` (yellow), text `#4A3800`
 - Attendance badge — Yes: green (`#E4F5E9` / `#1E7A44`)
-- Attendance badge — 待補課: red (`#FDE7EA` / `#B02234`)
+- Attendance badge — 待補課: render as a clickable **補課去** button, NOT a plain badge. Red button (`#B02234` background, white text), label `補課去 →`, links to the makeup form `https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform` with `target="_blank"`. Wire the render logic so ANY 待補課 row becomes this button automatically.
 - Makeup note text: `#B02234`, font-size 11px
 
 ### Action buttons (always present)
@@ -105,6 +108,7 @@ Single self-contained HTML file per student. Always follow this design:
 
 ### 課卡購買 payment buttons
 Always include all 7, in this order, with these Stripe URLs:
+
 | Button | URL |
 |--------|-----|
 | 500點 | https://book.stripe.com/aFa6oI95m61Z9I4fgk8AE06 |
@@ -119,7 +123,6 @@ Always include all 7, in this order, with these Stripe URLs:
 
 ## Deploying to GitHub Pages
 
-Steps:
 1. Read token from `/mnt/project/steps_of_build_student_booking_tracker` — never ask the user.
 2. `git clone https://Jaxis-Team:<TOKEN>@github.com/Jaxis-Team/jaxis-temp-booking.git`
 3. Copy dashboard as `<firstname-lowercase>.html` to repo root.
