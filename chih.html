@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chih 徐心慧 — Class Tracker</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Times New Roman", Georgia, "PingFang TC", "Microsoft JhengHei", sans-serif; background: #F5EFE1; color: #1e2a35; padding: 24px; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header h1 { font-size: 22px; margin-bottom: 4px; }
+  header .sub { color: #667; font-size: 14px; margin-bottom: 12px; }
+  .action-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
+  .zoom-btn { display: inline-block; text-decoration: none; background: #2D8CFF; color: #fff;
+    padding: 11px 22px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .15s; }
+  .zoom-btn:hover { background: #1a6fd6; }
+  .act-btn { display: inline-block; text-decoration: none; padding: 11px 20px; border-radius: 10px;
+    font-size: 15px; font-weight: 700; transition: background .15s; }
+  .makeup-btn { background: #7A5CB0; color: #fff; }
+  .makeup-btn:hover { background: #63478f; }
+  .leave-btn { background: #C77D3E; color: #fff; }
+  .leave-btn:hover { background: #a5642e; }
+  .zoom-id { font-size: 12px; color: #889; margin: 6px 0 20px; }
+  .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 20px; }
+  .pass-note { background: #FFF4E5; border: 1px solid #FFD9A0; color: #8A5300; border-radius: 10px; padding: 12px 16px; font-size: 13px; margin-bottom: 20px; }
+  h2 { font-size: 15px; margin-bottom: 12px; color: #334; }
+  .buy-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+  .buy-grid a { flex: 1 1 auto; min-width: 120px; text-align: center; text-decoration: none;
+    background: #2E7D4B; color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; transition: background .15s; }
+  .buy-grid a:hover { background: #235f3a; }
+  .buy-grid a.alt { background: #F2B90C; color: #4A3800; }
+  .buy-grid a.alt:hover { background: #d9a406; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #eef1f3; }
+  th { color: #889; font-weight: 600; font-size: 12px; }
+  .badge { padding: 2px 9px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+  .yes { background: #E4F5E9; color: #1E7A44; }
+  .up  { background: #E5EEFC; color: #2A5AAB; }
+  .makeup { background: #FDE7EA; color: #B02234; }
+  .note { font-size: 11px; color: #B02234; margin-top: 2px; }
+  button { background: #2A5AAB; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+  footer { font-size: 11px; color: #99a; margin-top: 16px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Chih</h1>
+    <div class="sub">家長：心慧 徐 &nbsp;|&nbsp; 老師：安東尼老師 Teacher Anthony</div>
+    <div class="action-row">
+      <a class="zoom-btn" href="https://us02web.zoom.us/j/85445182933" target="_blank">🎥 進入教室 Enter Classroom</a>
+      <a class="act-btn makeup-btn" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+      <a class="act-btn leave-btn" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+    </div>
+    <div class="zoom-id">Meeting ID: 854 4518 2933</div>
+  </header>
+
+  <div class="card">
+    <h2>課卡購買</h2>
+    <div class="buy-grid">
+      <a href="https://book.stripe.com/aFa6oI95m61Z9I4fgk8AE06" target="_blank">500點</a>
+      <a href="https://book.stripe.com/bJe7sMbdu1LJ9I4fgk8AE0c" target="_blank">250點</a>
+      <a href="https://book.stripe.com/fZucN6epGbmj5rO6JO8AE0d" target="_blank">200點</a>
+      <a href="https://book.stripe.com/eVq9AUchy7633jGb048AE0e" target="_blank">100點</a>
+      <a href="https://book.stripe.com/00wfZidlC61ZaM85FK8AE0f" target="_blank">50點</a>
+      <a href="https://book.stripe.com/8x2bJ2bdubmjaM85FK8AE0g" target="_blank">20點</a>
+      <a href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank" class="alt">一對一課程40堂</a>
+    </div>
+  </div>
+
+  <div class="pass-note">
+    ⚠️ 一對一專屬課卡(40堂) 已用完（240 / 240），且所有課卡均已到期。新課程預約前需加購新課卡。
+  </div>
+
+  <div class="card">
+    <h2>本期課程 · 一對一專屬課卡(40堂) · 預約 2026-02-24 <span id="count"></span></h2>
+    <table>
+      <thead><tr><th>日期</th><th>時間</th><th>狀態</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <button onclick="dl()">下載 CSV 摘要</button>
+  <footer>
+    此為手動追蹤系統，未與線上預約平台連動。<br>
+    Updated 2026-08-03.
+  </footer>
+</div>
+
+<script>
+const term = [
+  {d:"2026-07-09",t:"16:55",s:"待補課"},
+  {d:"2026-07-02",t:"16:55",s:"待補課"},
+  {d:"2026-06-25",t:"16:55",s:"Yes"},
+  {d:"2026-06-18",t:"16:55",s:"Yes"},
+  {d:"2026-06-11",t:"16:55",s:"Yes"},
+  {d:"2026-06-04",t:"16:55",s:"Yes"},
+  {d:"2026-05-28",t:"16:55",s:"Yes"},
+  {d:"2026-05-21",t:"16:55",s:"Yes"},
+  {d:"2026-05-14",t:"16:55",s:"Yes"},
+  {d:"2026-05-07",t:"16:55",s:"Yes"},
+  {d:"2026-04-30",t:"16:55",s:"Yes"},
+  {d:"2026-04-23",t:"16:55",s:"Yes"},
+  {d:"2026-04-18",t:"09:40",s:"Yes"},
+  {d:"2026-04-09",t:"16:55",s:"Yes"},
+  {d:"2026-04-02",t:"16:55",s:"Yes",note:"已於 7/28 18:45 補課"},
+  {d:"2026-03-26",t:"16:55",s:"Yes"},
+  {d:"2026-03-19",t:"16:55",s:"Yes"},
+  {d:"2026-03-12",t:"16:55",s:"Yes"},
+  {d:"2026-03-05",t:"16:55",s:"Yes"},
+  {d:"2026-02-26",t:"16:55",s:"Yes"},
+];
+const cls = {"Yes":"yes","Upcoming":"up","待補課":"makeup"};
+const lbl = {"Yes":"Yes 已上課","Upcoming":"Upcoming 預約中","待補課":"待補課 Pending"};
+const tb = document.getElementById("tbody");
+term.forEach(r=>{
+  const note = r.note?`<div class="note">${r.note}</div>`:"";
+  tb.insertAdjacentHTML("beforeend",
+    `<tr><td>${r.d}</td><td>${r.t}</td><td><span class="badge ${cls[r.s]}">${lbl[r.s]}</span>${note}</td></tr>`);
+});
+document.getElementById("count").textContent = "（共 "+term.length+" 堂）";
+
+function dl(){
+  let csv = "日期,時間,狀態,備註\n";
+  term.forEach(r=> csv += `${r.d},${r.t},${r.s},${r.note||""}\n`);
+  const b = new Blob(["\uFEFF"+csv],{type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(b); a.download = "chih_summary.csv"; a.click();
+}
+</script>
+</body>
+</html>
