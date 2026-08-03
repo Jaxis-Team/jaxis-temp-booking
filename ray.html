@@ -1,206 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ray — JAXIS Booking Tracker</title>
 <style>
   :root {
-    --ink: #1c2b2e;
-    --paper: #f7f5f0;
-    --card: #ffffff;
-    --line: #e2ddd2;
-    --teal: #2f6f68;
-    --teal-dim: #e8f1ef;
-    --amber: #b9722e;
-    --amber-dim: #fbeee0;
+    --bg: #F5EFE1;
+    --ink: #2b2b2b;
     --muted: #8a8577;
+    --line: #e6e0d2;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    background: var(--paper);
+    font-family: "Times New Roman", Georgia, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
     color: var(--ink);
-    padding: 32px 16px 64px;
+    padding: 28px 16px 60px;
   }
-  .wrap { max-width: 760px; margin: 0 auto; }
+  .wrap { max-width: 720px; margin: 0 auto; }
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 12px;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 16px;
-    margin-bottom: 24px;
-  }
-  header h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
-  header .sub { font-size: 13px; color: var(--muted); }
-  header .meta { text-align: right; font-size: 13px; color: var(--muted); line-height: 1.6; }
-  header .meta b { color: var(--ink); font-weight: 600; }
+  header { margin-bottom: 20px; }
+  header h1 { font-size: 30px; margin: 0 0 6px; }
+  header .sub { font-size: 14px; color: var(--muted); }
 
-  .points-card {
-    background: var(--card);
-    border: 1px solid var(--line);
+  .card {
+    background: #fff;
     border-radius: 10px;
-    padding: 20px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-  .points-card .balance { font-size: 34px; font-weight: 700; color: var(--teal); }
-  .points-card .balance span { font-size: 15px; font-weight: 500; color: var(--muted); margin-left: 6px; }
-  .points-card .detail { font-size: 13px; color: var(--muted); text-align: right; line-height: 1.7; }
-  .points-card .detail b { color: var(--ink); }
-  .pass-status {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 9px;
-    border-radius: 20px;
-    background: var(--teal-dim);
-    color: var(--teal);
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    padding: 18px 20px;
+    margin-bottom: 20px;
   }
 
-  section { margin-bottom: 28px; }
-  section h2 {
-    font-size: 15px;
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+  .actions a {
+    flex: 1 1 auto;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
     font-weight: 600;
-    margin: 0 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  section h2 .count {
-    font-size: 11px;
-    font-weight: 600;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 1px 8px;
-    border-radius: 20px;
-  }
-  section.old h2 .count { background: var(--amber); }
-  section.new h2 .count { background: var(--teal); }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--card);
-    border: 1px solid var(--line);
+    padding: 11px 14px;
     border-radius: 8px;
-    overflow: hidden;
-    font-size: 13px;
+    min-width: 140px;
   }
-  th, td {
-    padding: 9px 14px;
-    text-align: left;
-    border-bottom: 1px solid var(--line);
-  }
-  th { background: #faf8f3; font-weight: 600; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
-  tr:last-child td { border-bottom: none; }
-  td.status { text-align: right; }
-  .badge { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; }
-  .badge.upcoming { background: var(--teal-dim); color: var(--teal); }
-  .badge.done { background: #eee; color: #888; }
+  .btn-zoom   { background: #2D8CFF; }
+  .btn-makeup { background: #7A5CB0; }
+  .btn-leave  { background: #C77D3E; }
 
-  .footer-note {
-    font-size: 12px;
-    color: var(--muted);
-    border-top: 1px solid var(--line);
-    padding-top: 16px;
-    margin-top: 32px;
-    line-height: 1.6;
-  }
-
-  .download-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--ink);
-    color: var(--paper);
-    border: none;
-    padding: 9px 16px;
-    border-radius: 6px;
+  .card h2 { font-size: 15px; margin: 0 0 14px; }
+  .pay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; }
+  .pay-grid a {
+    text-decoration: none;
+    text-align: center;
     font-size: 13px;
     font-weight: 600;
-    cursor: pointer;
-    margin-top: 8px;
+    padding: 10px 6px;
+    border-radius: 7px;
+    color: #fff;
+    background: #2E7D4B;
   }
-  .download-btn:hover { background: #33474b; }
+  .pay-grid a.pkg { background: #F2B90C; color: #4A3800; grid-column: 1 / -1; }
 
-  @media (max-width: 520px) {
-    header { flex-direction: column; align-items: flex-start; }
-    header .meta { text-align: left; }
-    .points-card { flex-direction: column; align-items: flex-start; }
-    .points-card .detail { text-align: left; }
+  .term-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0 0 12px;
   }
+  .term-head h2 { margin: 0; }
+  .term-head .tag {
+    font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px;
+    background: #eee; color: #777;
+  }
+  .term-head .tag.old { background: #fbeee0; color: #b9722e; }
+  .term-head .tag.new { background: #e4f0ec; color: #2E7D4B; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  tr:last-child td { border-bottom: none; }
+  td.st { text-align: right; }
+  .badge { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; }
+  .badge.yes { background: #E4F5E9; color: #1E7A44; }
+  .badge.up  { background: #eef1f4; color: #667; }
+
+  .dl-btn {
+    display: inline-block; background: var(--ink); color: var(--bg);
+    text-decoration: none; padding: 10px 18px; border-radius: 7px;
+    font-size: 13px; font-weight: 600; border: none; cursor: pointer; margin-top: 4px;
+  }
+  .footer { font-size: 12px; color: var(--muted); margin-top: 24px; line-height: 1.6; }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <div>
-      <h1>Ray — Booking Tracker</h1>
-      <div class="sub">JAXIS 一對一課程 · 吳婕琳</div>
-    </div>
-    <div class="meta">
-      Instructor: <b>安東尼老師 Teacher Anthony</b><br>
-      Pass expires: <b>2026-10-27</b>
-    </div>
+    <h1>Ray</h1>
+    <div class="sub">家長：吳婕琳 &nbsp;|&nbsp; 老師：安東尼老師 Teacher Anthony</div>
   </header>
 
-  <div class="points-card">
-    <div>
-      <div class="balance">0 <span>points remaining</span></div>
-    </div>
-    <div class="detail">
-      <span class="pass-status">Active</span><br>
-      <b>240 / 240</b> used · 一對一專屬課卡(40堂)
+  <div class="actions">
+    <a class="btn-zoom" href="https://us02web.zoom.us/j/87123505358" target="_blank">🎥 進入教室 Enter Classroom</a>
+    <a class="btn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+    <a class="btn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+  </div>
+
+  <div class="card">
+    <h2>課卡購買</h2>
+    <div class="pay-grid">
+      <a href="https://book.stripe.com/aFa6oI95m61Z9I4fgk8AE06" target="_blank">500點</a>
+      <a href="https://book.stripe.com/bJe7sMbdu1LJ9I4fgk8AE0c" target="_blank">250點</a>
+      <a href="https://book.stripe.com/fZucN6epGbmj5rO6JO8AE0d" target="_blank">200點</a>
+      <a href="https://book.stripe.com/eVq9AUchy7633jGb048AE0e" target="_blank">100點</a>
+      <a href="https://book.stripe.com/00wfZidlC61ZaM85FK8AE0f" target="_blank">50點</a>
+      <a href="https://book.stripe.com/8x2bJ2bdubmjaM85FK8AE0g" target="_blank">20點</a>
+      <a class="pkg" href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank">一對一課程40堂</a>
     </div>
   </div>
 
-  <section class="old">
-    <h2>Old Term — Leftover <span class="count">1</span></h2>
+  <div class="card">
+    <div class="term-head">
+      <h2>舊學期補剩 Old Term Leftover</h2>
+      <span class="tag old">1 堂</span>
+    </div>
     <table>
-      <thead><tr><th>Date</th><th>Time</th><th class="status">Status</th></tr></thead>
-      <tbody id="old-term-body"></tbody>
+      <thead><tr><th>日期 Date</th><th>時間 Time</th><th class="st">出席 Status</th></tr></thead>
+      <tbody id="old-body"></tbody>
     </table>
-  </section>
+  </div>
 
-  <section class="new">
-    <h2>New Term <span class="count">20</span></h2>
+  <div class="card">
+    <div class="term-head">
+      <h2>新學期 New Term</h2>
+      <span class="tag new">20 堂</span>
+    </div>
     <table>
-      <thead><tr><th>Date</th><th>Time</th><th class="status">Status</th></tr></thead>
-      <tbody id="new-term-body"></tbody>
+      <thead><tr><th>日期 Date</th><th>時間 Time</th><th class="st">出席 Status</th></tr></thead>
+      <tbody id="new-body"></tbody>
     </table>
-  </section>
+  </div>
 
-  <button class="download-btn" onclick="downloadCSV()">⬇ Download summary CSV</button>
+  <button class="dl-btn" onclick="downloadCSV()">⬇ 下載總表 Download CSV</button>
 
-  <div class="footer-note">
-    Manual tracking dashboard — not connected to any live booking platform. Update the source CSVs and rebuild this page whenever bookings or attendance change.
+  <div class="footer">
+    手動追蹤系統，未連接任何線上預約平台。每次預約或出席狀態變動後需重新整理此頁。<br>
+    Manual tracking dashboard — not connected to any live booking platform.<br>
+    Updated: 2026-08-03
   </div>
 
 </div>
 
 <script>
 const oldTerm = [
-  { date: "2026-07-06", time: "13:30", status: "Upcoming" }
+  { date: "2026-07-06", time: "13:30", status: "Yes" }
 ];
-
 const newTerm = [
-  { date: "2026-07-08", time: "13:30", status: "Upcoming" },
-  { date: "2026-07-09", time: "13:30", status: "Upcoming" },
-  { date: "2026-07-27", time: "13:30", status: "Upcoming" },
-  { date: "2026-07-29", time: "13:30", status: "Upcoming" },
-  { date: "2026-07-30", time: "13:30", status: "Upcoming" },
-  { date: "2026-08-03", time: "13:30", status: "Upcoming" },
+  { date: "2026-07-08", time: "13:30", status: "Yes" },
+  { date: "2026-07-09", time: "13:30", status: "Yes" },
+  { date: "2026-07-27", time: "13:30", status: "Yes" },
+  { date: "2026-07-29", time: "13:30", status: "Yes" },
+  { date: "2026-07-30", time: "13:30", status: "Yes" },
+  { date: "2026-08-03", time: "13:30", status: "Yes" },
   { date: "2026-08-05", time: "13:30", status: "Upcoming" },
   { date: "2026-08-06", time: "13:30", status: "Upcoming" },
   { date: "2026-08-10", time: "13:30", status: "Upcoming" },
@@ -217,35 +178,28 @@ const newTerm = [
   { date: "2026-09-14", time: "14:10", status: "Upcoming" }
 ];
 
-function renderTable(rows, targetId) {
-  const body = document.getElementById(targetId);
-  body.innerHTML = rows.map(r => `
-    <tr>
-      <td>${r.date}</td>
-      <td>${r.time}</td>
-      <td class="status"><span class="badge ${r.status === 'Upcoming' ? 'upcoming' : 'done'}">${r.status}</span></td>
-    </tr>
-  `).join('');
+function badge(s) {
+  return s === 'Yes'
+    ? '<span class="badge yes">已完成 Yes</span>'
+    : '<span class="badge up">待上課 Upcoming</span>';
 }
-renderTable(oldTerm, 'old-term-body');
-renderTable(newTerm, 'new-term-body');
+function render(rows, id) {
+  document.getElementById(id).innerHTML = rows.map(r =>
+    `<tr><td>${r.date}</td><td>${r.time}</td><td class="st">${badge(r.status)}</td></tr>`
+  ).join('');
+}
+render(oldTerm, 'old-body');
+render(newTerm, 'new-body');
 
 function downloadCSV() {
   let csv = "Section,Date,Time,Status\n";
   oldTerm.forEach(r => csv += `Old Term,${r.date},${r.time},${r.status}\n`);
   newTerm.forEach(r => csv += `New Term,${r.date},${r.time},${r.status}\n`);
-  csv += `\nPoints Summary\n`;
-  csv += `Remaining,0\n`;
-  csv += `Used/Total,240 / 240\n`;
-  csv += `Pass Expiration,2026-10-27\n`;
-
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url;
+  a.href = URL.createObjectURL(blob);
   a.download = "ray_booking_summary.csv";
   a.click();
-  URL.revokeObjectURL(url);
 }
 </script>
 

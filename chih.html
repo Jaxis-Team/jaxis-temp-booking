@@ -112,11 +112,13 @@ const term = [
 ];
 const cls = {"Yes":"yes","Upcoming":"up","待補課":"makeup"};
 const lbl = {"Yes":"Yes 已上課","Upcoming":"Upcoming 預約中","待補課":"待補課 Pending"};
+const makeupBtn = '<a href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank" class="badge makeup" style="background:#B02234;color:#fff;text-decoration:none;display:inline-block">補課去 →</a>';
 const tb = document.getElementById("tbody");
 term.forEach(r=>{
   const note = r.note?`<div class="note">${r.note}</div>`:"";
+  const cell = r.s==="待補課" ? makeupBtn : `<span class="badge ${cls[r.s]}">${lbl[r.s]}</span>`;
   tb.insertAdjacentHTML("beforeend",
-    `<tr><td>${r.d}</td><td>${r.t}</td><td><span class="badge ${cls[r.s]}">${lbl[r.s]}</span>${note}</td></tr>`);
+    `<tr><td>${r.d}</td><td>${r.t}</td><td>${cell}${note}</td></tr>`);
 });
 document.getElementById("count").textContent = "（共 "+term.length+" 堂）";
 

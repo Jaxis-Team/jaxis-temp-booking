@@ -138,8 +138,14 @@ function fillTable(id, data){
   const tbody = document.querySelector(`#${id} tbody`);
   data.forEach((row, i) => {
     const tr = document.createElement("tr");
-    const label = row[2] === "Yes" ? "Attended" : row[2];
-    tr.innerHTML = `<td>${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td><span class="tag ${tagClass(row[2])}">${label}</span></td>`;
+    let statusCell;
+    if(row[2] === "待補課"){
+      statusCell = `<a href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank" class="tag pending" style="background:#B02234;color:#fff;text-decoration:none;display:inline-block">補課去 →</a>`;
+    } else {
+      const label = row[2] === "Yes" ? "Attended" : row[2];
+      statusCell = `<span class="tag ${tagClass(row[2])}">${label}</span>`;
+    }
+    tr.innerHTML = `<td>${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${statusCell}</td>`;
     tbody.appendChild(tr);
   });
 }
