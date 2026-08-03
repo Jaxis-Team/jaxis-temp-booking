@@ -119,6 +119,14 @@
     </div>
   </div>
 
+  <div id="view-history" style="display:none">
+    <div class="card" id="history-card">
+      <h2>上課紀錄 Attended History <span class="batch-tag">· 102 堂</span></h2>
+      <div id="history-body"></div>
+    </div>
+  </div>
+  <button class="dl" style="margin-bottom:10px" onclick="toggleHistory()">📋 上課紀錄 / Hide History</button>
+  <br>
   <button class="dl" onclick="exportCSV()">⬇ 下載課表 (CSV)</button>
 
   <footer>
@@ -148,6 +156,32 @@ function showKid(kid){
   document.getElementById("view-jasper").style.display = kid==="jasper"?"":"none";
   document.getElementById("view-winwin").style.display = kid==="winwin"?"":"none";
   document.querySelectorAll(".tbtn").forEach(b=>b.classList.toggle("active",b.dataset.kid===kid));
+}
+
+const history = {"2026-01": ["2026-01-27 10:00", "2026-01-27 10:30", "2026-01-28 08:30", "2026-01-29 10:00", "2026-01-29 10:30"], "2026-02": ["2026-02-03 10:00", "2026-02-03 10:30", "2026-02-05 10:00", "2026-02-05 10:30", "2026-02-10 10:00", "2026-02-10 10:30", "2026-02-12 10:00", "2026-02-12 10:30", "2026-02-24 09:35", "2026-02-24 10:05", "2026-02-25 21:00", "2026-02-26 09:35", "2026-02-26 10:05"], "2026-03": ["2026-03-03 09:35", "2026-03-03 10:05", "2026-03-05 09:35", "2026-03-05 10:05", "2026-03-10 09:35", "2026-03-10 10:05", "2026-03-12 09:35", "2026-03-12 10:05", "2026-03-17 09:35", "2026-03-17 10:05", "2026-03-19 09:35", "2026-03-19 10:05", "2026-03-24 09:35", "2026-03-24 10:05", "2026-03-26 09:35", "2026-03-26 10:05", "2026-03-31 09:35", "2026-03-31 10:05"], "2026-04": ["2026-04-02 09:35", "2026-04-02 10:05", "2026-04-07 09:35", "2026-04-07 10:05", "2026-04-09 09:35", "2026-04-09 10:05", "2026-04-14 09:35", "2026-04-14 10:05", "2026-04-16 09:35", "2026-04-16 10:05", "2026-04-21 09:35", "2026-04-21 10:05", "2026-04-23 09:35", "2026-04-23 10:05", "2026-04-28 09:35", "2026-04-28 10:05", "2026-04-30 09:35", "2026-04-30 10:05"], "2026-05": ["2026-05-05 09:35", "2026-05-05 10:05", "2026-05-07 09:35", "2026-05-07 10:05", "2026-05-12 09:35", "2026-05-12 10:05", "2026-05-14 09:35", "2026-05-14 10:05", "2026-05-19 09:35", "2026-05-19 10:05", "2026-05-21 09:35", "2026-05-21 10:05", "2026-05-26 09:35", "2026-05-26 10:05", "2026-05-28 09:35", "2026-05-28 10:05"], "2026-06": ["2026-06-02 09:35", "2026-06-02 10:05", "2026-06-04 09:35", "2026-06-04 10:05", "2026-06-09 09:35", "2026-06-09 10:05", "2026-06-11 09:35", "2026-06-11 10:05", "2026-06-16 09:35", "2026-06-16 10:05", "2026-06-18 09:35", "2026-06-18 10:05", "2026-06-23 09:35", "2026-06-23 10:05", "2026-06-25 09:35", "2026-06-25 10:05", "2026-06-30 09:35", "2026-06-30 10:05"], "2026-07": ["2026-07-02 09:35", "2026-07-02 10:05", "2026-07-07 09:35", "2026-07-07 10:05", "2026-07-09 09:35", "2026-07-09 10:05", "2026-07-21 09:35", "2026-07-21 10:05", "2026-07-23 09:35", "2026-07-23 10:05", "2026-07-28 09:35", "2026-07-28 10:05", "2026-07-30 09:35", "2026-07-30 10:05"]};
+const monthLabel = {"2026-01":"January","2026-02":"February","2026-03":"March","2026-04":"April","2026-05":"May","2026-06":"June","2026-07":"July"};
+let historyBuilt = false;
+function toggleHistory(){
+  const v=document.getElementById("view-history");
+  const showing = v.style.display!=="none";
+  v.style.display = showing ? "none" : "";
+  if(!historyBuilt && !showing){
+    const body=document.getElementById("history-body");
+    Object.keys(history).sort().reverse().forEach(ym=>{
+      const slots=history[ym];
+      // group by date
+      const byDate={};
+      slots.forEach(s=>{const[d,t]=s.split(" ");(byDate[d]=byDate[d]||[]).push(t);});
+      const days=Object.keys(byDate).sort().reverse();
+      let html=`<div style="margin-bottom:14px"><div style="font-weight:bold;font-size:13px;color:var(--muted);margin-bottom:6px">${monthLabel[ym]} ${ym.split("-")[0]} · ${slots.length} 堂</div><table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead><tbody>`;
+      days.forEach(d=>{
+        html+=`<tr><td>${d}</td><td>週${dow(d)}</td><td class="slots">${byDate[d].map(t=>`<span>${t}</span>`).join("")}</td><td><span class="badge" style="background:#E4F5E9;color:#1E7A44">✓ 出席</span></td></tr>`;
+      });
+      html+=`</tbody></table></div>`;
+      body.innerHTML+=html;
+    });
+    historyBuilt=true;
+  }
 }
 
 function exportCSV(){
