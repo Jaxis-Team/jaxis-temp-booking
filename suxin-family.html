@@ -1,145 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>素欣家 — JAXIS Booking Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>素欣家 — JAXIS 一對一課程追蹤</title>
 <style>
   :root {
-    --surface-0: #f4f3ee;
-    --surface-1: #ffffff;
-    --surface-2: #ffffff;
-    --border: #e3e1d8;
-    --border-strong: #cfccc0;
-    --text-primary: #1f1e1b;
-    --text-secondary: #6b6a63;
+    --bg: #F5EFE1;
+    --card: #fff;
+    --card-shadow: 0 1px 4px rgba(0,0,0,.06);
+    --zoom: #2D8CFF;
+    --makeup: #7A5CB0;
+    --leave: #C77D3E;
+    --pay-green: #2E7D4B;
+    --pay-yellow: #F2B90C;
+    --pay-yellow-text: #4A3800;
+    --yes-bg: #E4F5E9;
+    --yes-text: #1E7A44;
+    --pending-btn: #B02234;
+    --upcoming-bg: #E6F1FB;
+    --upcoming-text: #0C447C;
+    --text: #1f1e1b;
+    --text-sub: #6b6a63;
     --text-muted: #9a988f;
-    --accent: #0c447c;
-    --accent-bg: #e6f1fb;
-    --old-term: #854f0b;
-    --old-term-bg: #faeeda;
-    --new-term: #0f6e56;
-    --new-term-bg: #e1f5ee;
+    --border: #e3e1d8;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    background: var(--surface-0);
-    color: var(--text-primary);
-    margin: 0;
-    padding: 2rem 1.5rem 4rem;
+    font-family: "Times New Roman", Georgia, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 1.5rem 1rem 3rem;
   }
-  .wrap { max-width: 760px; margin: 0 auto; }
-  header { margin-bottom: 1.5rem; }
-  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
-  .sub { font-size: 13px; color: var(--text-secondary); }
-  .points-card {
-    background: var(--surface-1);
-    border: 0.5px solid var(--border);
+  .wrap { max-width: 700px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .sub-header { font-size: 13px; color: var(--text-sub); margin-bottom: 1.25rem; }
+
+  /* Action buttons */
+  .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .action-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 8px 14px; border-radius: 8px; font-size: 13px;
+    text-decoration: none; color: #fff; font-weight: 500; border: none; cursor: pointer;
+  }
+  .btn-makeup { background: var(--makeup); }
+  .btn-leave { background: var(--leave); }
+
+  /* Cards */
+  .card {
+    background: var(--card);
     border-radius: 12px;
+    box-shadow: var(--card-shadow);
     padding: 1rem 1.25rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    align-items: center;
+    margin-bottom: 1rem;
   }
-  .metric-label { font-size: 12px; color: var(--text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.03em; }
-  .metric-value { font-size: 22px; font-weight: 600; margin: 0; }
-  .metric-value.low { color: #a32d2d; }
-  .tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+
+  /* Payment buttons */
+  .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pay-btn {
+    display: block; text-align: center; padding: 10px 6px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; text-decoration: none; color: #fff;
+    background: var(--pay-green);
+  }
+  .pay-btn.yellow { background: var(--pay-yellow); color: var(--pay-yellow-text); }
+  .pay-btn-wide { grid-column: span 3; }
+
+  /* Points card */
+  .points-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 1px; }
+  .metric-value { font-size: 20px; font-weight: 700; }
+  .metric-value.low { color: var(--pending-btn); }
+  .metric-sm { font-size: 15px; font-weight: 600; }
+
+  /* Warning banner */
+  .warn-banner {
+    background: #FFF3CD; border-left: 4px solid #FFBF00; padding: 10px 14px;
+    border-radius: 8px; font-size: 13px; color: #856404; margin-bottom: 1rem;
+  }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
   .tab-btn {
-    border: 0.5px solid var(--border-strong);
-    background: var(--surface-1);
-    padding: 6px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    color: var(--text-secondary);
+    border: 1px solid var(--border); background: var(--card); padding: 7px 18px;
+    border-radius: 8px; font-size: 14px; cursor: pointer; color: var(--text-sub);
+    font-family: inherit;
   }
-  .tab-btn.active { background: var(--text-primary); color: #fff; border-color: var(--text-primary); }
-  .student-panel { display: none; }
-  .student-panel.active { display: block; }
-  .section-title { font-size: 13px; font-weight: 600; margin: 1.25rem 0 8px; padding: 3px 10px; border-radius: 6px; display: inline-block; }
-  .section-title.old { color: var(--old-term); background: var(--old-term-bg); }
-  .section-title.new { color: var(--new-term); background: var(--new-term-bg); }
-  table { width: 100%; border-collapse: collapse; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; }
-  th, td { text-align: left; padding: 8px 12px; font-size: 13px; border-bottom: 0.5px solid var(--border); }
-  th { color: var(--text-muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .tab-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Section badges */
+  .section-badge {
+    display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px;
+    border-radius: 6px; margin: 1rem 0 8px;
+  }
+  .badge-old { color: #854f0b; background: #faeeda; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 8px 10px; font-size: 13px; border-bottom: 1px solid #f0ede5; }
+  th { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .02em; font-weight: 500; }
   tr:last-child td { border-bottom: none; }
-  .empty-note { font-size: 13px; color: var(--text-muted); padding: 10px 4px; }
-  .count-badge { font-size: 11px; color: var(--text-muted); font-weight: 400; }
-  .footer-note { font-size: 12px; color: var(--text-muted); margin-top: 2rem; line-height: 1.6; }
-  button.download {
-    margin-top: 1.5rem;
-    border: 0.5px solid var(--border-strong);
-    background: var(--surface-1);
-    padding: 8px 18px;
-    border-radius: 8px;
-    font-size: 13px;
-    cursor: pointer;
+
+  /* Attendance badges */
+  .att-yes {
+    display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
+    background: var(--yes-bg); color: var(--yes-text);
   }
-  button.download:hover { background: var(--accent-bg); }
+  .att-upcoming {
+    display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
+    background: var(--upcoming-bg); color: var(--upcoming-text);
+  }
+  .att-makeup-btn {
+    display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    background: var(--pending-btn); color: #fff; text-decoration: none; cursor: pointer;
+  }
+  .att-makeup-btn:hover { opacity: .85; }
+  .makeup-note { font-size: 11px; color: var(--pending-btn); }
+
+  .empty-note { font-size: 13px; color: var(--text-muted); padding: 10px 0; }
+
+  /* Download */
+  .dl-btn {
+    margin-top: 1rem; border: 1px solid var(--border); background: var(--card);
+    padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer;
+    font-family: inherit;
+  }
+  .dl-btn:hover { background: #f0ede5; }
+  .footer { font-size: 11px; color: var(--text-muted); margin-top: 1.5rem; line-height: 1.7; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>素欣家 (AL媽) — JAXIS 一對一課程追蹤</h1>
-    <div class="sub">Instructor: 安東尼老師 Teacher Anthony &nbsp;·&nbsp; Shared pass pool across Katy, AL, Ariel &amp; Kate</div>
-  </header>
 
-  <div class="points-card">
-    <div>
-      <p class="metric-label">Remaining points</p>
-      <p class="metric-value low" id="remaining-pts">2</p>
-    </div>
-    <div>
-      <p class="metric-label">Usage</p>
-      <p class="metric-value" style="font-size:16px;">504 / 506</p>
-    </div>
-    <div>
-      <p class="metric-label">Pass</p>
-      <p class="metric-value" style="font-size:16px;">500點 - $39,500</p>
-    </div>
-    <div>
-      <p class="metric-label">Expires</p>
-      <p class="metric-value" style="font-size:16px;">2026-10-23</p>
+  <h1>素欣家</h1>
+  <div class="sub-header">家長：素欣 ｜ 老師：安東尼老師 Teacher Anthony ｜ 共用點數卡（Katy · AL · Ariel · Kate）</div>
+
+  <!-- Action buttons -->
+  <div class="action-row">
+    <a class="action-btn btn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+    <a class="action-btn btn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+  </div>
+
+  <!-- 課卡購買 -->
+  <div class="card">
+    <div class="card-title">課卡購買</div>
+    <div class="pay-grid">
+      <a class="pay-btn" href="https://book.stripe.com/aFa6oI95m61Z9I4fgk8AE06" target="_blank">500點</a>
+      <a class="pay-btn" href="https://book.stripe.com/bJe7sMbdu1LJ9I4fgk8AE0c" target="_blank">250點</a>
+      <a class="pay-btn" href="https://book.stripe.com/fZucN6epGbmj5rO6JO8AE0d" target="_blank">200點</a>
+      <a class="pay-btn" href="https://book.stripe.com/eVq9AUchy7633jGb048AE0e" target="_blank">100點</a>
+      <a class="pay-btn" href="https://book.stripe.com/00wfZidlC61ZaM85FK8AE0f" target="_blank">50點</a>
+      <a class="pay-btn" href="https://book.stripe.com/8x2bJ2bdubmjaM85FK8AE0g" target="_blank">20點</a>
+      <a class="pay-btn yellow pay-btn-wide" href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank">一對一課程40堂</a>
     </div>
   </div>
 
+  <!-- Pass warning -->
+  <div class="warn-banner">⚠️ 點數即將用完！目前剩餘 <strong>2 點</strong>，到期日 2026-10-23。請儘早購買新課卡。</div>
+
+  <!-- Points card -->
+  <div class="card">
+    <div class="card-title">共用點數卡</div>
+    <div class="points-row">
+      <div><div class="metric-label">剩餘點數</div><div class="metric-value low">2</div></div>
+      <div><div class="metric-label">使用量</div><div class="metric-sm">504 / 506</div></div>
+      <div><div class="metric-label">課卡</div><div class="metric-sm">500點 - $39,500</div></div>
+      <div><div class="metric-label">到期日</div><div class="metric-sm">2026-10-23</div></div>
+    </div>
+  </div>
+
+  <!-- Student tabs -->
   <div class="tabs" id="tabs"></div>
   <div id="panels"></div>
 
-  <button class="download" onclick="downloadSummary()">Download summary (CSV)</button>
+  <button class="dl-btn" onclick="downloadSummary()">📥 下載 CSV 摘要</button>
 
-  <p class="footer-note">
-    This is a manual tracking dashboard, not connected to the live JAXIS booking system.
-    Update it whenever bookings or attendance change. Shared 500點 pass — remaining balance applies across all 4 students.
-  </p>
+  <div class="footer">
+    此為手動追蹤系統，非即時連動預約平台。請於預約或出席變更時手動更新。<br>
+    最後更新：2026-08-03
+  </div>
 </div>
 
 <script>
+const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
+
 const students = {
   "AL": {
     points: 6,
     oldTerm: [
-      { time: "2026-08-10 18:45" }
+      { time: "2026-07-20 18:45", att: "Yes" },
+      { time: "2026-07-21 18:45", att: "Yes" },
+      { time: "2026-07-22 18:45", att: "Yes" },
+      { time: "2026-07-23 18:45", att: "Yes" },
+      { time: "2026-07-27 18:45", att: "Yes" },
+      { time: "2026-07-29 18:45", att: "Yes" },
+      { time: "2026-07-30 18:45", att: "Yes" },
+      { time: "2026-08-10 18:45", att: "Upcoming" }
     ],
     newTerm: []
   },
   "Katy": {
     points: 6,
-    oldTerm: [],
+    oldTerm: [
+      { time: "2026-07-02 15:45", att: "Yes" },
+      { time: "2026-07-06 16:55", att: "Yes" },
+      { time: "2026-07-09 15:45", att: "Yes" }
+    ],
     newTerm: []
   },
   "Ariel": {
     points: 6,
-    oldTerm: [],
+    oldTerm: [
+      { time: "2026-07-06 16:20", att: "Yes" },
+      { time: "2026-07-07 16:55", att: "Yes" }
+    ],
     newTerm: []
   },
   "Kate": {
     points: 8,
-    oldTerm: [],
+    oldTerm: [
+      { time: "2026-05-26 11:15", att: "Yes" },
+      { time: "2026-05-28 10:40", att: "Yes" },
+      { time: "2026-06-02 11:15", att: "待補課" },
+      { time: "2026-06-04 10:40", att: "Yes" },
+      { time: "2026-06-09 11:15", att: "Yes" },
+      { time: "2026-06-11 10:40", att: "Yes" },
+      { time: "2026-06-16 11:15", att: "Yes" },
+      { time: "2026-06-18 10:40", att: "Yes" },
+      { time: "2026-06-23 11:15", att: "Yes" },
+      { time: "2026-06-25 10:40", att: "Yes" },
+      { time: "2026-06-30 11:15", att: "Yes" },
+      { time: "2026-07-02 10:40", att: "Yes" },
+      { time: "2026-07-07 11:15", att: "Yes" },
+      { time: "2026-07-09 10:40", att: "Yes" },
+      { time: "2026-07-21 11:15", att: "Yes" },
+      { time: "2026-07-23 10:40", att: "Yes" },
+      { time: "2026-07-28 11:15", att: "Yes" },
+      { time: "2026-07-30 10:40", att: "Yes" }
+    ],
     newTerm: []
   }
 };
@@ -147,17 +247,26 @@ const students = {
 function fmt(t) {
   const [d, time] = t.split(" ");
   const [y, m, day] = d.split("-");
-  return `${parseInt(m)}/${parseInt(day)}/${y} ${time}`;
+  const days = ["日","一","二","三","四","五","六"];
+  const dt = new Date(+y, +m-1, +day);
+  return `${+m}/${+day}（${days[dt.getDay()]}）${time}`;
+}
+
+function attBadge(att) {
+  if (att === "Yes") return '<span class="att-yes">✓ 已上課</span>';
+  if (att === "Upcoming") return '<span class="att-upcoming">待上課</span>';
+  if (att === "待補課") return '<a class="att-makeup-btn" href="'+MAKEUP_URL+'" target="_blank">補課去 →</a>';
+  return att;
 }
 
 function buildTable(rows, pts) {
-  if (!rows.length) return '<p class="empty-note">None scheduled.</p>';
-  let html = '<table><thead><tr><th>Date</th><th>Points</th></tr></thead><tbody>';
-  rows.forEach(r => {
-    html += `<tr><td>${fmt(r.time)}</td><td>${pts}</td></tr>`;
+  if (!rows.length) return '<div class="empty-note">尚無排課</div>';
+  let h = '<table><thead><tr><th>#</th><th>日期</th><th>點數</th><th>狀態</th></tr></thead><tbody>';
+  rows.forEach((r, i) => {
+    h += `<tr><td>${i+1}</td><td>${fmt(r.time)}</td><td>${pts}</td><td>${attBadge(r.att)}</td></tr>`;
   });
-  html += '</tbody></table>';
-  return html;
+  h += '</tbody></table>';
+  return h;
 }
 
 const tabsEl = document.getElementById("tabs");
@@ -166,47 +275,51 @@ const names = Object.keys(students);
 
 names.forEach((name, i) => {
   const btn = document.createElement("button");
-  btn.className = "tab-btn" + (i === 0 ? " active" : "");
+  btn.className = "tab-btn" + (i===0?" active":"");
   btn.textContent = name;
   btn.onclick = () => switchTab(name);
-  btn.id = "tab-" + name;
+  btn.id = "tab-"+name;
   tabsEl.appendChild(btn);
 
   const s = students[name];
   const panel = document.createElement("div");
-  panel.className = "student-panel" + (i === 0 ? " active" : "");
-  panel.id = "panel-" + name;
-  panel.innerHTML = `
-    <span class="section-title old">Old term — leftover <span class="count-badge">(${s.oldTerm.length})</span></span>
-    ${buildTable(s.oldTerm, s.points)}
-    <span class="section-title new">New term <span class="count-badge">(${s.newTerm.length})</span></span>
-    ${buildTable(s.newTerm, s.points)}
-  `;
+  panel.className = "panel" + (i===0?" active":"");
+  panel.id = "panel-"+name;
+
+  let html = '';
+  if (s.oldTerm.length) {
+    html += `<div class="card"><span class="section-badge badge-old">舊期剩餘 Old Term Leftover（${s.oldTerm.length}）</span>${buildTable(s.oldTerm, s.points)}</div>`;
+  }
+  if (s.newTerm.length) {
+    html += `<div class="card"><span class="section-badge" style="color:#0f6e56;background:#e1f5ee">新期 New Term（${s.newTerm.length}）</span>${buildTable(s.newTerm, s.points)}</div>`;
+  }
+  if (!s.oldTerm.length && !s.newTerm.length) {
+    html += '<div class="card"><div class="empty-note">目前無排課紀錄</div></div>';
+  }
+  panel.innerHTML = html;
   panelsEl.appendChild(panel);
 });
 
 function switchTab(name) {
   names.forEach(n => {
-    document.getElementById("tab-" + n).classList.toggle("active", n === name);
-    document.getElementById("panel-" + n).classList.toggle("active", n === name);
+    document.getElementById("tab-"+n).classList.toggle("active", n===name);
+    document.getElementById("panel-"+n).classList.toggle("active", n===name);
   });
 }
 
 function downloadSummary() {
-  let csv = "Student,Term,Date,Points\n";
+  let csv = "Student,Term,Date,Points,Attendance\n";
   names.forEach(name => {
     const s = students[name];
-    s.oldTerm.forEach(r => { csv += `${name},Old Term Leftover,${fmt(r.time)},${s.points}\n`; });
-    s.newTerm.forEach(r => { csv += `${name},New Term,${fmt(r.time)},${s.points}\n`; });
+    s.oldTerm.forEach(r => { csv += `${name},Old Term Leftover,${fmt(r.time)},${s.points},${r.att}\n`; });
+    s.newTerm.forEach(r => { csv += `${name},New Term,${fmt(r.time)},${s.points},${r.att}\n`; });
   });
-  csv += `\nShared Pass,,Usage,504 / 506\nShared Pass,,Remaining,2\nShared Pass,,Expires,2026-10-23\n`;
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
+  csv += `\n共用點數卡,,使用量,504 / 506\n共用點數卡,,剩餘,2\n共用點數卡,,到期日,2026-10-23\n`;
+  const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8;"});
   const a = document.createElement("a");
-  a.href = url;
-  a.download = "su_xin_family_booking_summary.csv";
+  a.href = URL.createObjectURL(blob);
+  a.download = "suxin_family_booking_summary.csv";
   a.click();
-  URL.revokeObjectURL(url);
 }
 </script>
 </body>
