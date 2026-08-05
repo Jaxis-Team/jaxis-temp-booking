@@ -103,26 +103,6 @@
     <table id="upcomingTable">
       <thead><tr><th>Date</th><th>Time</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>2026-05-21</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-05-28</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-06-04</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-06-11</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-06-18</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-06-25</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-07-02</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-07-09</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-07-23</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-07-30</td><td>09:00</td><td><span class="tag tag-yes">Yes</span></td></tr>
-        <tr><td>2026-08-04</td><td>18:45</td><td><span class="tag tag-yes">Yes</span><span class="tag tag-makeup">Makeup for 7/16</span></td></tr>
-        <tr><td>2026-08-13</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
-        <tr><td>2026-08-18</td><td>19:55</td><td><span class="tag tag-upcoming">Upcoming</span><span class="tag tag-makeup">Makeup for 8/6</span></td></tr>
-        <tr><td>2026-08-20</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
-        <tr><td>2026-08-27</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
-        <tr><td>2026-09-03</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
-        <tr><td>2026-09-10</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
-        <tr><td>2026-09-17</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
-        <tr><td>2026-09-24</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
-        <tr><td>2026-10-01</td><td>09:00</td><td><span class="tag tag-upcoming">Upcoming</span></td></tr>
       </tbody>
     </table>
     <div class="note">Classes through Aug 4 are marked attended. 7/16 and 8/6 were not booked as regular classes — makeups were booked instead on 8/4 (18:45) and 8/18 (19:55), shown above in their place.</div>
@@ -135,6 +115,51 @@
 </div>
 
 <script>
+const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
+
+// [date, time, status, note]  status: "Yes" | "Upcoming" | "待補課"
+const term = [
+  ["2026-05-21","09:00","Yes",""],
+  ["2026-05-28","09:00","Yes",""],
+  ["2026-06-04","09:00","Yes",""],
+  ["2026-06-11","09:00","Yes",""],
+  ["2026-06-18","09:00","Yes",""],
+  ["2026-06-25","09:00","Yes",""],
+  ["2026-07-02","09:00","Yes",""],
+  ["2026-07-09","09:00","Yes",""],
+  ["2026-07-23","09:00","Yes",""],
+  ["2026-07-30","09:00","Yes",""],
+  ["2026-08-04","18:45","Yes","Makeup for 7/16"],
+  ["2026-08-13","09:00","Upcoming",""],
+  ["2026-08-18","19:55","Upcoming","Makeup for 8/6"],
+  ["2026-08-20","09:00","Upcoming",""],
+  ["2026-08-27","09:00","Upcoming",""],
+  ["2026-09-03","09:00","Upcoming",""],
+  ["2026-09-10","09:00","Upcoming",""],
+  ["2026-09-17","09:00","Upcoming",""],
+  ["2026-09-24","09:00","Upcoming",""],
+  ["2026-10-01","09:00","Upcoming",""]
+];
+
+function statusCell(status){
+  if(status === "待補課"){
+    return '<a class="makeup-btn" href="' + MAKEUP_URL + '" target="_blank">補課去 →</a>';
+  }
+  const cls = status === "Yes" ? "tag-yes" : "tag-upcoming";
+  return '<span class="tag ' + cls + '">' + status + '</span>';
+}
+
+function fillTable(){
+  const tbody = document.querySelector("#upcomingTable tbody");
+  term.forEach(function(row){
+    const note = row[3] ? '<span class="tag tag-makeup">' + row[3] + '</span>' : '';
+    const tr = document.createElement("tr");
+    tr.innerHTML = '<td>' + row[0] + '</td><td>' + row[1] + '</td><td>' + statusCell(row[2]) + note + '</td>';
+    tbody.appendChild(tr);
+  });
+}
+fillTable();
+
 function downloadCSV(){
   var rows = [["Date","Time","Status","Note"]];
   var table = document.getElementById("upcomingTable");
