@@ -90,6 +90,17 @@
     font-size: 13px; font-weight: 600; border: none; cursor: pointer; margin-top: 4px;
   }
   .footer { font-size: 12px; color: var(--muted); margin-top: 24px; line-height: 1.6; }
+
+  .pass-card { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .pass-card .pts { font-size: 32px; font-weight: 700; }
+  .pass-card .pts.zero { color: #B02234; }
+  .pass-card .pts span { font-size: 14px; font-weight: 500; color: var(--muted); margin-left: 6px; }
+  .pass-card .info { text-align: right; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .pass-card .info b { color: var(--ink); }
+  .warn {
+    background: #FDE7EA; color: #B02234; border-radius: 8px;
+    padding: 12px 16px; font-size: 13.5px; font-weight: 600; margin-bottom: 20px;
+  }
 </style>
 </head>
 <body>
@@ -105,6 +116,16 @@
     <a class="btn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
     <a class="btn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
   </div>
+
+  <div class="card pass-card">
+    <div class="pts zero">0 <span>點剩餘 points left</span></div>
+    <div class="info">
+      課卡：一對一專屬課卡(40堂)<br>
+      已使用 <b>240 / 240</b> · 有效期至 <b>2026-10-27</b>
+    </div>
+  </div>
+
+  <div class="warn">⚠️ 點數已用完，請購買新課卡以繼續預約。Pass fully used — please purchase a new pass to keep booking.</div>
 
   <div class="card">
     <h2>課卡購買</h2>
