@@ -1,69 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>Hannah — JAXIS Booking Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hannah &amp; Isla — JAXIS 一對一課程追蹤</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: "Times New Roman", Georgia, "PingFang TC", "Microsoft JhengHei", sans-serif; background: #F5EFE1; color: #1f2430; margin: 0; padding: 2rem 1rem; }
-  .wrap { max-width: 780px; margin: 0 auto; }
-  header { margin-bottom: 1.25rem; }
-  h1 { font-size: 1.8rem; margin: 0 0 0.25rem; }
-  .sub { color: #555; font-size: 0.95rem; }
-  .card { background: #fff; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  :root {
+    --bg: #F5EFE1;
+    --card: #fff;
+    --card-shadow: 0 1px 4px rgba(0,0,0,.06);
+    --zoom: #2D8CFF;
+    --makeup: #7A5CB0;
+    --leave: #C77D3E;
+    --pay-green: #2E7D4B;
+    --pay-yellow: #F2B90C;
+    --pay-yellow-text: #4A3800;
+    --yes-bg: #E4F5E9;
+    --yes-text: #1E7A44;
+    --pending-btn: #B02234;
+    --upcoming-bg: #E6F1FB;
+    --upcoming-text: #0C447C;
+    --confirm-bg: #FFF3CD;
+    --confirm-text: #856404;
+    --text: #1f1e1b;
+    --text-sub: #6b6a63;
+    --text-muted: #9a988f;
+    --border: #e3e1d8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Times New Roman", Georgia, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 1.5rem 1rem 3rem;
+  }
+  .wrap { max-width: 700px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .sub-header { font-size: 13px; color: var(--text-sub); margin-bottom: 1.25rem; }
 
-  .action-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
-  .action-btn { flex: 1; min-width: 150px; text-align: center; padding: 0.65rem 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem; color: #fff; }
-  .btn-zoom { background: #2D8CFF; }
-  .btn-makeup { background: #7A5CB0; }
-  .btn-leave { background: #C77D3E; }
+  .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .action-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 8px 14px; border-radius: 8px; font-size: 13px;
+    text-decoration: none; color: #fff; font-weight: 500; border: none; cursor: pointer;
+  }
+  .btn-zoom { background: var(--zoom); }
+  .btn-makeup { background: var(--makeup); }
+  .btn-leave { background: var(--leave); }
 
-  .pay-title { font-size: 1rem; font-weight: 700; margin: 0 0 0.85rem; }
-  .pay-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
-  .pay-btn { display: block; text-align: center; padding: 0.6rem 0.4rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.85rem; background: #2E7D4B; color: #fff; }
-  .pay-btn.pay-40 { background: #F2B90C; color: #4A3800; grid-column: span 2; }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
 
-  .warn-banner { background: #FBEAEA; color: #A02020; border: 1px solid #F1C7C7; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.9rem; font-weight: 600; }
+  .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pay-btn {
+    display: block; text-align: center; padding: 10px 6px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; text-decoration: none; color: #fff;
+    background: var(--pay-green);
+  }
+  .pay-btn.yellow { background: var(--pay-yellow); color: var(--pay-yellow-text); }
+  .pay-btn-wide { grid-column: span 3; }
 
-  .points-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-  .points-grid div { flex: 1; min-width: 130px; }
-  .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: #888; margin-bottom: 0.15rem; }
-  .value { font-size: 1.4rem; font-weight: 700; }
-  .value.warn { color: #c0392b; }
+  .points-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 1px; }
+  .metric-value { font-size: 20px; font-weight: 700; }
+  .metric-value.low { color: var(--pending-btn); }
+  .metric-sm { font-size: 15px; font-weight: 600; }
 
-  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-  th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid #eee; }
-  th { color: #888; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  .warn-banner {
+    background: #FFF3CD; border-left: 4px solid #FFBF00; padding: 10px 14px;
+    border-radius: 8px; font-size: 13px; color: #856404; margin-bottom: 1rem;
+  }
+
+  .tabs { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .tab-btn {
+    border: 1px solid var(--border); background: var(--card); padding: 7px 18px;
+    border-radius: 8px; font-size: 14px; cursor: pointer; color: var(--text-sub);
+    font-family: inherit;
+  }
+  .tab-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .section-badge {
+    display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px;
+    border-radius: 6px; margin: 1rem 0 8px;
+  }
+  .badge-full { color: #0f6e56; background: #e1f5ee; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 8px 10px; font-size: 13px; border-bottom: 1px solid #f0ede5; }
+  th { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .02em; font-weight: 500; }
   tr:last-child td { border-bottom: none; }
-  .tag { display: inline-block; padding: 2px 9px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; }
-  .tag-yes { background: #E4F5E9; color: #1E7A44; }
-  .tag-upcoming { background: #E6F1FB; color: #0C447C; }
-  .tag-makeup { background: #FEF3C7; color: #92400E; margin-left: 4px; }
-  .makeup-btn { display: inline-block; background: #B02234; color: #fff; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-decoration: none; }
 
-  .section-title { font-size: 1rem; font-weight: 700; margin: 0 0 0.75rem; }
-  .note { font-size: 0.78rem; color: #999; margin-top: 0.75rem; line-height: 1.6; }
-  .makeup-note { color: #B02234; font-size: 11px; }
-  button.dl { margin-top: 1rem; background: #1a7f37; color: #fff; border: none; padding: 0.55rem 1.1rem; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-family: inherit; }
-  button.dl:hover { background: #146029; }
-  footer { text-align: center; font-size: 0.75rem; color: #999; margin-top: 1rem; }
+  .att-yes {
+    display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
+    background: var(--yes-bg); color: var(--yes-text);
+  }
+  .att-upcoming {
+    display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
+    background: var(--upcoming-bg); color: var(--upcoming-text);
+  }
+  .att-confirm {
+    display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 600;
+    background: var(--confirm-bg); color: var(--confirm-text);
+  }
+  .att-makeup-btn {
+    display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    background: var(--pending-btn); color: #fff; text-decoration: none; cursor: pointer;
+  }
+  .makeup-note { font-size: 11px; color: var(--pending-btn); }
+
+  .empty-note { font-size: 13px; color: var(--text-muted); padding: 10px 0; }
+
+  .dl-btn {
+    margin-top: 1rem; border: 1px solid var(--border); background: var(--card);
+    padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer;
+    font-family: inherit;
+  }
+  .dl-btn:hover { background: #f0ede5; }
+  .footer { font-size: 11px; color: var(--text-muted); margin-top: 1.5rem; line-height: 1.7; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>Hannah</h1>
-    <div class="sub">家長：Mandy Chen &nbsp;|&nbsp; 老師：安東尼老師 Teacher Anthony</div>
-  </header>
+
+  <h1>Hannah &amp; Isla</h1>
+  <div class="sub-header">家長：Mandy Chen ｜ 老師：安東尼老師 Teacher Anthony</div>
 
   <div class="action-row">
-    <a class="action-btn btn-zoom" href="https://us02web.zoom.us/j/83992491631" target="_blank">🎥 進入教室 Enter Classroom</a>
+    <a class="action-btn btn-zoom" href="https://us02web.zoom.us/j/83992491631" target="_blank">🎥 進入教室 (Hannah)</a>
     <a class="action-btn btn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
     <a class="action-btn btn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
   </div>
 
   <div class="card">
-    <div class="pay-title">課卡購買</div>
+    <div class="card-title">課卡購買</div>
     <div class="pay-grid">
       <a class="pay-btn" href="https://book.stripe.com/aFa6oI95m61Z9I4fgk8AE06" target="_blank">500點</a>
       <a class="pay-btn" href="https://book.stripe.com/bJe7sMbdu1LJ9I4fgk8AE0c" target="_blank">250點</a>
@@ -71,116 +148,165 @@
       <a class="pay-btn" href="https://book.stripe.com/eVq9AUchy7633jGb048AE0e" target="_blank">100點</a>
       <a class="pay-btn" href="https://book.stripe.com/00wfZidlC61ZaM85FK8AE0f" target="_blank">50點</a>
       <a class="pay-btn" href="https://book.stripe.com/8x2bJ2bdubmjaM85FK8AE0g" target="_blank">20點</a>
-      <a class="pay-btn pay-40" href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank">一對一課程40堂</a>
+      <a class="pay-btn yellow pay-btn-wide" href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank">一對一課程40堂</a>
     </div>
   </div>
 
-  <div class="warn-banner">⚠️ 目前沒有可用點數 — No active pass. The 100點 pass is fully used (120/120). Please purchase a new pass above to continue booking classes beyond Oct 1, 2026.</div>
+  <!-- Student tabs -->
+  <div class="tabs" id="tabs"></div>
+  <div id="panels"></div>
 
-  <div class="card">
-    <div class="points-grid">
-      <div>
-        <div class="label">Pass</div>
-        <div class="value">100點 pass</div>
-      </div>
-      <div>
-        <div class="label">Points Used</div>
-        <div class="value warn">120 / 120</div>
-      </div>
-      <div>
-        <div class="label">Remaining</div>
-        <div class="value warn">0 pts</div>
-      </div>
-      <div>
-        <div class="label">Expiration</div>
-        <div class="value">2026-11-09</div>
-      </div>
-    </div>
+  <button class="dl-btn" onclick="downloadSummary()">📥 下載 CSV 摘要</button>
+
+  <div class="footer">
+    此為手動追蹤系統，非即時連動預約平台。請於預約或出席變更時手動更新。<br>
+    最後更新：2026-08-18
   </div>
-
-  <div class="card">
-    <div class="section-title">Full Class List — 20 Classes (May 21 – Oct 1)</div>
-    <table id="upcomingTable">
-      <thead><tr><th>Date</th><th>Time</th><th>Status</th></tr></thead>
-      <tbody>
-      </tbody>
-    </table>
-    <div class="note">Classes through Aug 4 are marked attended. 7/16 and 8/6 were not booked as regular classes — makeups were booked instead on 8/4 (18:45) and 8/18 (19:55), shown above in their place.</div>
-    <button class="dl" onclick="downloadCSV()">Download schedule as CSV</button>
-  </div>
-
-  <footer>
-    Manual tracking dashboard — not connected to any live booking platform. Last updated 2026-08-14.
-  </footer>
 </div>
 
 <script>
 const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
 
-// [date, time, status, note]  status: "Yes" | "Upcoming" | "待補課"
-const term = [
-  ["2026-05-21","09:00","Yes",""],
-  ["2026-05-28","09:00","Yes",""],
-  ["2026-06-04","09:00","Yes",""],
-  ["2026-06-11","09:00","Yes",""],
-  ["2026-06-18","09:00","Yes",""],
-  ["2026-06-25","09:00","Yes",""],
-  ["2026-07-02","09:00","Yes",""],
-  ["2026-07-09","09:00","Yes",""],
-  ["2026-07-23","09:00","Yes",""],
-  ["2026-07-30","09:00","Yes",""],
-  ["2026-08-04","18:45","Yes","Makeup for 7/16"],
-  ["2026-08-13","09:00","Yes",""],
-  ["2026-08-18","19:55","Upcoming","Makeup for 8/6"],
-  ["2026-08-20","09:00","Upcoming",""],
-  ["2026-08-27","09:00","Upcoming",""],
-  ["2026-09-03","09:00","Upcoming",""],
-  ["2026-09-10","09:00","Upcoming",""],
-  ["2026-09-17","09:00","Upcoming",""],
-  ["2026-09-24","09:00","Upcoming",""],
-  ["2026-10-01","09:00","Upcoming",""]
-];
-
-function statusCell(status){
-  if(status === "待補課"){
-    return '<a class="makeup-btn" href="' + MAKEUP_URL + '" target="_blank">補課去 →</a>';
+const students = {
+  "Hannah": {
+    points: 6,
+    pass: { name: "100點 - $9,500", usage: "120 / 120", remaining: 0, expiration: "2026-11-09", active: false },
+    schedule: [
+      { time: "2026-05-21 09:00", att: "Yes" },
+      { time: "2026-05-28 09:00", att: "Yes" },
+      { time: "2026-06-04 09:00", att: "Yes" },
+      { time: "2026-06-11 09:00", att: "Yes" },
+      { time: "2026-06-18 09:00", att: "Yes" },
+      { time: "2026-06-25 09:00", att: "Yes" },
+      { time: "2026-07-02 09:00", att: "Yes" },
+      { time: "2026-07-09 09:00", att: "Yes" },
+      { time: "2026-07-23 09:00", att: "Yes" },
+      { time: "2026-07-30 09:00", att: "Yes" },
+      { time: "2026-08-04 18:45", att: "Yes", note: "Makeup for 7/16" },
+      { time: "2026-08-13 09:00", att: "Upcoming" },
+      { time: "2026-08-18 19:55", att: "Upcoming", note: "Makeup for 8/6" },
+      { time: "2026-08-20 09:00", att: "Upcoming" },
+      { time: "2026-08-27 09:00", att: "Upcoming" },
+      { time: "2026-09-03 09:00", att: "Upcoming" },
+      { time: "2026-09-10 09:00", att: "Upcoming" },
+      { time: "2026-09-17 09:00", att: "Upcoming" },
+      { time: "2026-09-24 09:00", att: "Upcoming" },
+      { time: "2026-10-01 09:00", att: "Upcoming" }
+    ]
+  },
+  "Isla": {
+    points: 6,
+    pass: null,
+    schedule: [
+      { time: "2026-09-03 14:20", att: "待確認" },
+      { time: "2026-09-10 14:20", att: "待確認" },
+      { time: "2026-09-17 14:20", att: "待確認" },
+      { time: "2026-09-24 14:20", att: "待確認" },
+      { time: "2026-10-01 14:20", att: "待確認" },
+      { time: "2026-10-08 14:20", att: "待確認" },
+      { time: "2026-10-15 14:20", att: "待確認" },
+      { time: "2026-10-22 14:20", att: "待確認" },
+      { time: "2026-10-29 14:20", att: "待確認" },
+      { time: "2026-11-05 14:20", att: "待確認" },
+      { time: "2026-11-12 14:20", att: "待確認" },
+      { time: "2026-11-19 14:20", att: "待確認" },
+      { time: "2026-11-26 14:20", att: "待確認" },
+      { time: "2026-12-03 14:20", att: "待確認" },
+      { time: "2026-12-10 14:20", att: "待確認" },
+      { time: "2026-12-17 14:20", att: "待確認" },
+      { time: "2026-12-31 14:20", att: "待確認" },
+      { time: "2027-01-07 14:20", att: "待確認" },
+      { time: "2027-01-14 14:20", att: "待確認" },
+      { time: "2027-01-21 14:20", att: "待確認" }
+    ]
   }
-  const cls = status === "Yes" ? "tag-yes" : "tag-upcoming";
-  return '<span class="tag ' + cls + '">' + status + '</span>';
+};
+
+function fmt(t) {
+  const [d, time] = t.split(" ");
+  const [y, m, day] = d.split("-");
+  const days = ["日","一","二","三","四","五","六"];
+  const dt = new Date(+y, +m-1, +day);
+  return `${+m}/${+day}（${days[dt.getDay()]}）${time}`;
 }
 
-function fillTable(){
-  const tbody = document.querySelector("#upcomingTable tbody");
-  term.forEach(function(row){
-    const note = row[3] ? '<span class="tag tag-makeup">' + row[3] + '</span>' : '';
-    const tr = document.createElement("tr");
-    tr.innerHTML = '<td>' + row[0] + '</td><td>' + row[1] + '</td><td>' + statusCell(row[2]) + note + '</td>';
-    tbody.appendChild(tr);
+function attBadge(att) {
+  if (att === "Yes") return '<span class="att-yes">✓ 已上課</span>';
+  if (att === "Upcoming") return '<span class="att-upcoming">待上課</span>';
+  if (att === "待確認") return '<span class="att-confirm">待確認</span>';
+  if (att === "待補課") return '<a class="att-makeup-btn" href="'+MAKEUP_URL+'" target="_blank">補課去 →</a>';
+  return att;
+}
+
+function buildTable(rows, pts) {
+  if (!rows.length) return '<div class="empty-note">尚無排課</div>';
+  let h = '<table><thead><tr><th>#</th><th>日期</th><th>點數</th><th>狀態</th></tr></thead><tbody>';
+  rows.forEach((r, i) => {
+    const noteHtml = r.note ? ` <span class="makeup-note">(${r.note})</span>` : '';
+    h += `<tr><td>${i+1}</td><td>${fmt(r.time)}${noteHtml}</td><td>${pts}</td><td>${attBadge(r.att)}</td></tr>`;
+  });
+  h += '</tbody></table>';
+  return h;
+}
+
+function buildPassCard(pass) {
+  if (!pass) {
+    return '<div class="card"><div class="card-title">課卡狀態</div><div class="warn-banner" style="margin-bottom:0">⚠️ 尚未購買點數 — Pending pass purchase. Points card will show once confirmed.</div></div>';
+  }
+  const low = pass.remaining <= 0;
+  let html = '<div class="card"><div class="card-title">課卡</div><div class="points-row">';
+  html += `<div><div class="metric-label">課卡</div><div class="metric-sm">${pass.name}</div></div>`;
+  html += `<div><div class="metric-label">使用量</div><div class="metric-sm">${pass.usage}</div></div>`;
+  html += `<div><div class="metric-label">剩餘點數</div><div class="metric-value${low?' low':''}">${pass.remaining}</div></div>`;
+  html += `<div><div class="metric-label">到期日</div><div class="metric-sm">${pass.expiration}</div></div>`;
+  html += '</div></div>';
+  if (!pass.active) {
+    html += '<div class="warn-banner">⚠️ 目前沒有可用點數 — No active pass. Please purchase a new pass above to continue booking.</div>';
+  }
+  return html;
+}
+
+const tabsEl = document.getElementById("tabs");
+const panelsEl = document.getElementById("panels");
+const names = Object.keys(students);
+
+names.forEach((name, i) => {
+  const btn = document.createElement("button");
+  btn.className = "tab-btn" + (i===0?" active":"");
+  btn.textContent = name;
+  btn.onclick = () => switchTab(name);
+  btn.id = "tab-"+name;
+  tabsEl.appendChild(btn);
+
+  const s = students[name];
+  const panel = document.createElement("div");
+  panel.className = "panel" + (i===0?" active":"");
+  panel.id = "panel-"+name;
+
+  let html = buildPassCard(s.pass);
+  html += `<div class="card"><span class="section-badge badge-full">課程總覽 Full Schedule（${s.schedule.length}）</span>${buildTable(s.schedule, s.points)}</div>`;
+  panel.innerHTML = html;
+  panelsEl.appendChild(panel);
+});
+
+function switchTab(name) {
+  names.forEach(n => {
+    document.getElementById("tab-"+n).classList.toggle("active", n===name);
+    document.getElementById("panel-"+n).classList.toggle("active", n===name);
   });
 }
-fillTable();
 
-function downloadCSV(){
-  var rows = [["Date","Time","Status","Note"]];
-  var table = document.getElementById("upcomingTable");
-  var trs = table.querySelectorAll("tbody tr");
-  trs.forEach(function(tr){
-    var tds = tr.querySelectorAll("td");
-    var date = tds[0].innerText;
-    var time = tds[1].innerText;
-    var status = tds[2].innerText.replace(/\s+/g," ").trim();
-    rows.push([date, time, status, ""]);
+function downloadSummary() {
+  let csv = "Student,Date,Points,Attendance,Note\n";
+  names.forEach(name => {
+    const s = students[name];
+    s.schedule.forEach(r => { csv += `${name},${fmt(r.time)},${s.points},${r.att},${r.note||''}\n`; });
   });
-  var csv = rows.map(function(r){ return r.map(function(v){ return '"'+v.replace(/"/g,'""')+'"'; }).join(","); }).join("\n");
-  var blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement("a");
-  a.href = url;
-  a.download = "hannah_schedule.csv";
-  document.body.appendChild(a);
+  const blob = new Blob(["﻿"+csv], {type:"text/csv;charset=utf-8;"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "hannah_isla_booking_summary.csv";
   a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
 }
 </script>
 </body>
