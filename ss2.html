@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JINGS SS2 · 上課資訊</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --jaxis-coral:  #FF8C61;
+    --jaxis-navy:   #1A3263;
+    --jaxis-yellow: #FFD93D;
+    --jaxis-teal:   #4ECDC4;
+    --jaxis-green:  #2E7D4B;
+    --jaxis-purple: #7A5CB0;
+    --jaxis-bg:     #F0EBE3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+    background: var(--jaxis-bg);
+    color: var(--jaxis-navy);
+    line-height: 1.5;
+    padding: 20px 16px 48px;
+    display: flex;
+    justify-content: center;
+  }
+  .wrap { width: 100%; max-width: 460px; }
+
+  /* Header */
+  .hero {
+    background: var(--jaxis-navy);
+    color: #fff;
+    border-radius: 20px;
+    padding: 26px 22px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(26,50,99,0.18);
+  }
+  .brand { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: var(--jaxis-yellow); }
+  .hero h1 { font-size: 28px; font-weight: 800; margin: 8px 0 4px; }
+  .hero .level-badge {
+    display: inline-block;
+    background: var(--jaxis-coral);
+    color: #fff;
+    border-radius: 999px;
+    padding: 3px 14px;
+    font-size: 13px; font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .meta {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px; font-weight: 700;
+  }
+  .pill.time { background: var(--jaxis-coral); border-color: var(--jaxis-coral); }
+
+  /* Buttons grid */
+  .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 0; }
+  .btn-grid-full { display: grid; gap: 10px; margin-top: 10px; }
+  .btn {
+    border: none; border-radius: 14px; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: 800;
+    padding: 15px 10px; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    transition: transform 0.08s ease;
+    text-decoration: none;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-hub    { background: var(--jaxis-green); color: #fff; border: 2.5px solid var(--jaxis-green); }
+  .btn-pet    { background: #eee; color: #999; border: 2.5px solid #ccc; cursor: default; font-size: 14px; }
+  .btn-zoom   { background: #2D8CFF; color: #fff; border: 2.5px solid var(--jaxis-navy); grid-column: 1 / -1; font-size: 17px; }
+  .btn-zoom.tba { background: #bbb; border-color: #999; cursor: default; }
+  .btn-copy   { background: var(--jaxis-yellow); color: var(--jaxis-navy); border: 2.5px solid var(--jaxis-navy); grid-column: 1 / -1; }
+  .btn-copy.copied { background: var(--jaxis-teal); }
+  .btn-cs     { background: var(--jaxis-coral); color: #fff; border: 2.5px solid var(--jaxis-navy); grid-column: 1 / -1; }
+  .id-line { text-align: center; font-size: 13px; font-weight: 700; color: var(--jaxis-navy); opacity: 0.7; margin-top: 2px; }
+
+  /* Materials card extras */
+  .warn {
+    background: #FFF6E5; border-left: 4px solid var(--jaxis-yellow);
+    border-radius: 8px; padding: 10px 12px; font-size: 13px; font-weight: 600; margin-bottom: 12px;
+  }
+  .lead { font-size: 13.5px; margin: 12px 0 4px; }
+  .linkbtn {
+    display: block; text-align: center; text-decoration: none;
+    border-radius: 12px; padding: 12px; font-size: 14.5px; font-weight: 800;
+    margin-top: 8px; border: 2.5px solid var(--jaxis-navy);
+  }
+  .linkbtn.hub    { background: var(--jaxis-green); color: #fff; border-color: var(--jaxis-green); }
+  .linkbtn.yellow { background: var(--jaxis-yellow); color: var(--jaxis-navy); }
+
+  /* Schedule section */
+  .section-title {
+    font-size: 16px; font-weight: 800; margin: 26px 4px 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .sem-card {
+    background: #fff; border-radius: 16px; padding: 16px 18px;
+    border: 1.5px solid rgba(26,50,99,0.08);
+    margin-bottom: 12px;
+  }
+  .sem-row { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .sem-row:last-child { margin-bottom: 0; }
+  .sem-row span { color: #64748B; font-weight: 600; min-width: 80px; }
+
+  /* This week dates */
+  .week-card {
+    background: #fff; border-radius: 16px; padding: 16px 18px;
+    border: 1.5px solid rgba(26,50,99,0.08);
+    margin-bottom: 12px;
+  }
+  .week-card-label {
+    font-size: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--jaxis-coral); margin-bottom: 10px;
+  }
+  .date-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+  .date-chip {
+    background: var(--jaxis-navy); color: #fff;
+    border-radius: 12px; padding: 10px 18px;
+    text-align: center;
+  }
+  .date-chip .dow { font-size: 11px; font-weight: 700; opacity: 0.75; }
+  .date-chip .d   { font-size: 18px; font-weight: 800; margin-top: 2px; }
+  .date-chip.past { background: #D1D5DB; color: #6B7280; }
+  .out-of-sem { font-size: 14px; font-weight: 700; color: #94A3B8; padding: 6px 0; }
+
+  /* Day selector */
+  .selector-box {
+    background: var(--jaxis-yellow); border-radius: 16px;
+    padding: 16px 18px; margin-bottom: 12px;
+  }
+  .selector-box .selector-label {
+    font-size: 15px; font-weight: 800; color: var(--jaxis-navy);
+    margin-bottom: 12px;
+  }
+  .day-selector { display: flex; gap: 10px; flex-wrap: wrap; }
+  .day-toggle {
+    border: 2.5px solid var(--jaxis-navy); border-radius: 999px;
+    padding: 8px 20px; font-family: inherit; font-size: 15px; font-weight: 800;
+    background: #fff; color: var(--jaxis-navy); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .day-toggle.on { background: var(--jaxis-navy); color: var(--jaxis-yellow); }
+  .no-selection { font-size: 13px; font-weight: 700; color: #94A3B8; padding: 6px 0; }
+
+  /* Days off */
+  .daysoff-card {
+    background: #FFF6E5; border-radius: 16px; padding: 16px 18px;
+    border: 1.5px solid #FFD93D; margin-bottom: 12px;
+  }
+  .daysoff-card p { font-size: 13.5px; font-weight: 600; color: #92640A; }
+  .daysoff-list { margin: 8px 0 0 18px; font-size: 13.5px; color: #92640A; font-weight: 700; }
+  .daysoff-list li { margin-bottom: 4px; }
+
+  /* Reminders */
+  .card {
+    background: #fff; border-radius: 16px; padding: 20px 18px;
+    margin-top: 14px; border: 1.5px solid rgba(26,50,99,0.08);
+  }
+  .card h2 {
+    font-size: 16px; font-weight: 800; color: var(--jaxis-navy);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  }
+  .card h3 { font-size: 13.5px; font-weight: 800; color: var(--jaxis-coral); margin: 14px 0 6px; }
+  ol { margin: 0 0 4px 20px; font-size: 13.5px; }
+  ol li { margin-bottom: 5px; }
+
+  .footer { text-align: center; font-size: 12px; color: #94A3B8; margin-top: 26px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="hero">
+    <div class="brand">JINGS TRAINING ACADEMY</div>
+    <h1>⭐ SS2</h1>
+    <div class="level-badge">超初階美語共學 2班</div>
+    <div class="meta">
+      <span class="pill">週二 · 週四　Tue &amp; Thu</span>
+      <span class="pill time">19:20 – 19:50</span>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="btn-grid" style="margin-top:18px;">
+    <a class="btn btn-hub" href="https://jings-training.netlify.app/" target="_blank" rel="noopener">🏠 JINGS 訓練基地</a>
+    <button class="btn btn-pet" disabled>🐾 Pet Board<br><span style="font-size:11px;font-weight:600;">(即將開放)</span></button>
+  </div>
+  <div class="btn-grid-full">
+    <a class="btn btn-zoom" href="https://us02web.zoom.us/j/81683100773" target="_blank" rel="noopener">🎥 進入 Zoom 教室</a>
+    <button class="btn btn-copy" id="copyBtn" onclick="copyId()">📋 複製 Meeting ID</button>
+    <div class="id-line">Meeting ID：<b id="meetingId">即將公布</b></div>
+    <a class="btn btn-cs" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank" rel="noopener">📩 客服聯絡表單</a>
+  </div>
+
+  <!-- Semester info -->
+  <div class="section-title">📅 本學期課程</div>
+  <div class="sem-card">
+    <div class="sem-row"><span>學期</span>2026/9/1 – 2027/1/21</div>
+    <div class="sem-row"><span>上課日</span>週二 &amp; 週四（Tue &amp; Thu）</div>
+    <div class="sem-row"><span>上課時間</span>19:20 – 19:50</div>
+    <div class="sem-row"><span>總堂數</span>80 堂</div>
+  </div>
+
+  <!-- This week -->
+  <div class="section-title">🗓️ 最近即將上課日期</div>
+  <div class="selector-box">
+    <div class="selector-label">📅 我的上課日（可複選）</div>
+    <div class="day-selector" id="daySelector"></div>
+  </div>
+  <div class="week-card" id="weekCard" style="display:none;">
+    <div class="week-card-label" id="weekLabel"></div>
+    <div class="date-chips" id="weekDates"></div>
+  </div>
+
+  <!-- Days off -->
+  <div class="daysoff-card">
+    <p>⚠️ <b>停課日期</b>（確認後陸續公布）</p>
+    <ul class="daysoff-list">
+      <li>10/10 國慶日</li>
+      <li>1/1 元旦</li>
+      <li>其餘停課日期 TBA…</li>
+    </ul>
+  </div>
+
+  <!-- Reminders -->
+  <div class="section-title">📖 上課須知</div>
+
+  <div class="card">
+    <h2>📁 複習教材觀看須知</h2>
+    <div class="warn">
+      複習教材和遊戲全數可在 <b>JINGS 訓練基地</b>查看<br>
+      請使用<b>客服私訊提供的密碼</b>進入本人帳號<br><br>
+      ⚠️ <b>注意：請確認為本人使用</b><br>
+      若由他人使用，將會影響寵物積分。
+    </div>
+    <a class="linkbtn hub" href="https://jings-training.netlify.app/" target="_blank" rel="noopener">🏠 前往 JINGS 訓練基地</a>
+    <p class="lead">若尚未提供信箱讓小編開通權限：</p>
+    <a class="linkbtn yellow" href="https://forms.gle/DywenLWX7oqBP2ZR9" target="_blank" rel="noopener">📝 填寫開通表單</a>
+  </div>
+
+  <div class="card">
+    <h2>📌 如何固定老師的畫面（Zoom）</h2>
+
+    <h3>💻 筆電 / 電腦　PART 1 — 固定老師</h3>
+    <ol>
+      <li>先找到同學們的人像畫面</li>
+      <li>點選老師的畫面</li>
+      <li>點入老師畫面右上角的按鈕</li>
+      <li>選擇「固定」→ 老師畫面就會放大</li>
+    </ol>
+
+    <h3>💻 筆電 / 電腦　PART 2 — 老師分享投影片時</h3>
+    <ol>
+      <li>畫面會自動切換至投影片，旁邊會有老師的人頭</li>
+      <li>出現「切換至螢幕分享」按鈕，點下去就能看到投影片</li>
+    </ol>
+
+    <h3>📱 手機 / 平板　PART 1 — 固定老師</h3>
+    <ol>
+      <li>先找到同學們的畫面</li>
+      <li>點選老師的畫面</li>
+      <li>在老師畫面點兩下 → 老師畫面放大（＝固定）</li>
+    </ol>
+
+    <h3>📱 手機 / 平板　PART 2 — 老師分享投影片時</h3>
+    <ol>
+      <li>畫面會自動切換至投影片，旁邊會有老師的人頭</li>
+      <li>出現「切換至螢幕分享」按鈕，點下去就能看到投影片</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>🎧 線上上課環境維護</h2>
+    <ol>
+      <li>請在安靜的空間上課，避免背景聲音蓋過老師講話</li>
+      <li>家長若需與孩子對話，請先<b>【靜音】🔇</b>，避免聲音從其他同學喇叭放大，蓋過老師聲音</li>
+      <li>使用麥克風的孩子，請提醒不要敲打，會有很大的噪音唷！</li>
+      <li>⏰ 上課僅有 30 分鐘，感謝大家一起維護良好學習品質 💛</li>
+    </ol>
+  </div>
+
+  <div class="footer">JINGS Training Academy · 2026–2027 學年</div>
+</div>
+
+<script>
+  const ALL_CLASS_DAYS = [2, 4]; // 2, 4
+  const DAY_NAMES_EN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const DAY_NAMES_ZH = ["日","一","二","三","四","五","六"];
+  const STORAGE_KEY = "jings_ss2_days";
+
+  // Default: empty (user must pick)
+  let selectedDays = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+  function saveAndRefresh() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedDays));
+    buildSelector();
+    renderWeek();
+  }
+
+  function buildSelector() {
+    const sel = document.getElementById("daySelector");
+    sel.innerHTML = "";
+    ALL_CLASS_DAYS.forEach(cd => {
+      const btn = document.createElement("button");
+      btn.className = "day-toggle" + (selectedDays.includes(cd) ? " on" : "");
+      btn.textContent = `週${DAY_NAMES_ZH[cd]}`;
+      btn.onclick = () => {
+        if (selectedDays.includes(cd)) {
+          selectedDays = selectedDays.filter(d => d !== cd);
+        } else {
+          selectedDays = [...selectedDays, cd].sort((a, b) => a - b);
+        }
+        saveAndRefresh();
+      };
+      sel.appendChild(btn);
+    });
+  }
+
+  function getClassDays() { return ALL_CLASS_DAYS.filter(d => selectedDays.includes(d)); }
+
+  const SEM_START = new Date(2026, 8, 1);   // Sep 1, 2026
+  const SEM_END   = new Date(2027, 0, 21);  // Jan 21, 2027
+
+  function getMonday(d) {
+    const day = d.getDay();
+    const diff = (day === 0) ? -6 : 1 - day;
+    const mon = new Date(d);
+    mon.setDate(d.getDate() + diff);
+    mon.setHours(0,0,0,0);
+    return mon;
+  }
+
+  function fmt(d) { return `${d.getMonth()+1}/${d.getDate()}`; }
+
+  function datesForWeekOf(mon) {
+    return getClassDays().map(cd => {
+      const d = new Date(mon);
+      d.setDate(mon.getDate() + ((cd - 1 + 7) % 7));
+      return d;
+    });
+  }
+
+  function renderWeek() {
+    const card = document.getElementById("weekCard");
+    const label = document.getElementById("weekLabel");
+    const container = document.getElementById("weekDates");
+    container.innerHTML = "";
+
+    // Hide card if nothing selected
+    if (selectedDays.length === 0) { card.style.display = "none"; return; }
+    card.style.display = "block";
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const dow = today.getDay();
+
+    let mon = getMonday(today);
+    // Fri/Sat/Sun → show next week
+    if (dow === 5 || dow === 6 || dow === 0) mon.setDate(mon.getDate() + 7);
+
+    let dates = datesForWeekOf(mon);
+
+    // Before semester → show first semester week
+    if (dates.every(d => d < SEM_START)) {
+      mon = getMonday(SEM_START);
+      dates = datesForWeekOf(mon);
+      label.textContent = "學期第一週";
+    } else if (dates.every(d => d > SEM_END)) {
+      label.textContent = "學期已結束";
+      container.innerHTML = `<div class="out-of-sem">下學期資訊即將更新</div>`;
+      return;
+    } else {
+      label.textContent = `Week of ${fmt(mon)}`;
+    }
+
+    dates.forEach(d => {
+      if (d > SEM_END) return;
+      const chip = document.createElement("div");
+      if (d < SEM_START) {
+        // First week — this day hasn't started yet
+        chip.className = "date-chip past";
+        chip.innerHTML = `<div class="dow">${DAY_NAMES_EN[d.getDay()]} （${DAY_NAMES_ZH[d.getDay()]}）</div><div class="d" style="font-size:13px;opacity:.8;">未開學</div>`;
+      } else {
+        const past = d < today;
+        chip.className = "date-chip" + (past ? " past" : "");
+        chip.innerHTML = `<div class="dow">${DAY_NAMES_EN[d.getDay()]} （${DAY_NAMES_ZH[d.getDay()]}）</div><div class="d">${fmt(d)}</div>`;
+      }
+      container.appendChild(chip);
+    });
+  }
+
+  buildSelector();
+  renderWeek();
+
+  // ── Copy Meeting ID ──
+  const MEETING_ID = "816 8310 0773";
+  function copyId() {
+    const btn = document.getElementById("copyBtn");
+    if (!MEETING_ID) {
+      btn.textContent = "⏳ 連結即將公布";
+      setTimeout(() => { btn.textContent = "📋 複製 Meeting ID"; }, 2000);
+      return;
+    }
+    const done = () => {
+      btn.classList.add("copied");
+      btn.textContent = "✅ 已複製！";
+      setTimeout(() => { btn.classList.remove("copied"); btn.textContent = "📋 複製 Meeting ID"; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(MEETING_ID).then(done).catch(() => fallback(MEETING_ID, done));
+    } else { fallback(MEETING_ID, done); }
+  }
+  function fallback(text, cb) {
+    const t = document.createElement("textarea");
+    t.value = text; t.style.position = "fixed"; t.style.opacity = "0";
+    document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); cb(); } catch(e) {}
+    document.body.removeChild(t);
+  }
+  // Show meeting ID if available
+  if (MEETING_ID) document.getElementById("meetingId").textContent = MEETING_ID;
+</script>
+</body>
+</html>
