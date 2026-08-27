@@ -88,7 +88,7 @@
   <button onclick="dl()">下載 CSV 摘要</button>
   <footer>
     此為手動追蹤系統，未與線上預約平台連動。<br>
-    Updated 2026-08-18.
+    Updated 2026-08-27.
   </footer>
 </div>
 
@@ -113,7 +113,7 @@ const newTerm = [
   {d:"2026-09-10",t:"16:55",s:"Upcoming"},
   {d:"2026-09-03",t:"16:55",s:"Upcoming"},
   {d:"2026-08-27",t:"16:55",s:"Upcoming"},
-  {d:"2026-08-20",t:"16:55",s:"Upcoming"},
+  {d:"2026-08-20",t:"16:55",s:"Yes"},
 ];
 const prevTerm = [
   {d:"2026-07-09",t:"16:55",s:"待補課"},
@@ -139,13 +139,18 @@ const prevTerm = [
 ];
 const cls = {"Yes":"yes","Upcoming":"up","待補課":"makeup"};
 const lbl = {"Yes":"Yes 已上課","Upcoming":"Upcoming 預約中","待補課":"待補課 Pending"};
+const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
+function badgeHtml(s){
+  if(s==="待補課") return '<a href="'+MAKEUP_URL+'" target="_blank" class="badge makeup" style="background:#B02234;color:#fff;text-decoration:none;display:inline-block">補課去 →</a>';
+  return '<span class="badge '+cls[s]+'">'+lbl[s]+'</span>';
+}
 
 function renderTable(data, tbodyId, countId) {
   const tb = document.getElementById(tbodyId);
   data.forEach(r=>{
     const note = r.note?`<div class="note">${r.note}</div>`:"";
     tb.insertAdjacentHTML("beforeend",
-      `<tr><td>${r.d}</td><td>${r.t}</td><td><span class="badge ${cls[r.s]}">${lbl[r.s]}</span>${note}</td></tr>`);
+      `<tr><td>${r.d}</td><td>${r.t}</td><td>${badgeHtml(r.s)}${note}</td></tr>`);
   });
   document.getElementById(countId).textContent = "（共 "+data.length+" 堂）";
 }

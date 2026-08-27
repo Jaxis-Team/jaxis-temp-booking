@@ -184,7 +184,7 @@
   <div class="footer">
     手動追蹤系統，未連接任何線上預約平台。每次預約或出席狀態變動後需重新整理此頁。<br>
     Manual tracking dashboard — not connected to any live booking platform.<br>
-    Updated: 2026-08-19
+    Updated: 2026-08-27
   </div>
 
 </div>
@@ -205,9 +205,9 @@ const newTerm = [
   { date: "2026-08-10", time: "13:30", status: "Yes" },
   { date: "2026-08-12", time: "13:30", status: "Yes" },
   { date: "2026-08-13", time: "13:30", status: "Yes" },
-  { date: "2026-08-17", time: "13:30", status: "Upcoming" },
-  { date: "2026-08-19", time: "13:30", status: "Upcoming" },
-  { date: "2026-08-20", time: "13:30", status: "Upcoming" },
+  { date: "2026-08-17", time: "13:30", status: "Yes" },
+  { date: "2026-08-19", time: "13:30", status: "Yes" },
+  { date: "2026-08-20", time: "13:30", status: "Yes" },
   { date: "2026-08-27", time: "13:30", status: "Upcoming" },
   { date: "2026-08-31", time: "13:45", status: "Upcoming" },
   { date: "2026-09-02", time: "14:45", status: "Upcoming" },
@@ -238,8 +238,10 @@ const term3 = [
   { date: "2026-10-26", time: "13:45", status: "待確認" }
 ];
 
+const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
 function badge(s) {
   if (s === 'Yes') return '<span class="badge yes">已完成 Yes</span>';
+  if (s === '待補課') return '<a href="'+MAKEUP_URL+'" target="_blank" class="badge" style="background:#B02234;color:#fff;text-decoration:none;display:inline-block">補課去 →</a>';
   if (s === '待確認') return '<span class="badge pending">待確認 Pending</span>';
   return '<span class="badge up">待上課 Upcoming</span>';
 }
