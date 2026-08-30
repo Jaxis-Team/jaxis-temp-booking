@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leroy — Sept–Jan Schedule</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2ecf5 100%);
+    color: #1a2634; padding: 16px; min-height: 100vh;
+  }
+  .container { max-width: 980px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 4px; color: #0c447c; }
+  .subtitle { text-align: center; font-size: 13px; color: #6b7a8d; margin-bottom: 20px; }
+
+  .view-toggle { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .view-btn {
+    padding: 8px 16px; border: none; border-radius: 20px; background: #fff;
+    color: #33475b; font-size: 12px; font-weight: 600; cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .view-btn.active { background: #0c447c; color: #fff; }
+
+  .zoom-section { background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .zoom-title { font-size: 13px; font-weight: 700; color: #0c447c; margin-bottom: 10px; }
+  .zoom-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+  .zoom-btn {
+    padding: 8px 6px; border-radius: 8px; text-align: center; font-size: 11px;
+    font-weight: 600; text-decoration: none; display: block;
+  }
+  .zoom-btn.has-link { background: #eaf3de; color: #27500a; }
+  .zoom-btn.no-link { background: #f5f5f5; color: #aaa; cursor: default; }
+
+  .grid-wrap { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow-x: auto; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 700px; }
+  th { background: #0c447c; color: #fff; padding: 8px 6px; text-align: center; font-weight: 600; }
+  td { padding: 6px; text-align: center; border: 1px solid #eef2f6; vertical-align: middle; }
+  td.time-col { background: #f4f4f4; font-weight: 600; color: #555; text-align: left; padding-left: 10px; white-space: nowrap; }
+  td.break-row { background: #d9d9d9; font-weight: 600; font-style: italic; color: #555; }
+  .name-btn {
+    background: #e6f1fb; color: #0c447c; border: none; border-radius: 6px;
+    padding: 5px 8px; font-size: 11px; font-weight: 600; cursor: pointer; width: 100%;
+  }
+  .name-btn:hover { background: #0c447c; color: #fff; }
+  .empty-cell { color: #ccc; }
+
+  .day-buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 16px; }
+  .day-btn {
+    padding: 8px 4px; border: none; border-radius: 8px; background: #fff;
+    color: #33475b; font-size: 11px; font-weight: 600; cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .day-btn.active { background: #0c447c; color: #fff; }
+  .day-card { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .day-title { font-size: 15px; font-weight: 700; color: #0c447c; margin-bottom: 12px; }
+  .slot-row { display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+  .slot-row:last-child { border-bottom: none; }
+  .slot-time { color: #6b7a8d; font-weight: 600; min-width: 110px; }
+  .slot-break { color: #888; font-style: italic; }
+
+  .modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff; border-radius: 14px; padding: 24px; max-width: 420px; width: 90%;
+    max-height: 80vh; overflow-y: auto;
+  }
+  .modal h2 { font-size: 17px; color: #0c447c; margin-bottom: 4px; }
+  .modal .modal-sub { font-size: 12px; color: #999; margin-bottom: 16px; }
+  .modal-section { margin-bottom: 14px; }
+  .modal-section-title { font-size: 12px; font-weight: 700; color: #555; margin-bottom: 6px; text-transform: uppercase; }
+  .placeholder-note { background: #fff3cd; border-radius: 8px; padding: 12px; font-size: 12px; color: #7a5200; line-height: 1.5; }
+  .modal-zoom-link { display: inline-block; margin-top: 8px; padding: 8px 14px; background: #27500a;
+    color: #fff; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 600; }
+  .close-btn { float: right; background: none; border: none; font-size: 18px; cursor: pointer; color: #999; }
+
+  .footer { text-align: center; font-size: 11px; color: #a0acbb; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🗓 Leroy — New Term Schedule</h1>
+  <div class="subtitle">September 2026 – January 2027 · Tap a name for class details</div>
+
+  <div class="view-toggle">
+    <button class="view-btn active" onclick="setView('grid')">📊 Weekly Grid</button>
+    <button class="view-btn" onclick="setView('day')">📅 Day by Day</button>
+  </div>
+
+  <div class="zoom-section">
+    <div class="zoom-title">🔗 Quick Zoom Access</div>
+    <div class="zoom-grid" id="zoomGrid"></div>
+  </div>
+
+  <div id="gridView"></div>
+  <div id="dayView" style="display:none;"></div>
+
+  <div class="footer">Tap any student/class name to view planning details (coming soon) · Schedule confirmed as of Aug 20, 2026</div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="close-btn" onclick="closeModal()">✕</button>
+    <h2 id="modalName"></h2>
+    <div class="modal-sub" id="modalTime"></div>
+    <div class="modal-section" id="modalZoomSection"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">Lesson Planning</div>
+      <div class="placeholder-note">📌 Planning content for this student/class isn't added yet. This is where you'll be able to see what's being taught on each date once the planning data is linked.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const zoomLinks = {
+  "Ally Lu": "https://us02web.zoom.us/j/83602797003",
+  "Dorothy": "https://us02web.zoom.us/j/84413843734",
+  "Chih": "https://us02web.zoom.us/j/85445182933",
+  "Hannah": "https://us02web.zoom.us/j/83992491631",
+  "Isla": "https://us02web.zoom.us/j/83992491631", // shares Hannah's link
+  "Ray": "https://us02web.zoom.us/j/87123505358",
+  "SS1": "https://us02web.zoom.us/j/82419182238",
+  "A": "https://us02web.zoom.us/j/88615085318",
+  "B": "https://us02web.zoom.us/j/87513876375",
+  "C": "https://us02web.zoom.us/j/82279689320",
+  "SS2": "https://us02web.zoom.us/j/81683100773",
+  "D": "https://us02web.zoom.us/j/87555114673",
+  "Baby Class": "https://us02web.zoom.us/j/82289309348", // same room as old Dodo slot; Dodo stops 9/2
+  // Jasper + Win win share one link — pending, not yet provided
+  // AL + Kate + Ariel share one link — pending, not yet provided
+};
+
+const allNames = ["Hannah","Jasper","AL","Kate","Ruby","Ray","Win win","Dorothy","Isla",
+  "Ariel","Chih","SS1","A","B","C","D","SS2","Baby Class","Ally Lu"];
+
+const zoomGrid = document.getElementById('zoomGrid');
+allNames.forEach(name => {
+  const link = zoomLinks[name];
+  const el = document.createElement(link ? 'a' : 'div');
+  el.className = 'zoom-btn ' + (link ? 'has-link' : 'no-link');
+  el.textContent = name + (link ? '' : ' (no link)');
+  if (link) { el.href = link; el.target = '_blank'; }
+  zoomGrid.appendChild(el);
+});
+
+const days = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+const grid = [
+  ["09:00–09:30", [null,null,null,"Hannah",null]],
+  ["09:35–10:05", [null,"Jasper","AL","Jasper",null]],
+  ["10:05–10:35", [null,"Jasper",null,"Jasper",null]],
+  ["10:40–11:10", [null,"AL",null,"AL",null]],
+  ["11:15–11:55", [null,"Kate",null,"Kate",null]],
+  ["12:00–13:00", "BREAK"],
+  ["13:10–13:40", ["Ruby",null,"Ruby","Ruby",null]],
+  ["13:45–14:15", ["Ray",null,"Win win","Ray",null]],
+  ["14:20–14:45", ["Dorothy",null,"Win win","Isla",null]],
+  ["14:45–15:20", [null,null,"Ray",null,null]],
+  ["16:25–16:55", [null,null,null,"Ariel",null]],
+  ["17:00–17:30", ["Ariel","Ariel",null,"Chih",null]],
+  ["17:35–18:05", ["SS1","SS1","SS1","SS1",null]],
+  ["18:10–18:40", ["A","A","A","A",null]],
+  ["18:45–19:15", ["B","B","B","B",null]],
+  ["19:20–19:50", ["C","SS2","C","SS2",null]],
+  ["19:55–20:25", ["D","D","D","D",null]],
+  ["20:30–21:00", ["Baby Class","Ally Lu",null,"Baby Class",null]],
+];
+
+const babyRoster = "Toby (Mon, Thu), Candy (Thu only)";
+
+function renderGrid() {
+  let html = '<div class="grid-wrap"><table><thead><tr><th>Time</th>';
+  days.forEach(d => html += `<th>${d}</th>`);
+  html += '</tr></thead><tbody>';
+  grid.forEach(row => {
+    const [time, cells] = row;
+    if (cells === "BREAK") {
+      html += `<tr><td class="time-col">${time}</td><td class="break-row" colspan="5">BREAK</td></tr>`;
+      return;
+    }
+    html += `<tr><td class="time-col">${time}</td>`;
+    cells.forEach((name, i) => {
+      if (!name) {
+        html += `<td class="empty-cell">—</td>`;
+      } else {
+        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[i]}')">${name}</button></td>`;
+      }
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+  document.getElementById('gridView').innerHTML = html;
+}
+
+function renderDayView() {
+  let btnHtml = '<div class="day-buttons">';
+  days.forEach((d, i) => {
+    btnHtml += `<button class="day-btn ${i===0?'active':''}" onclick="showDay(${i})">${d}</button>`;
+  });
+  btnHtml += '</div><div id="dayCard"></div>';
+  document.getElementById('dayView').innerHTML = btnHtml;
+  showDay(0);
+}
+
+function showDay(dayIndex) {
+  document.querySelectorAll('.day-btn').forEach((b,i) => b.classList.toggle('active', i===dayIndex));
+  let html = `<div class="day-card"><div class="day-title">${days[dayIndex]}</div>`;
+  grid.forEach(row => {
+    const [time, cells] = row;
+    if (cells === "BREAK") {
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><span class="slot-break">BREAK</span></div>`;
+      return;
+    }
+    const name = cells[dayIndex];
+    if (!name) return;
+    html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}')">${name}</button></div>`;
+  });
+  html += '</div>';
+  document.getElementById('dayCard').innerHTML = html;
+}
+
+function openModal(name, time, day) {
+  document.getElementById('modalName').textContent = name;
+  document.getElementById('modalTime').textContent = `${day} · ${time}`;
+  const zoomSection = document.getElementById('modalZoomSection');
+  const link = zoomLinks[name];
+  if (name === 'Baby Class') {
+    zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a;">${babyRoster}</div>`;
+  } else if (link) {
+    zoomSection.innerHTML = `<div class="modal-section-title">Zoom Link</div><a class="modal-zoom-link" href="${link}" target="_blank">Join Zoom →</a>`;
+  } else {
+    zoomSection.innerHTML = `<div class="modal-section-title">Zoom Link</div><div style="font-size:12px; color:#c0392b;">No link on file yet</div>`;
+  }
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+function setView(view) {
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('gridView').style.display = view === 'grid' ? 'block' : 'none';
+  document.getElementById('dayView').style.display = view === 'day' ? 'block' : 'none';
+}
+
+renderGrid();
+renderDayView();
+</script>
+</body>
+</html>
