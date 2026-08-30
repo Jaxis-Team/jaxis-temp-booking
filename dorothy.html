@@ -125,7 +125,7 @@
     {date:"2026-08-14",time:"9:00:00",status:"Yes"},
     {date:"2026-08-17",time:"9:35:00",status:"Yes"},
     {date:"2026-08-21",time:"9:00:00",status:"Yes"},
-    {date:"2026-08-24",time:"9:35:00",status:"Yes",makeup:"https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform"},
+    {date:"2026-08-24",time:"9:35:00",status:"Cancelled",makeup:"https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform"},
     {date:"2026-08-31",time:"14:20:00",status:"Upcoming"},
     {date:"2026-09-07",time:"14:20:00",status:"Upcoming"},
     {date:"2026-09-14",time:"14:20:00",status:"Upcoming"},
@@ -139,8 +139,9 @@
   const pts={used:240,total:280};
 
   function badge(s){
-    if(s==="Yes")   return '<span class="badge b-yes">Yes 已出席</span>';
-    if(s==="Missed")return '<span class="badge b-miss">Missed 缺席</span>';
+    if(s==="Yes")     return '<span class="badge b-yes">Yes 已出席</span>';
+    if(s==="Missed")  return '<span class="badge b-miss">Missed 缺席</span>';
+    if(s==="Cancelled")return '';
     return '<span class="badge b-up">Upcoming</span>';
   }
   function row(r,i){
