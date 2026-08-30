@@ -81,6 +81,23 @@
     color: #fff; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 600; }
   .close-btn { float: right; background: none; border: none; font-size: 18px; cursor: pointer; color: #999; }
 
+  /* Week (calendar) view */
+  .week-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  @media (max-width: 700px) { .week-grid { grid-template-columns: 1fr; } }
+  .week-day-card { background: #fff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .week-day-header { font-size: 13px; font-weight: 700; color: #0c447c; margin-bottom: 2px; }
+  .week-day-date { font-size: 11px; color: #99a5b3; margin-bottom: 10px; }
+  .wk-slot { display: flex; justify-content: space-between; align-items: center; padding: 5px 0;
+    border-bottom: 1px solid #f2f5f8; font-size: 12px; }
+  .wk-slot:last-child { border-bottom: none; }
+  .wk-slot-time { color: #8a97a6; min-width: 70px; }
+  .wk-slot-name { font-weight: 600; }
+  .wk-slot-name.cancelled { text-decoration: line-through; color: #c0392b; }
+  .wk-tag { font-size: 9px; padding: 1px 5px; border-radius: 4px; margin-left: 4px; font-weight: 700; }
+  .wk-tag.cancel { background: #fadbd8; color: #922b21; }
+  .wk-tag.moved { background: #fff3cd; color: #7a5200; }
+  .wk-empty { color: #ccc; font-size: 11px; font-style: italic; padding: 10px 0; text-align: center; }
+
   .footer { text-align: center; font-size: 11px; color: #a0acbb; margin-top: 20px; }
 </style>
 </head>
@@ -90,8 +107,10 @@
   <div class="subtitle">September 2026 – January 2027 · Tap a name for class details</div>
 
   <div class="view-toggle">
-    <button class="view-btn active" onclick="setView('grid')">📊 Weekly Grid</button>
+    <button class="view-btn active" onclick="setView('grid')">📊 Recurring Template</button>
     <button class="view-btn" onclick="setView('day')">📅 Day by Day</button>
+    <button class="view-btn" onclick="setView('thisweek')">🗓 This Week</button>
+    <button class="view-btn" onclick="setView('nextweek')">🗓 Next Week</button>
   </div>
 
   <div class="zoom-section">
@@ -101,6 +120,8 @@
 
   <div id="gridView"></div>
   <div id="dayView" style="display:none;"></div>
+  <div id="thisWeekView" style="display:none;"></div>
+  <div id="nextWeekView" style="display:none;"></div>
 
   <div class="footer">Tap any student/class name to view planning details (coming soon) · Schedule confirmed as of Aug 20, 2026</div>
 </div>
@@ -253,6 +274,78 @@ function setView(view) {
   event.target.classList.add('active');
   document.getElementById('gridView').style.display = view === 'grid' ? 'block' : 'none';
   document.getElementById('dayView').style.display = view === 'day' ? 'block' : 'none';
+  document.getElementById('thisWeekView').style.display = view === 'thisweek' ? 'block' : 'none';
+  document.getElementById('nextWeekView').style.display = view === 'nextweek' ? 'block' : 'none';
+  if (view === 'thisweek') renderWeek(0, 'thisWeekView');
+  if (view === 'nextweek') renderWeek(1, 'nextWeekView');
+}
+
+// ===== Exceptions data =====
+// Keyed by ISO date "YYYY-MM-DD". This will eventually be written to by the
+// jaxis-leave-form-sync daily automation whenever a student takes a day off
+// or confirms a makeup date. For now it's populated with 2 SAMPLE entries
+// so you can see how it renders — remove/replace these once real data flows in.
+function isoDate(d) { return d.toISOString().split('T')[0]; }
+
+function getMonday(offsetWeeks) {
+  const now = new Date();
+  const day = now.getDay(); // 0=Sun..6=Sat
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + diffToMonday + offsetWeeks * 7);
+  monday.setHours(0,0,0,0);
+  return monday;
+}
+
+// Build sample exceptions dynamically so the demo always shows something
+// relevant regardless of when this page is opened.
+const thisMonday = getMonday(0);
+const sampleCancelDate = new Date(thisMonday); sampleCancelDate.setDate(thisMonday.getDate() + 3); // Thu this week
+const nextMonday = getMonday(1);
+const sampleMoveDate = new Date(nextMonday); sampleMoveDate.setDate(nextMonday.getDate() + 2); // Wed next week
+
+const exceptions = {
+  [isoDate(sampleCancelDate)]: { "Ariel": { type: "cancel" } },
+  [isoDate(sampleMoveDate)]: { "Ruby": { type: "moved", newTime: "14:00" } },
+};
+
+function renderWeek(offsetWeeks, containerId) {
+  const monday = getMonday(offsetWeeks);
+  let html = '<div class="week-grid">';
+  for (let i = 0; i < 5; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    const iso = isoDate(d);
+    const dateLabel = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    const dayExceptions = exceptions[iso] || {};
+
+    html += `<div class="week-day-card"><div class="week-day-header">${days[i]}</div>
+      <div class="week-day-date">${dateLabel}</div>`;
+
+    let hasSlot = false;
+    grid.forEach(row => {
+      const [time, cells] = row;
+      if (cells === "BREAK") return;
+      const name = cells[i];
+      if (!name) return;
+      hasSlot = true;
+      const exc = dayExceptions[name];
+      if (exc && exc.type === 'cancel') {
+        html += `<div class="wk-slot"><span class="wk-slot-time">${time}</span>
+          <span class="wk-slot-name cancelled">${name}</span><span class="wk-tag cancel">OFF</span></div>`;
+      } else if (exc && exc.type === 'moved') {
+        html += `<div class="wk-slot"><span class="wk-slot-time">${time}</span>
+          <span class="wk-slot-name">${name}</span><span class="wk-tag moved">→ ${exc.newTime}</span></div>`;
+      } else {
+        html += `<div class="wk-slot"><span class="wk-slot-time">${time}</span>
+          <span class="wk-slot-name">${name}</span></div>`;
+      }
+    });
+    if (!hasSlot) html += `<div class="wk-empty">No classes</div>`;
+    html += '</div>';
+  }
+  html += '</div>';
+  document.getElementById(containerId).innerHTML = html;
 }
 
 renderGrid();
