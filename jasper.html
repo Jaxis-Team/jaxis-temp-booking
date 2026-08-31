@@ -70,14 +70,9 @@
     <div class="pts">
       <div class="pt active">
         <div class="lbl">目前使用中 Active Pass</div>
-        <div class="big">500</div>
-        <div class="sub">0 / 500 已用 · 到期 2026-12-15</div>
+        <div class="big">260</div><div class="sub">240 / 500 已用 · 到期 2026-12-15</div>
       </div>
-      <div class="pt">
-        <div class="lbl">舊卡剩餘 Old Pass</div>
-        <div class="big">29</div>
-        <div class="sub">480 / 509 已用 · 到期 2026-09-22</div>
-      </div>
+      
     </div>
   </div>
 
@@ -106,11 +101,18 @@
         <tbody id="tb-term"></tbody></table>
     </div>
   </div>
+    <div class="card">
+      <h2>新學期課程 New Term <span class="batch-tag">· 9/1 – 10/1 · booked 2026-08-03</span></h2>
+      <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
+        <tbody id="tb-new"></tbody></table>
+    </div>
+  </div>
 
   <div id="view-winwin" style="display:none">
     <div class="card">
-      <h2>Win Win — 課程</h2>
-      <p class="empty">目前尚未預約課程。</p>
+      <h2>Win Win — 新學期課程 <span class="batch-tag">· 9/2 – 11/4 · Wed 13:45–14:45</span></h2>
+      <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
+        <tbody id="tb-ww"></tbody></table>
     </div>
   </div>
 
@@ -118,7 +120,7 @@
 
   <footer>
     此為人工追蹤紀錄，未連結任何線上預約系統。<br>
-    最後更新：2026-08-29 · 8/20（含）前課程已標記為出席。
+    最後更新：2026-08-03 · 新學期課程已加入（Jasper 9/1–10/1 · Win Win 9/2–11/4）。
   </footer>
 </div>
 
@@ -130,12 +132,22 @@ const term = [
   {d:"2026-07-23", s:"yes"},
   {d:"2026-07-28", s:"makeup"},
   {d:"2026-07-30", s:"makeup"},
-  {d:"2026-08-04", s:"yes"},
-  {d:"2026-08-06", s:"yes"},
-  {d:"2026-08-11", s:"yes"},
-  {d:"2026-08-13", s:"yes"},
-  {d:"2026-08-18", s:"yes"},
-  {d:"2026-08-20", s:"yes"}
+  {d:"2026-08-04", s:"up"},
+  {d:"2026-08-06", s:"up"},
+  {d:"2026-08-11", s:"up"},
+  {d:"2026-08-13", s:"up"},
+  {d:"2026-08-18", s:"up"},
+  {d:"2026-08-20", s:"up"}
+];
+const termNew = [
+  {d:"2026-09-01"},{d:"2026-09-03"},{d:"2026-09-08"},{d:"2026-09-10"},
+  {d:"2026-09-15"},{d:"2026-09-17"},{d:"2026-09-22"},{d:"2026-09-24"},
+  {d:"2026-09-29"},{d:"2026-10-01"}
+];
+const termWW = [
+  {d:"2026-09-02"},{d:"2026-09-09"},{d:"2026-09-16"},{d:"2026-09-23"},
+  {d:"2026-09-30"},{d:"2026-10-07"},{d:"2026-10-14"},{d:"2026-10-21"},
+  {d:"2026-10-28"},{d:"2026-11-04"}
 ];
 const zh = ["日","一","二","三","四","五","六"];
 const dow = d => zh[new Date(d+"T00:00:00").getDay()];
@@ -158,6 +170,19 @@ function showKid(kid){
   document.getElementById("view-winwin").style.display = kid==="winwin"?"":"none";
   document.querySelectorAll(".tbtn").forEach(b=>b.classList.toggle("active",b.dataset.kid===kid));
 }
+// New term tables
+(function(){
+  const tbN=document.getElementById("tb-new");
+  termNew.forEach(r=>{
+    tbN.insertAdjacentHTML("beforeend",
+      `<tr><td>${r.d}</td><td>週${dow(r.d)}</td><td class="slots"><span>09:35</span><span>10:05</span></td><td><span class="badge b-up">Upcoming</span></td></tr>`);
+  });
+  const tbW=document.getElementById("tb-ww");
+  termWW.forEach(r=>{
+    tbW.insertAdjacentHTML("beforeend",
+      `<tr><td>${r.d}</td><td>週${dow(r.d)}</td><td class="slots"><span>13:45</span><span>14:15</span></td><td><span class="badge b-up">Upcoming</span></td></tr>`);
+  });
+})();
 
 function exportCSV(){
   const label={yes:"出席",makeup:"待補課",up:"Upcoming"};
