@@ -35,18 +35,15 @@
   .wrap { max-width: 700px; margin: 0 auto; }
   h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
   .sub-header { font-size: 13px; color: var(--text-sub); margin-bottom: 1.25rem; }
-
-  /* Action buttons */
   .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
   .action-btn {
     display: inline-flex; align-items: center; gap: 5px;
     padding: 8px 14px; border-radius: 8px; font-size: 13px;
     text-decoration: none; color: #fff; font-weight: 500; border: none; cursor: pointer;
   }
+  .btn-zoom { background: var(--zoom); }
   .btn-makeup { background: var(--makeup); }
   .btn-leave { background: var(--leave); }
-
-  /* Cards */
   .card {
     background: var(--card);
     border-radius: 12px;
@@ -55,8 +52,6 @@
     margin-bottom: 1rem;
   }
   .card-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
-
-  /* Payment buttons */
   .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .pay-btn {
     display: block; text-align: center; padding: 10px 6px; border-radius: 8px;
@@ -65,21 +60,11 @@
   }
   .pay-btn.yellow { background: var(--pay-yellow); color: var(--pay-yellow-text); }
   .pay-btn-wide { grid-column: span 3; }
-
-  /* Points card */
   .points-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
   .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 1px; }
   .metric-value { font-size: 20px; font-weight: 700; }
-  .metric-value.low { color: var(--pending-btn); }
+  .metric-value.ok { color: var(--pay-green); }
   .metric-sm { font-size: 15px; font-weight: 600; }
-
-  /* Warning banner */
-  .warn-banner {
-    background: #FFF3CD; border-left: 4px solid #FFBF00; padding: 10px 14px;
-    border-radius: 8px; font-size: 13px; color: #856404; margin-bottom: 1rem;
-  }
-
-  /* Tabs */
   .tabs { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
   .tab-btn {
     border: 1px solid var(--border); background: var(--card); padding: 7px 18px;
@@ -89,21 +74,16 @@
   .tab-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
   .panel { display: none; }
   .panel.active { display: block; }
-
-  /* Section badges */
   .section-badge {
     display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px;
-    border-radius: 6px; margin: 1rem 0 8px;
+    border-radius: 6px; margin: 0.75rem 0 8px;
   }
   .badge-old { color: #854f0b; background: #faeeda; }
-
-  /* Tables */
+  .badge-new { color: #0f6e56; background: #e1f5ee; }
   table { width: 100%; border-collapse: collapse; }
   th, td { text-align: left; padding: 8px 10px; font-size: 13px; border-bottom: 1px solid #f0ede5; }
   th { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .02em; font-weight: 500; }
   tr:last-child td { border-bottom: none; }
-
-  /* Attendance badges */
   .att-yes {
     display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
     background: var(--yes-bg); color: var(--yes-text);
@@ -117,11 +97,7 @@
     background: var(--pending-btn); color: #fff; text-decoration: none; cursor: pointer;
   }
   .att-makeup-btn:hover { opacity: .85; }
-  .makeup-note { font-size: 11px; color: var(--pending-btn); }
-
   .empty-note { font-size: 13px; color: var(--text-muted); padding: 10px 0; }
-
-  /* Download */
   .dl-btn {
     margin-top: 1rem; border: 1px solid var(--border); background: var(--card);
     padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer;
@@ -133,18 +109,15 @@
 </head>
 <body>
 <div class="wrap">
-
   <h1>素欣家</h1>
   <div class="sub-header">家長：素欣 ｜ 老師：安東尼老師 Teacher Anthony ｜ 共用點數卡（Katy · AL · Ariel · Kate）</div>
 
-  <!-- Action buttons -->
   <div class="action-row">
-    <a class="action-btn" style="background:#2D8CFF" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 進入教室 (Kate)</a>
+    <a class="action-btn btn-zoom" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 進入教室 (Kate)</a>
     <a class="action-btn btn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
     <a class="action-btn btn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
   </div>
 
-  <!-- 課卡購買 -->
   <div class="card">
     <div class="card-title">課卡購買</div>
     <div class="pay-grid">
@@ -158,21 +131,16 @@
     </div>
   </div>
 
-  <!-- Pass warning -->
-  <div class="warn-banner">⚠️ 點數即將用完！目前剩餘 <strong>2 點</strong>，到期日 2026-10-23。請儘早購買新課卡。</div>
-
-  <!-- Points card -->
   <div class="card">
-    <div class="card-title">共用點數卡</div>
+    <div class="card-title">共用點數卡（目前使用中）</div>
     <div class="points-row">
-      <div><div class="metric-label">剩餘點數</div><div class="metric-value low">2</div></div>
-      <div><div class="metric-label">使用量</div><div class="metric-sm">504 / 506</div></div>
+      <div><div class="metric-label">剩餘點數</div><div class="metric-value ok">102</div></div>
+      <div><div class="metric-label">使用量</div><div class="metric-sm">398 / 500</div></div>
       <div><div class="metric-label">課卡</div><div class="metric-sm">500點 - $39,500</div></div>
-      <div><div class="metric-label">到期日</div><div class="metric-sm">2026-10-23</div></div>
+      <div><div class="metric-label">到期日</div><div class="metric-sm">2027-04-03</div></div>
     </div>
   </div>
 
-  <!-- Student tabs -->
   <div class="tabs" id="tabs"></div>
   <div id="panels"></div>
 
@@ -180,7 +148,7 @@
 
   <div class="footer">
     此為手動追蹤系統，非即時連動預約平台。請於預約或出席變更時手動更新。<br>
-    最後更新：2026-08-29
+    最後更新：2026-08-03
   </div>
 </div>
 
@@ -198,9 +166,30 @@ const students = {
       { time: "2026-07-27 18:45", att: "Yes" },
       { time: "2026-07-29 18:45", att: "Yes" },
       { time: "2026-07-30 18:45", att: "Yes" },
-      { time: "2026-08-10 18:45", att: "Yes" }
+      { time: "2026-08-10 18:45", att: "Upcoming" }
     ],
-    newTerm: []
+    newTerm: [
+      { time: "2026-09-01 10:40", att: "Upcoming" },
+      { time: "2026-09-02 09:35", att: "Upcoming" },
+      { time: "2026-09-03 10:40", att: "Upcoming" },
+      { time: "2026-09-08 10:40", att: "Upcoming" },
+      { time: "2026-09-09 09:35", att: "Upcoming" },
+      { time: "2026-09-10 10:40", att: "Upcoming" },
+      { time: "2026-09-15 10:40", att: "Upcoming" },
+      { time: "2026-09-16 09:35", att: "Upcoming" },
+      { time: "2026-09-17 10:40", att: "Upcoming" },
+      { time: "2026-09-22 10:40", att: "Upcoming" },
+      { time: "2026-09-23 09:35", att: "Upcoming" },
+      { time: "2026-09-24 10:40", att: "Upcoming" },
+      { time: "2026-09-29 10:40", att: "Upcoming" },
+      { time: "2026-09-30 09:35", att: "Upcoming" },
+      { time: "2026-10-01 10:40", att: "Upcoming" },
+      { time: "2026-10-06 10:40", att: "Upcoming" },
+      { time: "2026-10-07 09:35", att: "Upcoming" },
+      { time: "2026-10-08 10:40", att: "Upcoming" },
+      { time: "2026-10-13 10:40", att: "Upcoming" },
+      { time: "2026-10-14 09:35", att: "Upcoming" }
+    ]
   },
   "Katy": {
     points: 6,
@@ -217,7 +206,28 @@ const students = {
       { time: "2026-07-06 16:20", att: "Yes" },
       { time: "2026-07-07 16:55", att: "Yes" }
     ],
-    newTerm: []
+    newTerm: [
+      { time: "2026-09-01 17:00", att: "Upcoming" },
+      { time: "2026-09-03 16:25", att: "Upcoming" },
+      { time: "2026-09-07 17:00", att: "Upcoming" },
+      { time: "2026-09-08 17:00", att: "Upcoming" },
+      { time: "2026-09-10 16:25", att: "Upcoming" },
+      { time: "2026-09-14 17:00", att: "Upcoming" },
+      { time: "2026-09-15 17:00", att: "Upcoming" },
+      { time: "2026-09-17 16:25", att: "Upcoming" },
+      { time: "2026-09-21 17:00", att: "Upcoming" },
+      { time: "2026-09-22 17:00", att: "Upcoming" },
+      { time: "2026-09-24 16:25", att: "Upcoming" },
+      { time: "2026-09-28 17:00", att: "Upcoming" },
+      { time: "2026-09-29 17:00", att: "Upcoming" },
+      { time: "2026-10-01 16:25", att: "Upcoming" },
+      { time: "2026-10-05 17:00", att: "Upcoming" },
+      { time: "2026-10-06 17:00", att: "Upcoming" },
+      { time: "2026-10-08 16:25", att: "Upcoming" },
+      { time: "2026-10-12 17:00", att: "Upcoming" },
+      { time: "2026-10-13 17:00", att: "Upcoming" },
+      { time: "2026-10-15 16:25", att: "Upcoming" }
+    ]
   },
   "Kate": {
     points: 8,
@@ -241,7 +251,28 @@ const students = {
       { time: "2026-07-28 11:15", att: "Yes" },
       { time: "2026-07-30 10:40", att: "Yes" }
     ],
-    newTerm: []
+    newTerm: [
+      { time: "2026-09-01 11:15", att: "Upcoming" },
+      { time: "2026-09-03 11:15", att: "Upcoming" },
+      { time: "2026-09-08 11:15", att: "Upcoming" },
+      { time: "2026-09-10 11:15", att: "Upcoming" },
+      { time: "2026-09-15 11:15", att: "Upcoming" },
+      { time: "2026-09-17 11:15", att: "Upcoming" },
+      { time: "2026-09-22 11:15", att: "Upcoming" },
+      { time: "2026-09-24 11:15", att: "Upcoming" },
+      { time: "2026-09-29 11:15", att: "Upcoming" },
+      { time: "2026-10-01 11:15", att: "Upcoming" },
+      { time: "2026-10-06 11:15", att: "Upcoming" },
+      { time: "2026-10-08 11:15", att: "Upcoming" },
+      { time: "2026-10-13 11:15", att: "Upcoming" },
+      { time: "2026-10-15 11:15", att: "Upcoming" },
+      { time: "2026-10-20 11:15", att: "Upcoming" },
+      { time: "2026-10-22 11:15", att: "Upcoming" },
+      { time: "2026-10-27 11:15", att: "Upcoming" },
+      { time: "2026-10-29 11:15", att: "Upcoming" },
+      { time: "2026-11-03 11:15", att: "Upcoming" },
+      { time: "2026-11-05 11:15", att: "Upcoming" }
+    ]
   }
 };
 
@@ -292,7 +323,7 @@ names.forEach((name, i) => {
     html += `<div class="card"><span class="section-badge badge-old">舊期剩餘 Old Term Leftover（${s.oldTerm.length}）</span>${buildTable(s.oldTerm, s.points)}</div>`;
   }
   if (s.newTerm.length) {
-    html += `<div class="card"><span class="section-badge" style="color:#0f6e56;background:#e1f5ee">新期 New Term（${s.newTerm.length}）</span>${buildTable(s.newTerm, s.points)}</div>`;
+    html += `<div class="card"><span class="section-badge badge-new">新期 New Term（${s.newTerm.length}）</span>${buildTable(s.newTerm, s.points)}</div>`;
   }
   if (!s.oldTerm.length && !s.newTerm.length) {
     html += '<div class="card"><div class="empty-note">目前無排課紀錄</div></div>';
@@ -315,7 +346,7 @@ function downloadSummary() {
     s.oldTerm.forEach(r => { csv += `${name},Old Term Leftover,${fmt(r.time)},${s.points},${r.att}\n`; });
     s.newTerm.forEach(r => { csv += `${name},New Term,${fmt(r.time)},${s.points},${r.att}\n`; });
   });
-  csv += `\n共用點數卡,,使用量,504 / 506\n共用點數卡,,剩餘,2\n共用點數卡,,到期日,2026-10-23\n`;
+  csv += `\n共用點數卡,,使用量,398 / 500\n共用點數卡,,剩餘,102\n共用點數卡,,到期日,2027-04-03\n`;
   const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8;"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
