@@ -202,17 +202,59 @@ const grid = [
   ["20:30–21:00", ["Baby Class","Ally Lu",null,"Baby Class",null]],
 ];
 
-const babyRoster = "Toby (Mon, Thu), Candy (Thu only)";
+const babyRosterData = [
+  { name: "Toby", days: ["Monday","Thursday"] },
+  { name: "Candy", days: ["Thursday"] },
+];
 
-// Group class rosters — who's actually in each class
-const groupRosters = {
-  "SS1": "Wei (Mon–Thu), Louis (Mon–Thu), Zoe (Tue, Thu), Win Win (Tue, Thu)",
-  "A": "Amber Wang, Zona, Ray, Tera (all Mon–Thu)",
-  "B": "Olivia, Felix, Amber, Kyler (all Mon–Thu)",
-  "C": "Ian, Fifi, Joseph (Mon, Wed)",
-  "SS2": "Claire, Derren (Tue, Thu), Sean (Thu only), Vina (Thu only)",
-  "D": "Jimmy, Michelle, Katy (Mon–Thu), Daisy (Mon, Wed), Jolie (Tue, Thu), Ashley (Mon, Wed)",
+// Group class rosters — structured with per-student attendance days,
+// so Day-by-Day view can filter to just who's actually there that day.
+const groupRosterData = {
+  "SS1": [
+    { name: "Wei", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Louis", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Zoe", days: ["Tuesday","Thursday"] },
+    { name: "Win Win", days: ["Tuesday","Thursday"] },
+  ],
+  "A": [
+    { name: "Amber Wang", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Zona", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Ray", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Tera", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+  ],
+  "B": [
+    { name: "Olivia", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Felix", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Amber", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Kyler", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+  ],
+  "C": [
+    { name: "Ian", days: ["Monday","Wednesday"] },
+    { name: "Fifi", days: ["Monday","Wednesday"] },
+    { name: "Joseph", days: ["Monday","Wednesday"] },
+  ],
+  "SS2": [
+    { name: "Claire", days: ["Tuesday","Thursday"] },
+    { name: "Derren", days: ["Tuesday","Thursday"] },
+    { name: "Sean", days: ["Thursday"] },
+    { name: "Vina", days: ["Thursday"] },
+  ],
+  "D": [
+    { name: "Jimmy", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Michelle", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Katy", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Daisy", days: ["Monday","Wednesday"] },
+    { name: "Jolie", days: ["Tuesday","Thursday"] },
+    { name: "Ashley", days: ["Monday","Wednesday"] },
+  ],
 };
+
+function formatRoster(list, filterDay) {
+  const shown = filterDay ? list.filter(s => s.days.includes(filterDay)) : list;
+  if (!shown.length) return "No students today";
+  if (filterDay) return shown.map(s => s.name).join(", ");
+  return list.map(s => `${s.name} (${s.days.map(d => d.slice(0,3)).join(', ')})`).join(", ");
+}
 
 // Lesson plans — keyed by class/group name. Each entry is one week's plan.
 // This is what the modal displays when a group class name is tapped.
@@ -293,21 +335,23 @@ function showDay(dayIndex) {
     }
     const name = cells[dayIndex];
     if (!name) return;
-    html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}')">${name}</button></div>`;
+    html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', true)">${name}</button></div>`;
   });
   html += '</div>';
   document.getElementById('dayCard').innerHTML = html;
 }
 
-function openModal(name, time, day) {
+function openModal(name, time, day, filterByDay) {
   document.getElementById('modalName').textContent = name;
   document.getElementById('modalTime').textContent = `${day} · ${time}`;
   const zoomSection = document.getElementById('modalZoomSection');
   const link = zoomLinks[name];
   if (name === 'Baby Class') {
-    zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a;">${babyRoster}</div>`;
-  } else if (groupRosters[name]) {
-    zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a; margin-bottom:10px;">${groupRosters[name]}</div>` +
+    const rosterText = formatRoster(babyRosterData, filterByDay ? day : null);
+    zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a;">${rosterText}</div>`;
+  } else if (groupRosterData[name]) {
+    const rosterText = formatRoster(groupRosterData[name], filterByDay ? day : null);
+    zoomSection.innerHTML = `<div class="modal-section-title">Roster${filterByDay ? ' — ' + day : ''}</div><div style="font-size:13px; color:#4a5a6a; margin-bottom:10px;">${rosterText}</div>` +
       (link ? `<a class="modal-zoom-link" href="${link}" target="_blank">Join Zoom →</a>` : `<div style="font-size:12px; color:#c0392b;">No Zoom link on file</div>`);
   } else if (link) {
     zoomSection.innerHTML = `<div class="modal-section-title">Zoom Link</div><a class="modal-zoom-link" href="${link}" target="_blank">Join Zoom →</a>`;
