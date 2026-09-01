@@ -77,6 +77,11 @@
   .modal-section { margin-bottom: 14px; }
   .modal-section-title { font-size: 12px; font-weight: 700; color: #555; margin-bottom: 6px; text-transform: uppercase; }
   .placeholder-note { background: #fff3cd; border-radius: 8px; padding: 12px; font-size: 12px; color: #7a5200; line-height: 1.5; }
+  .plan-entry { background: #eaf3de; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+  .plan-entry:last-child { margin-bottom: 0; }
+  .plan-week { font-size: 11px; font-weight: 700; color: #27500a; margin-bottom: 3px; }
+  .plan-topic { font-size: 13px; color: #1a2634; font-weight: 600; }
+  .plan-note { font-size: 11px; color: #7a5200; margin-top: 4px; font-style: italic; }
   .modal-zoom-link { display: inline-block; margin-top: 8px; padding: 8px 14px; background: #27500a;
     color: #fff; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 600; }
   .close-btn { float: right; background: none; border: none; font-size: 18px; cursor: pointer; color: #999; }
@@ -132,9 +137,9 @@
     <h2 id="modalName"></h2>
     <div class="modal-sub" id="modalTime"></div>
     <div class="modal-section" id="modalZoomSection"></div>
-    <div class="modal-section">
+    <div class="modal-section" id="modalPlanSection">
       <div class="modal-section-title">Lesson Planning</div>
-      <div class="placeholder-note">📌 Planning content for this student/class isn't added yet. This is where you'll be able to see what's being taught on each date once the planning data is linked.</div>
+      <div id="modalPlanContent"></div>
     </div>
   </div>
 </div>
@@ -199,6 +204,32 @@ const grid = [
 
 const babyRoster = "Toby (Mon, Thu), Candy (Thu only)";
 
+// Lesson plans — keyed by class/group name. Each entry is one week's plan.
+// This is what the modal displays when a group class name is tapped.
+const lessonPlans = {
+  "Baby Class": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Phonics — Short Vowel A_E" }
+  ],
+  "SS1": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" }
+  ],
+  "SS2": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" }
+  ],
+  "A": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" }
+  ],
+  "B": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" }
+  ],
+  "C": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" }
+  ],
+  "D": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Advanced" }
+  ],
+};
+
 function renderGrid() {
   let html = '<div class="grid-wrap"><table><thead><tr><th>Time</th>';
   days.forEach(d => html += `<th>${d}</th>`);
@@ -262,6 +293,21 @@ function openModal(name, time, day) {
   } else {
     zoomSection.innerHTML = `<div class="modal-section-title">Zoom Link</div><div style="font-size:12px; color:#c0392b;">No link on file yet</div>`;
   }
+
+  const planContent = document.getElementById('modalPlanContent');
+  const plans = lessonPlans[name];
+  if (plans && plans.length) {
+    planContent.innerHTML = plans.map(p => `
+      <div class="plan-entry">
+        <div class="plan-week">${p.week}</div>
+        <div class="plan-topic">${p.topic}</div>
+        ${p.note ? `<div class="plan-note">⚠️ ${p.note}</div>` : ''}
+      </div>
+    `).join('');
+  } else {
+    planContent.innerHTML = `<div class="placeholder-note">📌 Planning content for this student/class isn't added yet.</div>`;
+  }
+
   document.getElementById('modalOverlay').classList.add('show');
 }
 
