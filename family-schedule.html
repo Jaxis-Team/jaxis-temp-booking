@@ -6,105 +6,115 @@
 <title>JS Family Schedule</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f7; padding: 1rem; color: #222; max-width: 820px; margin: 0 auto; }
-  h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem; }
-  .subtitle { font-size: 0.82rem; color: #888; margin-bottom: 1rem; }
-  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
-  .legend span { font-size: 0.78rem; padding: 2px 9px; border-radius: 6px; font-weight: 600; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f7; padding: 0.8rem; color: #222; max-width: 820px; margin: 0 auto; }
+  h1 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.15rem; }
+  .subtitle { font-size: 0.75rem; color: #888; margin-bottom: 0.8rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 0.8rem; }
+  .legend span { font-size: 0.7rem; padding: 2px 7px; border-radius: 5px; font-weight: 600; }
   .l-peggy { background: #F3E8FB; color: #5B1A8A; }
   .l-leroy { background: #DBEAFE; color: #1E40AF; }
   .l-jay   { background: #D1FAE5; color: #065F46; }
   .l-lexi  { background: #FEF3C7; color: #92400E; }
 
-  /* TABS */
-  .tabs { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
-  .tab-btn { padding: 8px 16px; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: #e5e5e5; color: #666; transition: all 0.2s; }
+  .tabs { display: flex; gap: 5px; margin-bottom: 0.8rem; flex-wrap: wrap; }
+  .tab-btn { padding: 7px 14px; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: #e5e5e5; color: #666; transition: all 0.2s; }
   .tab-btn.active { background: #222; color: #fff; }
-  .tab-btn:hover:not(.active) { background: #d0d0d0; }
   .day-content { display: none; }
   .day-content.active { display: block; }
+  .day-label { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.6rem; }
 
-  .day-label { font-size: 1rem; font-weight: 700; margin-bottom: 0.8rem; }
-  .block { background: #fff; border-radius: 12px; padding: 0.9rem; margin-bottom: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-  .block-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-  th { background: #f9f9f9; padding: 5px 7px; text-align: left; font-weight: 600; font-size: 0.72rem; color: #666; border-bottom: 1px solid #eee; }
-  td { padding: 6px 7px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
-  td:first-child { white-space: nowrap; color: #999; font-size: 0.75rem; width: 85px; }
-  .device { font-size: 0.68rem; color: #aaa; display: block; margin-top: 2px; }
+  .block { background: #fff; border-radius: 10px; padding: 0.7rem; margin-bottom: 0.6rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .block-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+  th { background: #f9f9f9; padding: 4px 5px; text-align: center; font-weight: 600; font-size: 0.68rem; color: #888; border-bottom: 1px solid #eee; }
+  th:first-child { text-align: left; width: 60px; }
+  td { padding: 5px 4px; border-bottom: 1px solid #f3f3f3; vertical-align: top; text-align: center; line-height: 1.35; }
+  td:first-child { text-align: left; color: #aaa; font-size: 0.68rem; white-space: nowrap; width: 60px; }
+  .d { font-size: 0.6rem; color: #b0b0b0; display: block; margin-top: 1px; }
   .star { color: #E11D48; font-weight: 700; }
-  .note { font-size: 0.75rem; color: #999; margin-top: 0.4rem; padding-top: 0.3rem; border-top: 1px dashed #eee; }
-  .footer { text-align: center; font-size: 0.68rem; color: #ccc; margin-top: 1.5rem; }
+  .note { font-size: 0.7rem; color: #999; margin-top: 0.3rem; padding-top: 0.3rem; border-top: 1px dashed #eee; }
+  .ann { border-left: 3px solid #E11D48; }
+  .ann td:first-child { font-weight: 600; color: #E11D48; }
+  .footer { text-align: center; font-size: 0.65rem; color: #ccc; margin-top: 1.2rem; }
+
+  @media (max-width: 500px) {
+    table { font-size: 0.72rem; }
+    td, th { padding: 4px 3px; }
+    td:first-child { width: 50px; font-size: 0.65rem; }
+    th:first-child { width: 50px; }
+  }
 </style>
 </head>
 <body>
 
 <h1>🏠 JS Family Schedule</h1>
-<p class="subtitle">Peggy · Leroy · Jaylon · Lexi</p>
+<p class="subtitle">Peggy · Leroy · Jay · Lexi</p>
 
 <div class="legend">
-  <span class="l-peggy">🟣 Peggy</span>
-  <span class="l-leroy">🔵 Leroy</span>
+  <span class="l-peggy">🟣 Mom</span>
+  <span class="l-leroy">🔵 Dad</span>
   <span class="l-jay">🟢 Jay</span>
   <span class="l-lexi">🟡 Lexi</span>
 </div>
 
-<div class="block" style="border-left: 3px solid #E11D48;">
-  <div class="block-title">📢 Upcoming Events</div>
+<!-- ANNOUNCEMENTS -->
+<div class="block ann">
+  <div class="block-title">📢 Upcoming</div>
   <table>
     <tbody>
-      <tr><td style="width:85px; font-weight:600; color:#E11D48;">Fri 9/4</td><td>🤸 Lexi — 1st gymnastic class</td></tr>
-      <tr><td style="font-weight:600; color:#E11D48;">Sat 9/5</td><td>🏓 Jay — Shah Alam ping pong contest <span style="color:#aaa;">(time pending)</span></td></tr>
-      <tr><td style="font-weight:600; color:#E11D48;">Sat 9/12</td><td>🎬 Jay — TV show shooting (Day 1)</td></tr>
-      <tr><td style="font-weight:600; color:#E11D48;">Sun 9/13</td><td>🎬 Jay — TV show shooting (Day 2)</td></tr>
+      <tr><td>Fri 9/4</td><td colspan="3">🤸 Lexi — 1st gymnastic class</td></tr>
+      <tr><td>Sat 9/5</td><td colspan="3">🏓 Jay — Shah Alam contest <span style="color:#aaa">(time TBC)</span></td></tr>
+      <tr><td>Sat 9/12</td><td colspan="3">🎬 Jay — TV shooting Day 1</td></tr>
+      <tr><td>Sun 9/13</td><td colspan="3">🎬 Jay — TV shooting Day 2</td></tr>
     </tbody>
   </table>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn" onclick="showDay('aug31')">Mon 8/31</button>
-  <button class="tab-btn active" onclick="showDay('sep1')">Tue 9/1</button>
+  <button class="tab-btn" onclick="showDay('aug31',this)">Mon 8/31</button>
+  <button class="tab-btn active" onclick="showDay('sep1',this)">Tue 9/1</button>
 </div>
 
 <!-- ===== AUG 31 ===== -->
 <div id="aug31" class="day-content">
-  <div class="day-label">Monday, August 31</div>
+  <div class="day-label">Mon, Aug 31</div>
 
   <div class="block">
     <div class="block-title">☀️ Morning</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
-          <td>8:00–9:30</td>
-          <td><span class="star">⭐ Hub + broadcast</span><span class="device">💻 Laptop</span></td>
+          <td>8–9:30</td>
+          <td><span class="star">⭐ Hub + broadcast</span><span class="d">💻</span></td>
           <td>😴</td><td>😴</td><td>😴</td>
         </tr>
         <tr>
-          <td>9:30–10:00</td>
-          <td>CS replies / emails<span class="device">💻 Laptop</span></td>
-          <td>🍳 Breakfast</td><td>🍳 Breakfast</td><td>🍳 Breakfast</td>
+          <td>9:30</td>
+          <td>CS replies<span class="d">💻</span></td>
+          <td>🍳</td><td>🍳</td><td>🍳</td>
         </tr>
         <tr>
-          <td>10:00–11:30</td>
-          <td>🛒 Grocery w/ Leroy</td>
-          <td>🛒 Grocery w/ Peggy</td>
-          <td>Baseline test + German GPT<span class="device">🖥 Mac Mini</span></td>
-          <td>Duolingo + German GPT<span class="device">📱 iPad</span></td>
+          <td>10–11:30</td>
+          <td>🛒 w/ Dad</td>
+          <td>🛒 w/ Mom</td>
+          <td>Baseline + German<span class="d">🖥</span></td>
+          <td>Duolingo + German<span class="d">📱</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="block">
-    <div class="block-title">🍳 Lunch (~12:00)</div>
+    <div class="block-title">🍳 Lunch</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
           <td>~12:00</td>
-          <td>CS + JINGS emails<span class="device">💻 Laptop</span></td>
-          <td>🍳 Cook w/ Jay</td><td>🍳 Cook w/ Leroy</td><td>Free</td>
+          <td>CS + emails<span class="d">💻</span></td>
+          <td>🍳 Cook</td><td>🍳 Cook</td><td>—</td>
         </tr>
       </tbody>
     </table>
@@ -113,79 +123,79 @@
   <div class="block">
     <div class="block-title">🌤 Afternoon</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
-          <td>1:00–2:30</td>
-          <td>CS + registration emails<span class="device">💻 Laptop</span></td>
-          <td>📚 Teach 1.5hr<span class="device">🖥 Leroy PC</span></td>
-          <td>🧹 Clean kitchen → prep shoot</td>
-          <td>🧹 Clean kitchen</td>
+          <td>1–2:30</td>
+          <td>CS + emails<span class="d">💻</span></td>
+          <td>📚 Teach<span class="d">🖥</span></td>
+          <td>🧹 Clean → prep</td>
+          <td>🧹 Clean</td>
         </tr>
         <tr>
-          <td>3:00–4:30</td>
-          <td>🧪 AI tutor test w/ Lexi<span class="device">💻 Laptop</span></td>
-          <td>🎬 Shoot reels w/ Jay</td>
-          <td>🎬 Shoot reels w/ Leroy</td>
-          <td>🧪 AI tutor w/ Peggy</td>
+          <td>3–4:30</td>
+          <td>🧪 AI tutor w/ Lexi<span class="d">💻</span></td>
+          <td>🎬 Shoot w/ Jay</td>
+          <td>🎬 Shoot w/ Dad</td>
+          <td>🧪 w/ Mom</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="block">
-    <div class="block-title">🌙 Evening / Night</div>
+    <div class="block-title">🌙 Night</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
-          <td>After 5pm</td>
-          <td>E1-H2 games<span class="device">💻 Laptop</span></td>
-          <td>Rest → edit videos<span class="device">🖥 Leroy PC</span></td>
-          <td>✂️ Edit reels<span class="device">🖥 Mac Mini</span></td>
-          <td>Free / reading<span class="device">📱 iPad</span></td>
+          <td>5pm+</td>
+          <td>🎮 E1-H2<span class="d">💻</span></td>
+          <td>Rest → ✂️ edit<span class="d">🖥</span></td>
+          <td>✂️ Edit reels<span class="d">🖥</span></td>
+          <td>📖<span class="d">📱</span></td>
         </tr>
       </tbody>
     </table>
-    <p class="note">⚡ E1-H2 games for Unit 1 Money & Numbers — due before Wednesday</p>
+    <p class="note">⚡ E1-H2 Unit 1 Money & Numbers — due Wed</p>
   </div>
 </div>
 
 <!-- ===== SEP 1 ===== -->
 <div id="sep1" class="day-content active">
-  <div class="day-label">Tuesday, September 1</div>
+  <div class="day-label">Tue, Sep 1</div>
 
   <div class="block">
     <div class="block-title">☀️ Morning</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
-          <td>~9:30</td>
-          <td>—</td><td>🍳 Breakfast</td><td>🍳 Breakfast</td><td>🍳 Breakfast</td>
+          <td>9:30</td>
+          <td>—</td><td>🍳</td><td>🍳</td><td>🍳</td>
         </tr>
         <tr>
-          <td>10:00–12:00</td>
-          <td>🎮 E1-H2 games<span class="device">💻 Laptop</span></td>
-          <td>📚 Teach<span class="device">🖥 Leroy PC</span></td>
-          <td>Math baseline + AI tutor (English)<span class="device">🖥 Mac Mini</span></td>
-          <td>Duolingo + GPT<span class="device">📱 iPad</span></td>
+          <td>10–12</td>
+          <td>🎮 E1-H2<span class="d">💻</span></td>
+          <td>📚 Teach<span class="d">🖥</span></td>
+          <td>Math + AI tutor<span class="d">🖥</span></td>
+          <td>Duolingo + GPT<span class="d">📱</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="block">
-    <div class="block-title">🍳 Lunch (~12:00)</div>
+    <div class="block-title">🍳 Lunch</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
-          <td>~12:00</td>
-          <td>🛒 Buy lunch w/ Leroy</td>
-          <td>🛒 Buy lunch w/ Peggy</td>
-          <td>GPT + Duolingo<span class="device">🖥 Mac Mini</span></td>
-          <td>AI tutor (English)<span class="device">📱 iPad</span></td>
+          <td>~12</td>
+          <td>🛒 Buy lunch</td>
+          <td>🛒 Buy lunch</td>
+          <td>GPT + Duolingo<span class="d">🖥</span></td>
+          <td>AI tutor<span class="d">📱</span></td>
         </tr>
       </tbody>
     </table>
@@ -194,21 +204,21 @@
   <div class="block">
     <div class="block-title">🌤 Afternoon</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
-          <td>1:00–3:00</td>
-          <td>🎮 E1-H2 games<span class="device">💻 Laptop</span></td>
-          <td>Edit videos → rest<span class="device">🖥 Leroy PC</span></td>
-          <td>🍽 Prep dinner</td>
-          <td>Free</td>
+          <td>1–3</td>
+          <td>🎮 E1-H2<span class="d">💻</span></td>
+          <td>✂️ Edit → rest<span class="d">🖥</span></td>
+          <td>🍽 Dinner prep</td>
+          <td>—</td>
         </tr>
         <tr>
-          <td>3:00–4:00</td>
-          <td>🍽 Finish dinner prep</td>
+          <td>3–4</td>
+          <td>🍽 Dinner prep</td>
           <td>Rest</td>
-          <td>🍽 Prep dinner (cont.)</td>
-          <td>Free</td>
+          <td>🍽 Dinner prep</td>
+          <td>—</td>
         </tr>
       </tbody>
     </table>
@@ -217,28 +227,28 @@
   <div class="block">
     <div class="block-title">🏓 Ping Pong + Evening</div>
     <table>
-      <thead><tr><th>Time</th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
       <tbody>
         <tr>
-          <td>4:00–5:00</td>
-          <td>🚗 Drive to ping pong</td>
-          <td>Prep for teaching</td>
-          <td>🚗 → 🏓 Ping pong</td>
-          <td>🚗 → 🏓 Ping pong</td>
+          <td>4–5</td>
+          <td>🚗→🏓</td>
+          <td>Prep teach</td>
+          <td>🚗→🏓</td>
+          <td>🚗→🏓</td>
         </tr>
         <tr>
-          <td>5:00–7:00</td>
-          <td>☕ ZUS — E1-H2 games<span class="device">💻 Laptop</span></td>
-          <td>📚 Teach (5–9pm)<span class="device">🖥 Leroy PC</span></td>
-          <td>🏓 Ping pong</td>
-          <td>🏓 Ping pong</td>
+          <td>5–7</td>
+          <td>☕ ZUS · E1-H2<span class="d">💻</span></td>
+          <td>📚 Teach<span class="d">🖥</span></td>
+          <td>🏓</td>
+          <td>🏓</td>
         </tr>
         <tr>
-          <td>7:00–9:00</td>
-          <td>🚗 Home → dinner + kids</td>
-          <td>📚 Teaching (cont.)</td>
-          <td>🍽 Dinner → 🚿 → 📖 Read</td>
-          <td>🍽 Dinner → 🚿 → 📖 Read</td>
+          <td>7–9</td>
+          <td>🚗 Home + kids</td>
+          <td>📚 Teach</td>
+          <td>🍽→🚿→📖</td>
+          <td>🍽→🚿→📖</td>
         </tr>
       </tbody>
     </table>
@@ -248,11 +258,11 @@
 <p class="footer">No device conflicts ✅</p>
 
 <script>
-function showDay(id) {
+function showDay(id, btn) {
   document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
 }
 </script>
 
