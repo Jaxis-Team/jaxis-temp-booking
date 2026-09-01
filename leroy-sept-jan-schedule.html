@@ -204,6 +204,16 @@ const grid = [
 
 const babyRoster = "Toby (Mon, Thu), Candy (Thu only)";
 
+// Group class rosters — who's actually in each class
+const groupRosters = {
+  "SS1": "Wei (Mon–Thu), Louis (Mon–Thu), Zoe (Tue, Thu), Win Win (Tue, Thu)",
+  "A": "Amber Wang, Zona, Ray, Tera (all Mon–Thu)",
+  "B": "Olivia, Felix, Amber, Kyler (all Mon–Thu)",
+  "C": "Ian, Fifi, Joseph (Mon, Wed)",
+  "SS2": "Claire, Derren (Tue, Thu), Sean (Thu only), Vina (Thu only)",
+  "D": "Jimmy, Michelle, Katy (Mon–Thu), Daisy (Mon, Wed), Jolie (Tue, Thu), Ashley (Mon, Wed)",
+};
+
 // Lesson plans — keyed by class/group name. Each entry is one week's plan.
 // This is what the modal displays when a group class name is tapped.
 const lessonPlans = {
@@ -296,6 +306,9 @@ function openModal(name, time, day) {
   const link = zoomLinks[name];
   if (name === 'Baby Class') {
     zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a;">${babyRoster}</div>`;
+  } else if (groupRosters[name]) {
+    zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a; margin-bottom:10px;">${groupRosters[name]}</div>` +
+      (link ? `<a class="modal-zoom-link" href="${link}" target="_blank">Join Zoom →</a>` : `<div style="font-size:12px; color:#c0392b;">No Zoom link on file</div>`);
   } else if (link) {
     zoomSection.innerHTML = `<div class="modal-section-title">Zoom Link</div><a class="modal-zoom-link" href="${link}" target="_blank">Join Zoom →</a>`;
   } else {
