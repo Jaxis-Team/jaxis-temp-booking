@@ -256,8 +256,12 @@ function renderGrid() {
 
 function renderDayView() {
   let btnHtml = '<div class="day-buttons">';
+  const monday = getMonday(0);
   days.forEach((d, i) => {
-    btnHtml += `<button class="day-btn ${i===0?'active':''}" onclick="showDay(${i})">${d}</button>`;
+    const dt = new Date(monday);
+    dt.setDate(monday.getDate() + i);
+    const dateLabel = dt.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    btnHtml += `<button class="day-btn ${i===0?'active':''}" onclick="showDay(${i})">${d}<br><span style="font-size:9px; opacity:0.75;">${dateLabel}</span></button>`;
   });
   btnHtml += '</div><div id="dayCard"></div>';
   document.getElementById('dayView').innerHTML = btnHtml;
@@ -266,7 +270,11 @@ function renderDayView() {
 
 function showDay(dayIndex) {
   document.querySelectorAll('.day-btn').forEach((b,i) => b.classList.toggle('active', i===dayIndex));
-  let html = `<div class="day-card"><div class="day-title">${days[dayIndex]}</div>`;
+  const monday = getMonday(0);
+  const dt = new Date(monday);
+  dt.setDate(monday.getDate() + dayIndex);
+  const dateLabel = dt.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
+  let html = `<div class="day-card"><div class="day-title">${dateLabel}</div>`;
   grid.forEach(row => {
     const [time, cells] = row;
     if (cells === "BREAK") {
@@ -343,16 +351,13 @@ function getMonday(offsetWeeks) {
   return monday;
 }
 
-// Build sample exceptions dynamically so the demo always shows something
-// relevant regardless of when this page is opened.
-const thisMonday = getMonday(0);
-const sampleCancelDate = new Date(thisMonday); sampleCancelDate.setDate(thisMonday.getDate() + 3); // Thu this week
-const nextMonday = getMonday(1);
-const sampleMoveDate = new Date(nextMonday); sampleMoveDate.setDate(nextMonday.getDate() + 2); // Wed next week
-
+// Exceptions (cancellations / time changes) — keyed by ISO date "YYYY-MM-DD".
+// Empty until real data comes in (e.g. from the jaxis-leave-form-sync automation,
+// or manually added here when Peggy confirms a change). No demo/placeholder
+// entries — only real, confirmed exceptions should ever appear here.
 const exceptions = {
-  [isoDate(sampleCancelDate)]: { "Ariel": { type: "cancel" } },
-  [isoDate(sampleMoveDate)]: { "Ruby": { type: "moved", newTime: "14:00" } },
+  // "2026-09-08": { "Ariel": { type: "cancel" } },
+  // "2026-09-10": { "Ruby": { type: "moved", newTime: "14:00" } },
 };
 
 function renderWeek(offsetWeeks, containerId) {
