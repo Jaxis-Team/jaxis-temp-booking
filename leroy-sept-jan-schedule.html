@@ -408,11 +408,16 @@ function getMonday(offsetWeeks) {
   return monday;
 }
 
-// Exceptions (cancellations / time changes / no-class) — keyed by ISO date.
+// Exceptions (cancellations / time changes / no-class / one-off additions) — keyed by ISO date.
 const exceptions = {
   "2026-08-31": {
     "SS1": { type: "break" }, "A": { type: "break" }, "B": { type: "break" },
     "C": { type: "break" }, "D": { type: "break" },
+  },
+  "2026-09-02": {
+    additions: [
+      { time: "20:30–21:00", name: "Dodo (final class)" },
+    ],
   },
 };
 
@@ -452,6 +457,15 @@ function renderWeek(offsetWeeks, containerId) {
       }
     });
     if (!hasSlot) html += `<div class="wk-empty">No classes</div>`;
+
+    // One-off additions for this exact date (e.g. a final makeup class in an
+    // otherwise-open slot) that aren't part of the recurring template.
+    if (dayExceptions.additions) {
+      dayExceptions.additions.forEach(add => {
+        html += `<div class="wk-slot"><span class="wk-slot-time">${add.time}</span>
+          <span class="wk-slot-name">${add.name}</span><span class="wk-tag moved">ADDED</span></div>`;
+      });
+    }
     html += '</div>';
   }
   html += '</div>';
