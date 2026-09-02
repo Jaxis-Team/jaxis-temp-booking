@@ -78,7 +78,14 @@
   .btn-zoom.tba { background: #bbb; border-color: #999; cursor: default; }
   .btn-copy   { background: var(--jaxis-yellow); color: var(--jaxis-navy); border: 2.5px solid var(--jaxis-navy); grid-column: 1 / -1; }
   .btn-copy.copied { background: var(--jaxis-teal); }
-  .btn-guide  { background: var(--jaxis-teal); color: #fff; border: 2.5px solid var(--jaxis-navy); grid-column: 1 / -1; }
+  .btn-guide  { background: var(--jaxis-teal); color: var(--jaxis-navy); font-weight: 800;
+                border: 2.5px solid var(--jaxis-navy); grid-column: 1 / -1;
+                animation: guidePulse 1.9s ease-in-out infinite; }
+  @keyframes guidePulse {
+    0%, 100% { transform: scale(1);     box-shadow: 0 0 0 0 rgba(26,50,99,.40); }
+    50%      { transform: scale(1.025); box-shadow: 0 0 0 9px rgba(26,50,99,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .btn-guide { animation: none; } }
   .btn-cs     { background: var(--jaxis-coral); color: #fff; border: 2.5px solid var(--jaxis-navy); grid-column: 1 / -1; }
   .id-line { text-align: center; font-size: 13px; font-weight: 700; color: var(--jaxis-navy); opacity: 0.7; margin-top: 2px; }
 
