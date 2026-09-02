@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chih — Class Tracker</title>
+<title>Chih 徐心慧 — Class Tracker</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: "Times New Roman", Georgia, "PingFang TC", "Microsoft JhengHei", sans-serif; background: #F5EFE1; color: #1e2a35; padding: 24px; }
@@ -11,19 +11,27 @@
   header h1 { font-size: 22px; margin-bottom: 4px; }
   header .sub { color: #667; font-size: 14px; margin-bottom: 12px; }
   .action-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
-  .zoom-btn { display: inline-block; text-decoration: none; background: #2D8CFF; color: #fff; padding: 11px 22px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .15s; }
+  .zoom-btn { display: inline-block; text-decoration: none; background: #2D8CFF; color: #fff;
+    padding: 11px 22px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .15s; }
   .zoom-btn:hover { background: #1a6fd6; }
-  .act-btn { display: inline-block; text-decoration: none; padding: 11px 20px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .15s; }
+  .act-btn { display: inline-block; text-decoration: none; padding: 11px 20px; border-radius: 10px;
+    font-size: 15px; font-weight: 700; transition: background .15s; }
   .makeup-btn { background: #7A5CB0; color: #fff; }
   .makeup-btn:hover { background: #63478f; }
   .leave-btn { background: #C77D3E; color: #fff; }
   .leave-btn:hover { background: #a5642e; }
+  .hub-btn { background: #2E7D4B; color: #fff; }
+  .hub-btn:hover { background: #235f3a; }
+  .pet-btn { background: #888; color: #fff; }
+  .cs-btn { background: #FF8C61; color: #fff; }
+  .cs-btn:hover { background: #e6723f; }
   .zoom-id { font-size: 12px; color: #889; margin: 6px 0 20px; }
   .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 20px; }
-  .pass-info { background: #E8F5EE; border: 1px solid #A8D9BC; color: #1E5C35; border-radius: 10px; padding: 12px 16px; font-size: 13px; margin-bottom: 20px; }
+  .pass-note { background: #FFF4E5; border: 1px solid #FFD9A0; color: #8A5300; border-radius: 10px; padding: 12px 16px; font-size: 13px; margin-bottom: 20px; }
   h2 { font-size: 15px; margin-bottom: 12px; color: #334; }
   .buy-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-  .buy-grid a { flex: 1 1 auto; min-width: 120px; text-align: center; text-decoration: none; background: #2E7D4B; color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; transition: background .15s; }
+  .buy-grid a { flex: 1 1 auto; min-width: 120px; text-align: center; text-decoration: none;
+    background: #2E7D4B; color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; transition: background .15s; }
   .buy-grid a:hover { background: #235f3a; }
   .buy-grid a.alt { background: #F2B90C; color: #4A3800; }
   .buy-grid a.alt:hover { background: #d9a406; }
@@ -46,8 +54,11 @@
     <div class="sub">家長：心慧 徐 &nbsp;|&nbsp; 老師：安東尼老師 Teacher Anthony</div>
     <div class="action-row">
       <a class="zoom-btn" href="https://us02web.zoom.us/j/85445182933" target="_blank">🎥 進入教室 Enter Classroom</a>
+      <a class="act-btn hub-btn" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
+      <a class="act-btn pet-btn" href="#" style="opacity:.55;cursor:not-allowed;">🐾 Pet Board 即將開放</a>
       <a class="act-btn makeup-btn" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
       <a class="act-btn leave-btn" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+      <a class="act-btn cs-btn" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
     </div>
     <div class="zoom-id">Meeting ID: 854 4518 2933</div>
   </header>
@@ -65,57 +76,27 @@
     </div>
   </div>
 
-  <div class="pass-info">
-    ✅ 有效課卡：一對一專屬課卡(40堂) &nbsp;|&nbsp; 剩餘：120 / 240 點 &nbsp;|&nbsp; 到期：2027-02-08
+  <div class="pass-note">
+    ⚠️ 一對一專屬課卡(40堂) 已用完（240 / 240），且所有課卡均已到期。新課程預約前需加購新課卡。
   </div>
 
   <div class="card">
-    <h2>新學期課程 · 一對一專屬課卡(40堂) · 預約 2026-08-18 <span id="count2"></span></h2>
+    <h2>本期課程 · 一對一專屬課卡(40堂) · 預約 2026-02-24 <span id="count"></span></h2>
     <table>
       <thead><tr><th>日期</th><th>時間</th><th>狀態</th></tr></thead>
-      <tbody id="tbody2"></tbody>
-    </table>
-  </div>
-
-  <div class="card">
-    <h2>上學期課程 · 一對一專屬課卡(40堂) · 預約 2026-02-24 <span id="count1"></span></h2>
-    <table>
-      <thead><tr><th>日期</th><th>時間</th><th>狀態</th></tr></thead>
-      <tbody id="tbody1"></tbody>
+      <tbody id="tbody"></tbody>
     </table>
   </div>
 
   <button onclick="dl()">下載 CSV 摘要</button>
   <footer>
     此為手動追蹤系統，未與線上預約平台連動。<br>
-    Updated 2026-08-29.
+    Updated 2026-08-03.
   </footer>
 </div>
 
 <script>
-const newTerm = [
-  {d:"2027-01-08",t:"16:55",s:"Upcoming"},
-  {d:"2026-12-31",t:"16:55",s:"Upcoming"},
-  {d:"2026-12-17",t:"16:55",s:"Upcoming"},
-  {d:"2026-12-10",t:"16:55",s:"Upcoming"},
-  {d:"2026-12-03",t:"16:55",s:"Upcoming"},
-  {d:"2026-11-26",t:"16:55",s:"Upcoming"},
-  {d:"2026-11-19",t:"16:55",s:"Upcoming"},
-  {d:"2026-11-12",t:"16:55",s:"Upcoming"},
-  {d:"2026-11-05",t:"16:55",s:"Upcoming"},
-  {d:"2026-10-29",t:"16:55",s:"Upcoming"},
-  {d:"2026-10-22",t:"16:55",s:"Upcoming"},
-  {d:"2026-10-15",t:"16:55",s:"Upcoming"},
-  {d:"2026-10-08",t:"16:55",s:"Upcoming"},
-  {d:"2026-10-01",t:"16:55",s:"Upcoming"},
-  {d:"2026-09-24",t:"16:55",s:"Upcoming"},
-  {d:"2026-09-17",t:"16:55",s:"Upcoming"},
-  {d:"2026-09-10",t:"16:55",s:"Upcoming"},
-  {d:"2026-09-03",t:"16:55",s:"Upcoming"},
-  {d:"2026-08-27",t:"16:55",s:"Yes"},
-  {d:"2026-08-20",t:"16:55",s:"Yes"},
-];
-const prevTerm = [
+const term = [
   {d:"2026-07-09",t:"16:55",s:"待補課"},
   {d:"2026-07-02",t:"16:55",s:"待補課"},
   {d:"2026-06-25",t:"16:55",s:"Yes"},
@@ -139,29 +120,17 @@ const prevTerm = [
 ];
 const cls = {"Yes":"yes","Upcoming":"up","待補課":"makeup"};
 const lbl = {"Yes":"Yes 已上課","Upcoming":"Upcoming 預約中","待補課":"待補課 Pending"};
-const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
-function badgeHtml(s){
-  if(s==="待補課") return '<a href="'+MAKEUP_URL+'" target="_blank" class="badge makeup" style="background:#B02234;color:#fff;text-decoration:none;display:inline-block">補課去 →</a>';
-  return '<span class="badge '+cls[s]+'">'+lbl[s]+'</span>';
-}
-
-function renderTable(data, tbodyId, countId) {
-  const tb = document.getElementById(tbodyId);
-  data.forEach(r=>{
-    const note = r.note?`<div class="note">${r.note}</div>`:"";
-    tb.insertAdjacentHTML("beforeend",
-      `<tr><td>${r.d}</td><td>${r.t}</td><td>${badgeHtml(r.s)}${note}</td></tr>`);
-  });
-  document.getElementById(countId).textContent = "（共 "+data.length+" 堂）";
-}
-renderTable(newTerm, "tbody2", "count2");
-renderTable(prevTerm, "tbody1", "count1");
+const tb = document.getElementById("tbody");
+term.forEach(r=>{
+  const note = r.note?`<div class="note">${r.note}</div>`:"";
+  tb.insertAdjacentHTML("beforeend",
+    `<tr><td>${r.d}</td><td>${r.t}</td><td><span class="badge ${cls[r.s]}">${lbl[r.s]}</span>${note}</td></tr>`);
+});
+document.getElementById("count").textContent = "（共 "+term.length+" 堂）";
 
 function dl(){
-  let csv = "新學期,,,\n日期,時間,狀態,備註\n";
-  newTerm.forEach(r=> csv += `${r.d},${r.t},${r.s},${r.note||""}\n`);
-  csv += "\n上學期,,,\n日期,時間,狀態,備註\n";
-  prevTerm.forEach(r=> csv += `${r.d},${r.t},${r.s},${r.note||""}\n`);
+  let csv = "日期,時間,狀態,備註\n";
+  term.forEach(r=> csv += `${r.d},${r.t},${r.s},${r.note||""}\n`);
   const b = new Blob(["\uFEFF"+csv],{type:"text/csv"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(b); a.download = "chih_summary.csv"; a.click();
