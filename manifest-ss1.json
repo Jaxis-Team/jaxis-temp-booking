@@ -1,0 +1,20 @@
+{
+  "name": "🔵 SS1 超初階美語共學 1班",
+  "short_name": "SS1",
+  "icons": [
+    {
+      "src": "icons/icon-ss1-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-ss1-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "ss1.html",
+  "display": "browser",
+  "background_color": "#F0EBE3",
+  "theme_color": "#2D8CFF"
+}

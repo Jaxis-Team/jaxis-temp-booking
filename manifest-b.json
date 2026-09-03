@@ -1,0 +1,20 @@
+{
+  "name": "🅱️ Group B 中階美語共學 B班",
+  "short_name": "B班",
+  "icons": [
+    {
+      "src": "icons/icon-b-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-b-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "b.html",
+  "display": "browser",
+  "background_color": "#F0EBE3",
+  "theme_color": "#FF8C61"
+}
