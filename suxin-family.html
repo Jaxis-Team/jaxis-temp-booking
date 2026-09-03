@@ -320,11 +320,23 @@ names.forEach((name, i) => {
 
   let html = '';
   if (name === 'AL') {
-    html += `<div class="action-row" style="margin-bottom:12px;">
-      <a class="action-btn" style="background:#2D8CFF;" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 進入教室 (AL)</a>
-      <a class="action-btn" style="background:#2E7D4B;" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
-      <a class="action-btn" style="background:#888;opacity:.6;cursor:not-allowed;">🐾 Pet Board 即將開放</a>
-      <a class="action-btn" style="background:#FF8C61;" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
+    html += `<div style="margin-bottom:14px;">
+      <a style="display:block;width:100%;text-align:center;text-decoration:none;background:#2D8CFF;color:#fff;padding:13px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:12px;" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 進入教室 Enter Classroom</a>
+      <div style="background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px;">
+        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">JINGS 資源</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a style="display:block;text-align:center;text-decoration:none;background:#2E7D4B;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
+          <a style="display:block;text-align:center;text-decoration:none;background:#aaa;color:#fff;opacity:.6;cursor:not-allowed;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;">🐾 Pet Board 待開放</a>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px;">
+        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">課程管理</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a style="display:block;text-align:center;text-decoration:none;background:#7A5CB0;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+          <a style="display:block;text-align:center;text-decoration:none;background:#C77D3E;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+        </div>
+      </div>
+      <a style="display:block;text-align:center;text-decoration:none;background:#FF8C61;color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:10px;margin-bottom:8px;" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
     </div>`;
   }
   if (s.oldTerm.length) {
