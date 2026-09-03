@@ -145,6 +145,20 @@
     font-size: 14px; font-weight: 700; padding: 12px; border-radius: 10px; margin-bottom: 8px; transition: background .15s; }
   .cs-link:hover { background: #e6723f; }
   .zoom-id { font-size: 12px; color: #889; margin: 4px 0 16px; }
+  .zoom-btn-full { display: block; width: 100%; text-align: center; text-decoration: none; background: #2D8CFF; color: #fff;
+    padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .15s; margin-bottom: 12px; }
+  .zoom-btn-full:hover { background: #1a6fd6; }
+  .section-box { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 12px; }
+  .section-box h3 { font-size: 11px; font-weight: 700; color: #aaa; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 10px; }
+  .btn-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-row2 a { display: block; text-align: center; text-decoration: none; padding: 11px 10px; border-radius: 10px; font-size: 14px; font-weight: 700; }
+  .btn-hub { background: #2E7D4B; color: #fff; }
+  .btn-pet { background: #aaa; color: #fff; opacity: .6; cursor: not-allowed; }
+  .btn-makeup2 { background: #7A5CB0; color: #fff; }
+  .btn-leave2 { background: #C77D3E; color: #fff; }
+  .btn-cs { display: block; text-align: center; text-decoration: none; background: #FF8C61; color: #fff;
+    font-size: 14px; font-weight: 700; padding: 12px; border-radius: 10px; margin-bottom: 12px; }
+  .zoom-id2 { font-size: 12px; color: #889; margin: 4px 0 16px; }
 </style>
 </head>
 <body>
@@ -153,11 +167,23 @@
   <h1>Hannah &amp; Isla</h1>
   <div class="sub-header">家長：Mandy Chen ｜ 老師：安東尼老師 Teacher Anthony</div>
 
-  <div class="action-row">
-    <a class="action-btn btn-zoom" href="https://us02web.zoom.us/j/83992491631" target="_blank">🎥 進入教室</a>
-    <a class="action-btn btn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
-    <a class="action-btn btn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+    <a class="zoom-btn-full" href="https://us02web.zoom.us/j/83992491631" target="_blank">🎥 進入教室 Enter Classroom</a>
+  <div class="zoom-id2">Meeting ID: 839 9249 1631</div>
+  <div class="section-box">
+    <h3>JINGS 資源</h3>
+    <div class="btn-row2">
+      <a class="btn-hub" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
+      <a class="btn-pet" href="#">🐾 Pet Board 待開放</a>
+    </div>
   </div>
+  <div class="section-box">
+    <h3>課程管理</h3>
+    <div class="btn-row2">
+      <a class="btn-makeup2" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+      <a class="btn-leave2" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+    </div>
+  </div>
+  <a class="btn-cs" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
 
   <div class="card">
     <div class="card-title">課卡購買</div>
