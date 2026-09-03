@@ -319,6 +319,14 @@ names.forEach((name, i) => {
   panel.id = "panel-"+name;
 
   let html = '';
+  if (name === 'AL') {
+    html += `<div class="action-row" style="margin-bottom:12px;">
+      <a class="action-btn" style="background:#2D8CFF;" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 進入教室 (AL)</a>
+      <a class="action-btn" style="background:#2E7D4B;" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
+      <a class="action-btn" style="background:#888;opacity:.6;cursor:not-allowed;">🐾 Pet Board 即將開放</a>
+      <a class="action-btn" style="background:#FF8C61;" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
+    </div>`;
+  }
   if (s.oldTerm.length) {
     html += `<div class="card"><span class="section-badge badge-old">舊期剩餘 Old Term Leftover（${s.oldTerm.length}）</span>${buildTable(s.oldTerm, s.points)}</div>`;
   }
