@@ -396,7 +396,10 @@ function setView(view) {
 // jaxis-leave-form-sync daily automation whenever a student takes a day off
 // or confirms a makeup date. For now it's populated with 2 SAMPLE entries
 // so you can see how it renders — remove/replace these once real data flows in.
-function isoDate(d) { return d.toISOString().split('T')[0]; }
+function isoDate(d) {
+  const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+}
 
 function getMonday(offsetWeeks) {
   const now = new Date();
