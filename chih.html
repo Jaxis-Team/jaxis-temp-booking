@@ -11,21 +11,25 @@
   header h1 { font-size: 22px; margin-bottom: 4px; }
   header .sub { color: #667; font-size: 14px; margin-bottom: 12px; }
   .action-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
-  .zoom-btn { display: inline-block; text-decoration: none; background: #2D8CFF; color: #fff;
-    padding: 11px 22px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .15s; }
+  .zoom-btn { display: block; width: 100%; text-align: center; text-decoration: none; background: #2D8CFF; color: #fff;
+    padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .15s; margin-bottom: 12px; }
   .zoom-btn:hover { background: #1a6fd6; }
-  .act-btn { display: inline-block; text-decoration: none; padding: 11px 20px; border-radius: 10px;
-    font-size: 15px; font-weight: 700; transition: background .15s; }
+  .section-box { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 12px; }
+  .section-box h3 { font-size: 11px; font-weight: 700; color: #aaa; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 10px; }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .act-btn { display: block; text-align: center; text-decoration: none; padding: 11px 10px; border-radius: 10px;
+    font-size: 14px; font-weight: 700; transition: background .15s; }
+  .hub-btn { background: #2E7D4B; color: #fff; }
+  .hub-btn:hover { background: #235f3a; }
+  .pet-btn { background: #aaa; color: #fff; opacity: .6; cursor: not-allowed; }
   .makeup-btn { background: #7A5CB0; color: #fff; }
   .makeup-btn:hover { background: #63478f; }
   .leave-btn { background: #C77D3E; color: #fff; }
   .leave-btn:hover { background: #a5642e; }
-  .hub-btn { background: #2E7D4B; color: #fff; }
-  .hub-btn:hover { background: #235f3a; }
-  .pet-btn { background: #888; color: #fff; }
-  .cs-btn { background: #FF8C61; color: #fff; }
-  .cs-btn:hover { background: #e6723f; }
-  .zoom-id { font-size: 12px; color: #889; margin: 6px 0 20px; }
+  .cs-link { display: block; text-align: center; text-decoration: none; color: #888; font-size: 13px;
+    padding: 8px; margin-bottom: 8px; border-radius: 8px; transition: color .15s; }
+  .cs-link:hover { color: #555; }
+  .zoom-id { font-size: 12px; color: #889; margin: 4px 0 16px; }
   .card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 20px; }
   .pass-note { background: #FFF4E5; border: 1px solid #FFD9A0; color: #8A5300; border-radius: 10px; padding: 12px 16px; font-size: 13px; margin-bottom: 20px; }
   h2 { font-size: 15px; margin-bottom: 12px; color: #334; }
@@ -52,15 +56,26 @@
   <header>
     <h1>Chih</h1>
     <div class="sub">家長：心慧 徐 &nbsp;|&nbsp; 老師：安東尼老師 Teacher Anthony</div>
-    <div class="action-row">
-      <a class="zoom-btn" href="https://us02web.zoom.us/j/85445182933" target="_blank">🎥 進入教室 Enter Classroom</a>
-      <a class="act-btn hub-btn" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
-      <a class="act-btn pet-btn" href="#" style="opacity:.55;cursor:not-allowed;">🐾 Pet Board 即將開放</a>
-      <a class="act-btn makeup-btn" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
-      <a class="act-btn leave-btn" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
-      <a class="act-btn cs-btn" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
-    </div>
+    <a class="zoom-btn" href="https://us02web.zoom.us/j/85445182933" target="_blank">🎥 進入教室 Enter Classroom</a>
     <div class="zoom-id">Meeting ID: 854 4518 2933</div>
+
+    <div class="section-box">
+      <h3>JINGS 資源</h3>
+      <div class="btn-row">
+        <a class="act-btn hub-btn" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
+        <a class="act-btn pet-btn" href="#">🐾 Pet Board 即將開放</a>
+      </div>
+    </div>
+
+    <div class="section-box">
+      <h3>課程管理</h3>
+      <div class="btn-row">
+        <a class="act-btn makeup-btn" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+        <a class="act-btn leave-btn" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+      </div>
+    </div>
+
+    <a class="cs-link" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
   </header>
 
   <div class="card">
