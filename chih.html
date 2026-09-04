@@ -79,27 +79,18 @@
   </header>
 
   <div class="card">
-    <h2>課卡購買</h2>
-    <div class="buy-grid">
-      <a href="https://book.stripe.com/aFa6oI95m61Z9I4fgk8AE06" target="_blank">500點</a>
-      <a href="https://book.stripe.com/bJe7sMbdu1LJ9I4fgk8AE0c" target="_blank">250點</a>
-      <a href="https://book.stripe.com/fZucN6epGbmj5rO6JO8AE0d" target="_blank">200點</a>
-      <a href="https://book.stripe.com/eVq9AUchy7633jGb048AE0e" target="_blank">100點</a>
-      <a href="https://book.stripe.com/00wfZidlC61ZaM85FK8AE0f" target="_blank">50點</a>
-      <a href="https://book.stripe.com/8x2bJ2bdubmjaM85FK8AE0g" target="_blank">20點</a>
-      <a href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank" class="alt">一對一課程40堂</a>
-    </div>
-  </div>
-
-  <div class="pass-note">
-    ⚠️ 一對一專屬課卡(40堂) 已用完（240 / 240），且所有課卡均已到期。新課程預約前需加購新課卡。
+    <h2>新學期課程 · 一對一專屬課卡(40堂) · 預約 2026-08-18 <span id="count2"></span></h2>
+    <table>
+      <thead><tr><th>日期</th><th>時間</th><th>狀態</th></tr></thead>
+      <tbody id="tbody2"></tbody>
+    </table>
   </div>
 
   <div class="card">
-    <h2>本期課程 · 一對一專屬課卡(40堂) · 預約 2026-02-24 <span id="count"></span></h2>
+    <h2>上學期課程 · 一對一專屬課卡(40堂) · 預約 2026-02-24 <span id="count1"></span></h2>
     <table>
       <thead><tr><th>日期</th><th>時間</th><th>狀態</th></tr></thead>
-      <tbody id="tbody"></tbody>
+      <tbody id="tbody1"></tbody>
     </table>
   </div>
 
@@ -111,9 +102,30 @@
 </div>
 
 <script>
-const term = [
-  {d:"2026-07-09",t:"16:55",s:"待補課"},
-  {d:"2026-07-02",t:"16:55",s:"待補課"},
+const newTerm = [
+  {d:"2027-01-08",t:"16:55",s:"Upcoming"},
+  {d:"2026-12-31",t:"16:55",s:"Upcoming"},
+  {d:"2026-12-17",t:"16:55",s:"Upcoming"},
+  {d:"2026-12-10",t:"16:55",s:"Upcoming"},
+  {d:"2026-12-03",t:"16:55",s:"Upcoming"},
+  {d:"2026-11-26",t:"16:55",s:"Upcoming"},
+  {d:"2026-11-19",t:"16:55",s:"Upcoming"},
+  {d:"2026-11-12",t:"16:55",s:"Upcoming"},
+  {d:"2026-11-05",t:"16:55",s:"Upcoming"},
+  {d:"2026-10-29",t:"16:55",s:"Upcoming"},
+  {d:"2026-10-22",t:"16:55",s:"Upcoming"},
+  {d:"2026-10-15",t:"16:55",s:"Upcoming"},
+  {d:"2026-10-08",t:"16:55",s:"Upcoming"},
+  {d:"2026-10-01",t:"16:55",s:"Upcoming"},
+  {d:"2026-09-24",t:"16:55",s:"Upcoming"},
+  {d:"2026-09-17",t:"16:55",s:"Upcoming"},
+  {d:"2026-09-10",t:"16:55",s:"Upcoming"},
+  {d:"2026-09-03",t:"16:55",s:"Upcoming"},
+  {d:"2026-08-20",t:"16:55",s:"Upcoming"},
+];
+const prevTerm = [
+  {d:"2026-07-09",t:"16:55",s:"\u5f85\u88dc\u8ab2"},
+  {d:"2026-07-02",t:"16:55",s:"\u5f85\u88dc\u8ab2"},
   {d:"2026-06-25",t:"16:55",s:"Yes"},
   {d:"2026-06-18",t:"16:55",s:"Yes"},
   {d:"2026-06-11",t:"16:55",s:"Yes"},
@@ -126,27 +138,34 @@ const term = [
   {d:"2026-04-23",t:"16:55",s:"Yes"},
   {d:"2026-04-18",t:"09:40",s:"Yes"},
   {d:"2026-04-09",t:"16:55",s:"Yes"},
-  {d:"2026-04-02",t:"16:55",s:"Yes",note:"已於 7/28 18:45 補課"},
+  {d:"2026-04-02",t:"16:55",s:"Yes",note:"\u5df2\u65bc 7/28 18:45 \u88dc\u8ab2"},
   {d:"2026-03-26",t:"16:55",s:"Yes"},
   {d:"2026-03-19",t:"16:55",s:"Yes"},
   {d:"2026-03-12",t:"16:55",s:"Yes"},
   {d:"2026-03-05",t:"16:55",s:"Yes"},
   {d:"2026-02-26",t:"16:55",s:"Yes"},
 ];
-const cls = {"Yes":"yes","Upcoming":"up","待補課":"makeup"};
-const lbl = {"Yes":"Yes 已上課","Upcoming":"Upcoming 預約中","待補課":"待補課 Pending"};
-const tb = document.getElementById("tbody");
-term.forEach(r=>{
-  const note = r.note?`<div class="note">${r.note}</div>`:"";
-  tb.insertAdjacentHTML("beforeend",
-    `<tr><td>${r.d}</td><td>${r.t}</td><td><span class="badge ${cls[r.s]}">${lbl[r.s]}</span>${note}</td></tr>`);
-});
-document.getElementById("count").textContent = "（共 "+term.length+" 堂）";
+const cls = {"Yes":"yes","Upcoming":"up","\u5f85\u88dc\u8ab2":"makeup"};
+const lbl = {"Yes":"Yes \u5df2\u4e0a\u8ab2","Upcoming":"Upcoming \u9810\u7d04\u4e2d","\u5f85\u88dc\u8ab2":"\u5f85\u88dc\u8ab2 Pending"};
+
+function renderTable(data, tbodyId, countId) {
+  const tb = document.getElementById(tbodyId);
+  data.forEach(r=>{
+    const note = r.note?`<div class="note">${r.note}</div>`:"";
+    tb.insertAdjacentHTML("beforeend",
+      `<tr><td>${r.d}</td><td>${r.t}</td><td><span class="badge ${cls[r.s]}">${lbl[r.s]}</span>${note}</td></tr>`);
+  });
+  document.getElementById(countId).textContent = "(\u5171 "+data.length+" \u5802)";
+}
+renderTable(newTerm, "tbody2", "count2");
+renderTable(prevTerm, "tbody1", "count1");
 
 function dl(){
-  let csv = "日期,時間,狀態,備註\n";
-  term.forEach(r=> csv += `${r.d},${r.t},${r.s},${r.note||""}\n`);
-  const b = new Blob(["\uFEFF"+csv],{type:"text/csv"});
+  let csv = "\u65b0\u5b78\u671f,,,\n\u65e5\u671f,\u6642\u9593,\u72c0\u614b,\u5099\u8a3b\n";
+  newTerm.forEach(r=> csv += r.d+","+r.t+","+r.s+","+(r.note||"")+"\n");
+  csv += "\n\u4e0a\u5b78\u671f,,,\n\u65e5\u671f,\u6642\u9593,\u72c0\u614b,\u5099\u8a3b\n";
+  prevTerm.forEach(r=> csv += r.d+","+r.t+","+r.s+","+(r.note||"")+"\n");
+  const b = new Blob(["\ufeff"+csv],{type:"text/csv"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(b); a.download = "chih_summary.csv"; a.click();
 }
