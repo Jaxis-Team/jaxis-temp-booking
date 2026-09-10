@@ -259,6 +259,8 @@ function formatRoster(list, filterDay) {
 
 // Lesson plans — keyed by class/group name. Each entry is one week's plan.
 // This is what the modal displays when a group class name is tapped.
+// RULE (confirmed): AL, Ariel, Hannah, Ray, Ruby, Chih always follow the
+// group class progress unless explicitly told otherwise for a given week.
 const lessonPlans = {
   "Baby Class": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Phonics — Short Vowel A_E" },
@@ -267,37 +269,65 @@ const lessonPlans = {
   ],
   "SS1": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Basic sentences" }
-  ],
-  "Ray": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" }
-  ],
-  "Ruby": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" }
-  ],
-  "Chih": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" }
-  ],
-  "Hannah": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" }
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Basic sentences" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences" }
   ],
   "SS2": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Basic sentences" }
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Basic sentences" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences" }
   ],
   "A": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" }
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
   ],
   "B": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" }
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
   ],
   "C": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
+  ],
+  "D": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Advanced" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Advanced" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Advanced" }
+  ],
+  "Ray": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+  ],
+  "Ruby": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+  ],
+  "Chih": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+  ],
+  "Hannah": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+  ],
+  "AL": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+  ],
+  "Ariel": [
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+  ],
+};
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
     { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" }
   ],
@@ -350,6 +380,8 @@ function showDay(dayIndex) {
   const monday = getMonday(0);
   const dt = new Date(monday);
   dt.setDate(monday.getDate() + dayIndex);
+  const iso = isoDate(dt);
+  const dayExceptions = exceptions[iso] || {};
   const dateLabel = dt.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
   let html = `<div class="day-card"><div class="day-title">${dateLabel}</div>`;
   grid.forEach(row => {
@@ -360,8 +392,22 @@ function showDay(dayIndex) {
     }
     const name = cells[dayIndex];
     if (!name) return;
-    html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', true)">${name}</button></div>`;
+    const exc = dayExceptions[name];
+    if (exc && exc.type === 'break') {
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><span class="slot-break">BREAK</span></div>`;
+    } else if (exc && exc.type === 'cancel') {
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><span class="wk-slot-name cancelled">${name}</span><span class="wk-tag cancel">OFF</span></div>`;
+    } else if (exc && exc.type === 'moved') {
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', true)">${name}</button><span class="wk-tag moved">→ ${exc.newTime}</span></div>`;
+    } else {
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', true)">${name}</button></div>`;
+    }
   });
+  if (dayExceptions.additions) {
+    dayExceptions.additions.forEach(add => {
+      html += `<div class="slot-row"><span class="slot-time">${add.time}</span><span class="wk-slot-name">${add.name}</span><span class="wk-tag moved">ADDED</span></div>`;
+    });
+  }
   html += '</div>';
   document.getElementById('dayCard').innerHTML = html;
 }
