@@ -185,7 +185,7 @@ function showKid(kid){
   const tbW=document.getElementById("tb-ww");
   termWW.forEach(r=>{
     const st = r.s==="missed"
-      ? '<span class="badge" style="background:#eee;color:#888">缺席・不補課</span>'
+      ? '<span class="badge" style="background:#eee;color:#888">缺席</span>'
       : '<span class="badge b-up">Upcoming</span>';
     tbW.insertAdjacentHTML("beforeend",
       `<tr><td>${r.d}</td><td>週${dow(r.d+"T12:00:00")}</td><td class="slots"><span>13:45</span><span>14:15</span></td><td>${st}</td></tr>`);
