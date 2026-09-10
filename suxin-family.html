@@ -148,7 +148,7 @@
 
   <div class="footer">
     此為手動追蹤系統，非即時連動預約平台。請於預約或出席變更時手動更新。<br>
-    最後更新：2026-09-04
+    最後更新：2026-08-03
   </div>
 </div>
 
@@ -166,17 +166,17 @@ const students = {
       { time: "2026-07-27 18:45", att: "Yes" },
       { time: "2026-07-29 18:45", att: "Yes" },
       { time: "2026-07-30 18:45", att: "Yes" },
-      { time: "2026-08-10 18:45", att: "Yes" }
+      { time: "2026-08-10 18:45", att: "Upcoming" }
     ],
     newTerm: [
-      { time: "2026-09-01 10:40", att: "Yes" },
-      { time: "2026-09-02 09:35", att: "Yes" },
-      { time: "2026-09-03 10:40", att: "Yes" },
+      { time: "2026-09-01 10:40", att: "Upcoming" },
+      { time: "2026-09-02 09:35", att: "Upcoming" },
+      { time: "2026-09-03 10:40", att: "Upcoming" },
       { time: "2026-09-08 10:40", att: "Upcoming" },
-      { time: "2026-09-09 09:35", att: "Upcoming" },
-      { time: "2026-09-10 10:40", att: "Upcoming" },
-      { time: "2026-09-15 10:40", att: "Upcoming" },
-      { time: "2026-09-16 09:35", att: "Upcoming" },
+      { time: "2026-09-09 09:35", att: "待補課" },
+      { time: "2026-09-10 10:40", att: "待補課" },
+      { time: "2026-09-15 10:40", att: "待補課" },
+      { time: "2026-09-16 09:35", att: "待補課" },
       { time: "2026-09-17 10:40", att: "Upcoming" },
       { time: "2026-09-22 10:40", att: "Upcoming" },
       { time: "2026-09-23 09:35", att: "Upcoming" },
@@ -207,13 +207,13 @@ const students = {
       { time: "2026-07-07 16:55", att: "Yes" }
     ],
     newTerm: [
-      { time: "2026-09-01 17:00", att: "Yes" },
-      { time: "2026-09-03 16:25", att: "Yes" },
+      { time: "2026-09-01 17:00", att: "Upcoming" },
+      { time: "2026-09-03 16:25", att: "Upcoming" },
       { time: "2026-09-07 17:00", att: "Upcoming" },
       { time: "2026-09-08 17:00", att: "Upcoming" },
-      { time: "2026-09-10 16:25", att: "Upcoming" },
-      { time: "2026-09-14 17:00", att: "Upcoming" },
-      { time: "2026-09-15 17:00", att: "Upcoming" },
+      { time: "2026-09-10 16:25", att: "待補課" },
+      { time: "2026-09-14 17:00", att: "待補課" },
+      { time: "2026-09-15 17:00", att: "待補課" },
       { time: "2026-09-17 16:25", att: "Upcoming" },
       { time: "2026-09-21 17:00", att: "Upcoming" },
       { time: "2026-09-22 17:00", att: "Upcoming" },
@@ -252,11 +252,11 @@ const students = {
       { time: "2026-07-30 10:40", att: "Yes" }
     ],
     newTerm: [
-      { time: "2026-09-01 11:15", att: "Yes" },
-      { time: "2026-09-03 11:15", att: "Yes" },
+      { time: "2026-09-01 11:15", att: "Upcoming" },
+      { time: "2026-09-03 11:15", att: "Upcoming" },
       { time: "2026-09-08 11:15", att: "Upcoming" },
-      { time: "2026-09-10 11:15", att: "Upcoming" },
-      { time: "2026-09-15 11:15", att: "Upcoming" },
+      { time: "2026-09-10 11:15", att: "待補課" },
+      { time: "2026-09-15 11:15", att: "待補課" },
       { time: "2026-09-17 11:15", att: "Upcoming" },
       { time: "2026-09-22 11:15", att: "Upcoming" },
       { time: "2026-09-24 11:15", att: "Upcoming" },
@@ -319,26 +319,6 @@ names.forEach((name, i) => {
   panel.id = "panel-"+name;
 
   let html = '';
-  if (name === 'AL') {
-    html += `<div style="margin-bottom:14px;">
-      <a style="display:block;width:100%;text-align:center;text-decoration:none;background:#2D8CFF;color:#fff;padding:13px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:12px;" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 進入教室 Enter Classroom</a>
-      <div style="background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px;">
-        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">JINGS 資源</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <a style="display:block;text-align:center;text-decoration:none;background:#2E7D4B;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
-          <a style="display:block;text-align:center;text-decoration:none;background:#aaa;color:#fff;opacity:.6;cursor:not-allowed;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;">🐾 Pet Board</a>
-        </div>
-      </div>
-      <div style="background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px;">
-        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">課程管理</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <a style="display:block;text-align:center;text-decoration:none;background:#7A5CB0;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
-          <a style="display:block;text-align:center;text-decoration:none;background:#C77D3E;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
-        </div>
-      </div>
-      <a style="display:block;text-align:center;text-decoration:none;background:#FF8C61;color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:10px;margin-bottom:8px;" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
-    </div>`;
-  }
   if (s.oldTerm.length) {
     html += `<div class="card"><span class="section-badge badge-old">舊期剩餘 Old Term Leftover（${s.oldTerm.length}）</span>${buildTable(s.oldTerm, s.points)}</div>`;
   }
