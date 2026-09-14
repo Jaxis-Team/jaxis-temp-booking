@@ -291,8 +291,10 @@ const lessonPlans = {
   ],
   "A": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate", active: false },
-    { week: "Game day — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"], active: true },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate", days: ["Tuesday","Wednesday","Thursday"], active: true }
+    { week: "Game day — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"], active: true, untilDate: "2026-09-21" },
+    { week: "Game day — Tue (from 9/21)", topic: "Money & Numbers Unit 2 Game", days: ["Tuesday"], active: true, fromDate: "2026-09-21" },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate", days: ["Tuesday","Wednesday","Thursday"], active: true, untilDate: "2026-09-21" },
+    { week: "W3 · Term 18 (from 9/21)", topic: "Money & Numbers Unit 3 — Intermediate", days: ["Monday","Wednesday","Thursday"], active: true, fromDate: "2026-09-21" }
   ],
   "B": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate", active: false },
@@ -371,7 +373,7 @@ function renderGrid() {
         const dayName = days[i];
         const override = gridPlanDay(name);
         const overrideArg = override ? `'${override}'` : 'null';
-        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${dayName}', ${overrideArg})">${name}</button></td>`;
+        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${dayName}', ${overrideArg}, isoDate(new Date()))">${name}</button></td>`;
       }
     });
     html += '</tr>';
@@ -417,9 +419,9 @@ function showDay(dayIndex) {
     } else if (exc && exc.type === 'cancel') {
       html += `<div class="slot-row"><span class="slot-time">${time}</span><span class="wk-slot-name cancelled">${name}</span><span class="wk-tag cancel">OFF</span></div>`;
     } else if (exc && exc.type === 'moved') {
-      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}')">${name}</button><span class="wk-tag moved">→ ${exc.newTime}</span></div>`;
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', null, '${iso}')">${name}</button><span class="wk-tag moved">→ ${exc.newTime}</span></div>`;
     } else {
-      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}')">${name}</button></div>`;
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', null, '${iso}')">${name}</button></div>`;
     }
   });
   if (dayExceptions.additions) {
@@ -431,7 +433,7 @@ function showDay(dayIndex) {
   document.getElementById('dayCard').innerHTML = html;
 }
 
-function openModal(name, time, day, planDayOverride) {
+function openModal(name, time, day, planDayOverride, refDateISO) {
   document.getElementById('modalName').textContent = name;
   document.getElementById('modalTime').textContent = `${day} · ${time}`;
   const zoomSection = document.getElementById('modalZoomSection');
@@ -456,7 +458,18 @@ function openModal(name, time, day, planDayOverride) {
     // shows that week's Wednesday topic regardless of which column was
     // clicked. Day-by-Day (no override) shows the actually-tapped day.
     const planDay = planDayOverride || day;
-    plans = plans.filter(p => p.active && (!p.days || p.days.includes(planDay)));
+    // refDateISO lets an entry be scoped to only apply from/until a certain
+    // calendar date — e.g. a Game day that's moving to a new weekday
+    // starting a future week, without needing a manual flip on that date.
+    plans = plans.filter(p => {
+      if (!p.active) return false;
+      if (p.days && !p.days.includes(planDay)) return false;
+      if (refDateISO) {
+        if (p.fromDate && refDateISO < p.fromDate) return false;
+        if (p.untilDate && refDateISO >= p.untilDate) return false;
+      }
+      return true;
+    });
   }
   if (plans && plans.length) {
     planContent.innerHTML = plans.map(p => `
