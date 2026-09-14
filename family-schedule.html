@@ -50,6 +50,9 @@
     td:first-child { width: 50px; font-size: 0.65rem; }
     th:first-child { width: 50px; }
   }
+  .sub-tabs { display: flex; gap: 4px; margin-bottom: 0.6rem; }
+  .sub-btn { padding: 5px 10px; border: none; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; background: #eee; color: #888; }
+  .sub-btn.active { background: #555; color: #fff; }
 </style>
 </head>
 <body>
@@ -79,24 +82,38 @@
 </div>
 
 <div class="tabs">
-  <button class="tab-btn" onclick="showDay('aug31',this)">Mon 8/31</button>
-  <button class="tab-btn" onclick="showDay('sep1',this)">Tue 9/1</button>
-  <button class="tab-btn" onclick="showDay('sep2',this)">Wed 9/2</button>
-  <button class="tab-btn" onclick="showDay('sep3',this)">Thu 9/3</button>
-  <button class="tab-btn" onclick="showDay('sep4',this)">Fri 9/4</button>
-  <button class="tab-btn" onclick="showDay('sep7',this)">Mon 9/7</button>
-  <button class="tab-btn" onclick="showDay('sep8',this)">Tue 9/8</button>
-  <button class="tab-btn" onclick="showDay('sep9',this)">Wed 9/9</button>
-  <button class="tab-btn" onclick="showDay('sep10',this)">Thu 9/10</button>
-  <button class="tab-btn" onclick="showDay('sep11',this)">Fri 9/11</button>
+  <button class="tab-btn" onclick="showWeek('w1',this)">W1 · 8/31</button>
+  <button class="tab-btn" onclick="showWeek('w2',this)">W2 · 9/7</button>
   <button class="tab-btn active" onclick="showDay('sep14',this)">Mon 9/14</button>
   <span class="plan-divider">|</span>
-  <button class="tab-btn plan-jay" onclick="showDay('jay-week',this)">🟢 Jay Weekly</button>
-  <button class="tab-btn plan-lexi" onclick="showDay('lexi-week',this)">🟡 Lexi Weekly</button>
+  <button class="tab-btn plan-jay" onclick="showDay('jay-week',this)">🟢 Jay</button>
+  <button class="tab-btn plan-lexi" onclick="showDay('lexi-week',this)">🟡 Lexi</button>
+</div>
+
+<!-- W1 sub-tabs -->
+<div id="w1" class="day-content">
+  <div class="sub-tabs">
+    <button class="sub-btn active" onclick="showSub('w1','aug31',this)">Mon</button>
+    <button class="sub-btn" onclick="showSub('w1','sep1',this)">Tue</button>
+    <button class="sub-btn" onclick="showSub('w1','sep2',this)">Wed</button>
+    <button class="sub-btn" onclick="showSub('w1','sep3',this)">Thu</button>
+    <button class="sub-btn" onclick="showSub('w1','sep4',this)">Fri</button>
+  </div>
+</div>
+
+<!-- W2 sub-tabs -->
+<div id="w2" class="day-content">
+  <div class="sub-tabs">
+    <button class="sub-btn active" onclick="showSub('w2','sep7',this)">Mon</button>
+    <button class="sub-btn" onclick="showSub('w2','sep8',this)">Tue</button>
+    <button class="sub-btn" onclick="showSub('w2','sep9',this)">Wed</button>
+    <button class="sub-btn" onclick="showSub('w2','sep10',this)">Thu</button>
+    <button class="sub-btn" onclick="showSub('w2','sep11',this)">Fri</button>
+  </div>
 </div>
 
 <!-- ===== AUG 31 ===== -->
-<div id="aug31" class="day-content">
+<div id="aug31" class="day-content" data-week="w1">
   <div class="day-label">Mon, Aug 31</div>
 
   <div class="block">
@@ -181,7 +198,7 @@
 </div>
 
 <!-- ===== SEP 1 ===== -->
-<div id="sep1" class="day-content">
+<div id="sep1" class="day-content" data-week="w1">
   <div class="day-label">Tue, Sep 1</div>
 
   <div class="block">
@@ -275,7 +292,7 @@
 </div>
 
 <!-- ===== SEP 2 ===== -->
-<div id="sep2" class="day-content">
+<div id="sep2" class="day-content" data-week="w1">
   <div class="day-label">Wed, Sep 2</div>
 
   <div class="block">
@@ -384,7 +401,7 @@
 </div>
 
 <!-- ===== SEP 3 ===== -->
-<div id="sep3" class="day-content">
+<div id="sep3" class="day-content" data-week="w1">
   <div class="day-label">Thu, Sep 3</div>
 
   <div class="block">
@@ -492,7 +509,7 @@
 </div>
 
 <!-- ===== SEP 4 ===== -->
-<div id="sep4" class="day-content">
+<div id="sep4" class="day-content" data-week="w1">
   <div class="day-label">Fri, Sep 4 — 🤸 Lexi's 1st Gymnastics!</div>
 
   <div class="block">
@@ -596,7 +613,7 @@
 </div>
 
 <!-- ===== SEP 7 ===== -->
-<div id="sep7" class="day-content">
+<div id="sep7" class="day-content" data-week="w2">
   <div class="day-label">Mon, Sep 7</div>
 
   <div class="block">
@@ -804,7 +821,7 @@
 </div>
 
 <!-- ===== SEP 9 WED ===== -->
-<div id="sep9" class="day-content">
+<div id="sep9" class="day-content" data-week="w2">
   <div class="day-label">Wed, Sep 9 — 🍳 Jay cooks dinner</div>
 
   <div class="block">
@@ -902,7 +919,7 @@
 </div>
 
 <!-- ===== SEP 10 THU ===== -->
-<div id="sep10" class="day-content">
+<div id="sep10" class="day-content" data-week="w2">
   <div class="day-label">Thu, Sep 10 — 🏓 Jay Ping Pong</div>
 
   <div class="block">
@@ -1007,7 +1024,7 @@
 </div>
 
 <!-- ===== SEP 11 FRI ===== -->
-<div id="sep11" class="day-content">
+<div id="sep11" class="day-content" data-week="w2">
   <div class="day-label">Fri, Sep 11 — 🍳 Jay cooks lunch · 🤸 Lexi Gymnastics</div>
 
   <div class="block">
@@ -1282,11 +1299,31 @@ function showDay(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
-  btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 }
-// Auto-scroll to active tab on load
+
+function showWeek(weekId, btn) {
+  document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(weekId).classList.add('active');
+  btn.classList.add('active');
+  // show first sub-day by default (the one with active sub-btn)
+  var activeSub = document.querySelector('#' + weekId + ' .sub-btn.active');
+  if (activeSub) activeSub.click();
+}
+
+function showSub(weekId, dayId, btn) {
+  // hide all days in this week
+  document.querySelectorAll('[data-week="' + weekId + '"]').forEach(d => d.classList.remove('active'));
+  // deactivate sub buttons in this week
+  document.querySelectorAll('#' + weekId + ' .sub-btn').forEach(b => b.classList.remove('active'));
+  // show selected day + week container
+  document.getElementById(weekId).classList.add('active');
+  document.getElementById(dayId).classList.add('active');
+  btn.classList.add('active');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const active = document.querySelector('.tab-btn.active');
+  var active = document.querySelector('.tab-btn.active');
   if (active) active.scrollIntoView({ inline: 'center', block: 'nearest' });
 });
 </script>
