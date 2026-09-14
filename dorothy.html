@@ -49,6 +49,7 @@
   .b-yes{background:var(--yes-bg);color:var(--yes)}
   .b-miss{background:var(--miss-bg);color:var(--miss)}
   .b-up{background:var(--up-bg);color:var(--up)}
+  .b-leave{background:#F5E3D2;color:var(--leave)}
   .tbd{color:var(--muted)}
   .mkbtn{display:inline-block;margin-left:8px;background:var(--miss);color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px}
   .dlbtn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
@@ -106,7 +107,7 @@
 
   <footer>
     手動追蹤表，未連結任何線上預約系統，點數與出席由人工更新，可能與實際系統略有延遲。<br>
-    Manual tracking sheet — not linked to any live booking platform. Last updated 2026-09-11.
+    Manual tracking sheet — not linked to any live booking platform. Last updated 2026-09-14.
   </footer>
 </div>
 
@@ -128,7 +129,7 @@
     {date:"2026-08-24",time:"9:35:00",status:"Cancelled",makeup:"https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform"},
     {date:"2026-08-31",time:"14:20:00",status:"Yes"},
     {date:"2026-09-07",time:"14:20:00",status:"Yes"},
-    {date:"2026-09-14",time:"14:20:00",status:"Upcoming"},
+    {date:"2026-09-14",time:"14:20:00",status:"Leave"},
     {date:"2026-09-21",time:"14:20:00",status:"Upcoming"},
     {date:"2026-09-28",time:"14:20:00",status:"Upcoming"},
     {date:"2026-10-05",time:"14:20:00",status:"Upcoming"},
@@ -142,6 +143,7 @@
     if(s==="Yes")     return '<span class="badge b-yes">Yes 已出席</span>';
     if(s==="Missed")  return '<span class="badge b-miss">Missed 缺席</span>';
     if(s==="Cancelled")return '';
+    if(s==="Leave")   return '<span class="badge b-leave">請假 Off</span>';
     return '<span class="badge b-up">Upcoming</span>';
   }
   function row(r,i){
