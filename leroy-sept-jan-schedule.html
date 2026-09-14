@@ -215,6 +215,7 @@ const groupRosterData = {
     { name: "Louis", days: ["Monday","Tuesday","Wednesday","Thursday"] },
     { name: "Zoe", days: ["Tuesday","Thursday"] },
     { name: "Win Win", days: ["Tuesday","Thursday"] },
+    { name: "River", days: ["Monday","Tuesday","Wednesday","Thursday"] },
   ],
   "A": [
     { name: "Amber Wang", days: ["Monday","Tuesday","Wednesday","Thursday"] },
@@ -227,6 +228,7 @@ const groupRosterData = {
     { name: "Felix", days: ["Monday","Tuesday","Wednesday","Thursday"] },
     { name: "Amber", days: ["Monday","Tuesday","Wednesday","Thursday"] },
     { name: "Kyler", days: ["Monday","Tuesday","Wednesday","Thursday"] },
+    { name: "Ariel", days: ["Monday","Tuesday","Wednesday","Thursday"] },
   ],
   "C": [
     { name: "Ian", days: ["Monday","Wednesday"] },
@@ -350,7 +352,14 @@ function renderGrid() {
       if (!name) {
         html += `<td class="empty-cell">—</td>`;
       } else {
-        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[i]}')">${name}</button></td>`;
+        let displayText = name;
+        const dayName = days[i];
+        if (name === 'Baby Class') {
+          displayText = formatRoster(babyRosterData, dayName);
+        } else if (groupRosterData[name]) {
+          displayText = formatRoster(groupRosterData[name], dayName);
+        }
+        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${dayName}')">${displayText}</button></td>`;
       }
     });
     html += '</tr>';
