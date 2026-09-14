@@ -16,8 +16,9 @@
   .l-jay   { background: #D1FAE5; color: #065F46; }
   .l-lexi  { background: #FEF3C7; color: #92400E; }
 
-  .tabs { display: flex; gap: 5px; margin-bottom: 0.8rem; flex-wrap: wrap; }
-  .tab-btn { padding: 7px 14px; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: #e5e5e5; color: #666; transition: all 0.2s; }
+  .tabs { display: flex; gap: 5px; margin-bottom: 0.8rem; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .tabs::-webkit-scrollbar { height: 0; }
+  .tab-btn { padding: 7px 14px; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: #e5e5e5; color: #666; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
   .tab-btn.active { background: #222; color: #fff; }
   .tab-btn.plan-jay { background: #D1FAE5; color: #065F46; border: 1.5px solid #065F46; }
   .tab-btn.plan-jay.active { background: #065F46; color: #fff; }
@@ -1281,7 +1282,13 @@ function showDay(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 }
+// Auto-scroll to active tab on load
+document.addEventListener('DOMContentLoaded', () => {
+  const active = document.querySelector('.tab-btn.active');
+  if (active) active.scrollIntoView({ inline: 'center', block: 'nearest' });
+});
 </script>
 
 </body>
