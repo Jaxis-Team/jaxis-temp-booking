@@ -269,32 +269,38 @@ const lessonPlans = {
   ],
   "SS1": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Basic sentences" },
+    { week: "W2 · Term 18 — Tue", topic: "Money & Numbers Unit 2 Game", days: ["Tuesday"] },
+    { week: "W2 · Term 18 — Mon/Wed/Thu", topic: "Money & Numbers Unit 2 — Basic sentences", days: ["Monday","Wednesday","Thursday"] },
     { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences" }
   ],
   "SS2": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Basic sentences" },
+    { week: "W2 · Term 18 — Tue", topic: "Money & Numbers Unit 2 Game", days: ["Tuesday"] },
+    { week: "W2 · Term 18 — Thu", topic: "Money & Numbers Unit 2 — Basic sentences", days: ["Thursday"] },
     { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences" }
   ],
   "A": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" },
+    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
+    { week: "W2 · Term 18 — Tue/Wed/Thu", topic: "Money & Numbers Unit 2 — Intermediate", days: ["Tuesday","Wednesday","Thursday"] },
     { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
   ],
   "B": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" },
+    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
+    { week: "W2 · Term 18 — Tue/Wed/Thu", topic: "Money & Numbers Unit 2 — Intermediate", days: ["Tuesday","Wednesday","Thursday"] },
     { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
   ],
   "C": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Intermediate" },
+    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
+    { week: "W2 · Term 18 — Wed", topic: "Money & Numbers Unit 2 — Intermediate", days: ["Wednesday"] },
     { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
   ],
   "D": [
     { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Advanced" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2 — Advanced" },
+    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
+    { week: "W2 · Term 18 — Tue/Wed/Thu", topic: "Money & Numbers Unit 2 — Advanced", days: ["Tuesday","Wednesday","Thursday"] },
     { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Advanced" }
   ],
   "Ray": [
@@ -423,7 +429,10 @@ function openModal(name, time, day, filterByDay) {
   }
 
   const planContent = document.getElementById('modalPlanContent');
-  const plans = lessonPlans[name];
+  let plans = lessonPlans[name];
+  if (plans && filterByDay) {
+    plans = plans.filter(p => !p.days || p.days.includes(day));
+  }
   if (plans && plans.length) {
     planContent.innerHTML = plans.map(p => `
       <div class="plan-entry">
