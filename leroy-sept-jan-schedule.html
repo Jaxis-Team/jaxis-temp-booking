@@ -340,6 +340,18 @@ const lessonPlans = {
   ],
 };
 
+// For the Recurring Template grid: which weekday's lesson plan represents
+// "this class's current topic" regardless of which column was clicked.
+// Default is Wednesday (meets for all of SS1/A/B/C/D); SS2 has no Wednesday
+// session so uses Thursday instead. Baby Class and individual 1-1 students
+// use the actual clicked day (Baby genuinely differs Mon vs Thu; individuals
+// aren't day-restricted so it doesn't matter).
+function gridPlanDay(name) {
+  if (['SS1','A','B','C','D'].includes(name)) return 'Wednesday';
+  if (name === 'SS2') return 'Thursday';
+  return null;
+}
+
 function renderGrid() {
   let html = '<div class="grid-wrap"><table><thead><tr><th>Time</th>';
   days.forEach(d => html += `<th>${d}</th>`);
@@ -356,7 +368,9 @@ function renderGrid() {
         html += `<td class="empty-cell">—</td>`;
       } else {
         const dayName = days[i];
-        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${dayName}')">${name}</button></td>`;
+        const override = gridPlanDay(name);
+        const overrideArg = override ? `'${override}'` : 'null';
+        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${dayName}', ${overrideArg})">${name}</button></td>`;
       }
     });
     html += '</tr>';
@@ -402,9 +416,9 @@ function showDay(dayIndex) {
     } else if (exc && exc.type === 'cancel') {
       html += `<div class="slot-row"><span class="slot-time">${time}</span><span class="wk-slot-name cancelled">${name}</span><span class="wk-tag cancel">OFF</span></div>`;
     } else if (exc && exc.type === 'moved') {
-      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', true)">${name}</button><span class="wk-tag moved">→ ${exc.newTime}</span></div>`;
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}')">${name}</button><span class="wk-tag moved">→ ${exc.newTime}</span></div>`;
     } else {
-      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}', true)">${name}</button></div>`;
+      html += `<div class="slot-row"><span class="slot-time">${time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${days[dayIndex]}')">${name}</button></div>`;
     }
   });
   if (dayExceptions.additions) {
@@ -416,17 +430,17 @@ function showDay(dayIndex) {
   document.getElementById('dayCard').innerHTML = html;
 }
 
-function openModal(name, time, day, filterByDay) {
+function openModal(name, time, day, planDayOverride) {
   document.getElementById('modalName').textContent = name;
   document.getElementById('modalTime').textContent = `${day} · ${time}`;
   const zoomSection = document.getElementById('modalZoomSection');
   const link = zoomLinks[name];
   if (name === 'Baby Class') {
-    const rosterText = formatRoster(babyRosterData, filterByDay ? day : null);
+    const rosterText = formatRoster(babyRosterData, day);
     zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a;">${rosterText}</div>`;
   } else if (groupRosterData[name]) {
-    const rosterText = formatRoster(groupRosterData[name], filterByDay ? day : null);
-    zoomSection.innerHTML = `<div class="modal-section-title">Roster${filterByDay ? ' — ' + day : ''}</div><div style="font-size:13px; color:#4a5a6a; margin-bottom:10px;">${rosterText}</div>` +
+    const rosterText = formatRoster(groupRosterData[name], day);
+    zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a; margin-bottom:10px;">${rosterText}</div>` +
       (link ? `<a class="modal-zoom-link" href="${link}" target="_blank">Join Zoom →</a>` : `<div style="font-size:12px; color:#c0392b;">No Zoom link on file</div>`);
   } else if (link) {
     zoomSection.innerHTML = `<div class="modal-section-title">Zoom Link</div><a class="modal-zoom-link" href="${link}" target="_blank">Join Zoom →</a>`;
@@ -436,10 +450,12 @@ function openModal(name, time, day, filterByDay) {
 
   const planContent = document.getElementById('modalPlanContent');
   let plans = lessonPlans[name];
-  if (plans && filterByDay) {
-    // Day-specific views (Day-by-Day, This Week, Next Week): only the
-    // currently active topic for this weekday, not the full history.
-    plans = plans.filter(p => p.active && (!p.days || p.days.includes(day)));
+  if (plans) {
+    // planDayOverride is set by the Recurring Template grid, which always
+    // shows that week's Wednesday topic regardless of which column was
+    // clicked. Day-by-Day (no override) shows the actually-tapped day.
+    const planDay = planDayOverride || day;
+    plans = plans.filter(p => p.active && (!p.days || p.days.includes(planDay)));
   }
   if (plans && plans.length) {
     planContent.innerHTML = plans.map(p => `
