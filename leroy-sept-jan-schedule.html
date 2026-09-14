@@ -263,77 +263,80 @@ function formatRoster(list, filterDay) {
 // This is what the modal displays when a group class name is tapped.
 // RULE (confirmed): AL, Ariel, Hannah, Ray, Ruby, Chih always follow the
 // group class progress unless explicitly told otherwise for a given week.
+// Lesson plans — keyed by class/group name.
+// `active: true` = currently in effect (shown in Day-by-Day / This Week / Next Week).
+// `active: false` = past week, kept only for history (shown in Recurring Template's full view).
+// `days` (optional) = only shown in Day-by-Day when tapped on one of those weekdays.
+// RULE (confirmed): AL, Ariel, Hannah, Ray, Ruby, Chih always follow the
+// group class progress unless explicitly told otherwise for a given week.
+// RULE (confirmed): ABCD's Monday and SS1/SS2's Tuesday are standing "Game"
+// sessions — their content only changes when explicitly updated, independent
+// of whatever unit the other weekdays have moved on to.
 const lessonPlans = {
   "Baby Class": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Phonics — Short Vowel A_E" },
-    { week: "W2 · Term 18 — Mon", topic: "Phonics — EA" },
-    { week: "W2 · Term 18 — Thu", topic: "Phonics — Long E" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Phonics — Short Vowel A_E", active: false },
+    { week: "W2 · Term 18 — Mon", topic: "Phonics — EA", days: ["Monday"], active: true },
+    { week: "W2 · Term 18 — Thu", topic: "Phonics — Long E", days: ["Thursday"], active: true }
   ],
   "SS1": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" },
-    { week: "W2 · Term 18 — Tue", topic: "Money & Numbers Unit 2 Game", days: ["Tuesday"] },
-    { week: "W2 · Term 18 — Mon/Wed/Thu", topic: "Money & Numbers Unit 2 — Basic sentences", days: ["Monday","Wednesday","Thursday"] },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class", active: false },
+    { week: "Game day — Tue", topic: "Money & Numbers Unit 2 Game", days: ["Tuesday"], active: true },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences", days: ["Monday","Wednesday","Thursday"], active: true }
   ],
   "SS2": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class" },
-    { week: "W2 · Term 18 — Tue", topic: "Money & Numbers Unit 2 Game", days: ["Tuesday"] },
-    { week: "W2 · Term 18 — Thu", topic: "Money & Numbers Unit 2 — Basic sentences", days: ["Thursday"] },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Basic sentences", note: "Go slow — new students in class", active: false },
+    { week: "Game day — Tue", topic: "Money & Numbers Unit 2 Game", days: ["Tuesday"], active: true },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Basic sentences", days: ["Thursday"], active: true }
   ],
   "A": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
-    { week: "W2 · Term 18 — Tue/Wed/Thu", topic: "Money & Numbers Unit 2 — Intermediate", days: ["Tuesday","Wednesday","Thursday"] },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate", active: false },
+    { week: "Game day — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"], active: true },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate", days: ["Tuesday","Wednesday","Thursday"], active: true }
   ],
   "B": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
-    { week: "W2 · Term 18 — Tue/Wed/Thu", topic: "Money & Numbers Unit 2 — Intermediate", days: ["Tuesday","Wednesday","Thursday"] },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate", active: false },
+    { week: "Game day — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"], active: true },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate", days: ["Tuesday","Wednesday","Thursday"], active: true }
   ],
   "C": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate" },
-    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
-    { week: "W2 · Term 18 — Wed", topic: "Money & Numbers Unit 2 — Intermediate", days: ["Wednesday"] },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Intermediate", active: false },
+    { week: "Game day — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"], active: true },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Intermediate", days: ["Wednesday"], active: true }
   ],
   "D": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Advanced" },
-    { week: "W2 · Term 18 — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"] },
-    { week: "W2 · Term 18 — Tue/Wed/Thu", topic: "Money & Numbers Unit 2 — Advanced", days: ["Tuesday","Wednesday","Thursday"] },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Advanced" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1 — Advanced", active: false },
+    { week: "Game day — Mon", topic: "Money & Numbers Unit 2 Game", days: ["Monday"], active: true },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3 — Advanced", days: ["Tuesday","Wednesday","Thursday"], active: true }
   ],
   "Ray": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content", active: false },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content", active: false },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content", active: true }
   ],
   "Ruby": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content", active: false },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content", active: false },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content", active: true }
   ],
   "Chih": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content", active: false },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content", active: false },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content", active: true }
   ],
   "Hannah": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content", active: false },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content", active: false },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content", active: true }
   ],
   "AL": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content", active: false },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content", active: false },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content", active: true }
   ],
   "Ariel": [
-    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content" },
-    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content" },
-    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content" }
+    { week: "W1 · Term 18 (9/1–9/3)", topic: "Money & Number Unit 1", note: "Follows group class content", active: false },
+    { week: "W2 · Term 18", topic: "Money & Numbers Unit 2", note: "Follows group class content", active: false },
+    { week: "W3 · Term 18", topic: "Money & Numbers Unit 3", note: "Follows group class content", active: true }
   ],
 };
 
@@ -352,14 +355,8 @@ function renderGrid() {
       if (!name) {
         html += `<td class="empty-cell">—</td>`;
       } else {
-        let displayText = name;
         const dayName = days[i];
-        if (name === 'Baby Class') {
-          displayText = formatRoster(babyRosterData, dayName);
-        } else if (groupRosterData[name]) {
-          displayText = formatRoster(groupRosterData[name], dayName);
-        }
-        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${dayName}')">${displayText}</button></td>`;
+        html += `<td><button class="name-btn" onclick="openModal('${name.replace(/'/g,"\\'")}','${time}','${dayName}')">${name}</button></td>`;
       }
     });
     html += '</tr>';
@@ -440,7 +437,9 @@ function openModal(name, time, day, filterByDay) {
   const planContent = document.getElementById('modalPlanContent');
   let plans = lessonPlans[name];
   if (plans && filterByDay) {
-    plans = plans.filter(p => !p.days || p.days.includes(day));
+    // Day-specific views (Day-by-Day, This Week, Next Week): only the
+    // currently active topic for this weekday, not the full history.
+    plans = plans.filter(p => p.active && (!p.days || p.days.includes(day)));
   }
   if (plans && plans.length) {
     planContent.innerHTML = plans.map(p => `
