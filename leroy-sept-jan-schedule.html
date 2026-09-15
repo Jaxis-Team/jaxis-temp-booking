@@ -426,7 +426,7 @@ function showDay(dayIndex) {
   });
   if (dayExceptions.additions) {
     dayExceptions.additions.forEach(add => {
-      html += `<div class="slot-row"><span class="slot-time">${add.time}</span><span class="wk-slot-name">${add.name}</span><span class="wk-tag moved">ADDED</span></div>`;
+      html += `<div class="slot-row"><span class="slot-time">${add.time}</span><button class="name-btn" style="width:auto; padding:6px 12px;" onclick="openModal('${add.name.replace(/'/g,"\\'")}','${add.time}','${days[dayIndex]}', null, '${iso}')">${add.name}</button><span class="wk-tag moved">ADDED</span></div>`;
     });
   }
   html += '</div>';
@@ -437,6 +437,18 @@ function openModal(name, time, day, planDayOverride, refDateISO) {
   document.getElementById('modalName').textContent = name;
   document.getElementById('modalTime').textContent = `${day} · ${time}`;
   const zoomSection = document.getElementById('modalZoomSection');
+
+  // Trial students (one-off additions) get a dedicated info panel instead
+  // of the usual Zoom/roster/lesson-plan sections.
+  if (trialInfo[name]) {
+    zoomSection.innerHTML = `<div class="modal-section-title">Trial Student Info</div>` +
+      `<div style="font-size:13px; color:#1a2634; line-height:1.8;">` +
+      trialInfo[name].map(line => `• ${line}`).join('<br>') +
+      `</div>`;
+    document.getElementById('modalPlanContent').innerHTML = `<div class="placeholder-note">📌 This is a trial class — no lesson plan on file.</div>`;
+    document.getElementById('modalOverlay').classList.add('show');
+    return;
+  }
   const link = zoomLinks[name];
   if (name === 'Baby Class') {
     const rosterText = formatRoster(babyRosterData, day);
@@ -521,6 +533,22 @@ function getMonday(offsetWeeks) {
   return monday;
 }
 
+// Trial student info — keyed by name. When a one-off trial class is added
+// via exceptions.additions, tapping the name shows these details instead of
+// the usual Zoom/roster/lesson-plan panels.
+const trialInfo = {
+  "Eden": [
+    "Age: 10",
+    "Learnt: 3 yrs English",
+    "Can read simple sentences",
+    "Never had an online class",
+    "Doesn't really like English",
+    "Was in class with a Taiwanese English teacher",
+    "Recommended by Amber & Michelle's mom",
+    "Peggy's expected level: B or C (through chatting)",
+  ],
+};
+
 // Exceptions (cancellations / time changes / no-class / one-off additions) — keyed by ISO date.
 const exceptions = {
   "2026-08-31": {
@@ -549,6 +577,9 @@ const exceptions = {
   },
   "2026-09-16": {
     "AL": { type: "cancel" },
+    additions: [
+      { time: "20:30–21:00", name: "Eden" },
+    ],
   },
   "2026-09-29": {
     "Ally Lu": { type: "cancel" },
