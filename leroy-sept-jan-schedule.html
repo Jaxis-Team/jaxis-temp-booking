@@ -34,6 +34,17 @@
   .zoom-btn.has-link { background: #eaf3de; color: #27500a; }
   .zoom-btn.no-link { background: #f5f5f5; color: #aaa; cursor: default; }
 
+  .trial-card {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fff3cd; border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+    cursor: pointer; border: none; width: 100%; text-align: left;
+  }
+  .trial-card:last-child { margin-bottom: 0; }
+  .trial-card:hover { background: #ffe9a8; }
+  .trial-date { font-size: 12px; color: #7a5200; font-weight: 700; }
+  .trial-name { font-size: 14px; color: #1a2634; font-weight: 700; margin-left: 10px; }
+  .trial-time { font-size: 12px; color: #99a5b3; margin-left: auto; }
+
   .grid-wrap { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     overflow-x: auto; margin-bottom: 20px; }
   table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 700px; }
@@ -121,6 +132,11 @@
   <div class="zoom-section">
     <div class="zoom-title">🔗 Quick Zoom Access</div>
     <div class="zoom-grid" id="zoomGrid"></div>
+  </div>
+
+  <div class="zoom-section" id="trialsSection" style="display:none;">
+    <div class="zoom-title">🆕 Upcoming Trial Classes</div>
+    <div id="trialsList"></div>
   </div>
 
   <div id="gridView"></div>
@@ -547,7 +563,31 @@ const trialInfo = {
     "Recommended by Amber & Michelle's mom",
     "Peggy's expected level: B or C (through chatting)",
   ],
+  "Dustin": [
+    "Age: 7",
+    "— Online Test Results —",
+    "✅ Basic Vocabulary: 17/20 — recognises simple everyday words (car, bed, table)",
+    "⚠️ Spelling: possibly basic level only — long vowels not yet tested, needs testing during trial",
+    "❌ Question Comprehension: not demonstrated — couldn't answer spelling/grammar questions or choose between phrases from an image",
+    "❌ Listening/Phonics concern: asked to say \"hello\", answered \"Sip Hello\" — may not be distinguishing individual sounds properly",
+    "— Peggy's Estimation —",
+    "Recommended placement: SS or Baby class (Toby's group)",
+    "Suspected gap: weak phonics foundation, not just vocabulary — needs short/long vowel discrimination testing",
+    "— Trial Class Focus —",
+    "1. Test long vowel recognition",
+    "2. Test short vowel blending (c-a-t, b-e-d)",
+    "3. Assess whether he can follow simple spoken instructions",
+    "4. Confirm phonics level before recommending SS vs Baby",
+  ],
 };
+
+// Upcoming trial classes — not tied to the Mon–Fri grid, so these can fall
+// on any date including weekends. Each renders in its own card and is
+// clickable to show the trialInfo details above.
+const trials = [
+  { date: "2026-09-16", time: "20:30–21:00", name: "Eden" },
+  { date: "2026-09-19", time: "09:30–10:00", name: "Dustin" },
+];
 
 // Exceptions (cancellations / time changes / no-class / one-off additions) — keyed by ISO date.
 const exceptions = {
@@ -637,8 +677,29 @@ function renderWeek(offsetWeeks, containerId) {
   document.getElementById(containerId).innerHTML = html;
 }
 
+function renderTrials() {
+  if (!trials.length) return;
+  // Only show trials that haven't happened yet (today or later).
+  const today = isoDate(new Date());
+  const upcoming = trials.filter(t => t.date >= today).sort((a,b) => a.date.localeCompare(b.date));
+  if (!upcoming.length) return;
+
+  document.getElementById('trialsSection').style.display = 'block';
+  const list = document.getElementById('trialsList');
+  list.innerHTML = upcoming.map(t => {
+    const d = new Date(t.date + 'T00:00:00');
+    const dateLabel = d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    return `<button class="trial-card" onclick="openModal('${t.name.replace(/'/g,"\\'")}','${t.time}','${dateLabel}', null, '${t.date}')">
+      <span class="trial-date">${dateLabel}</span>
+      <span class="trial-name">${t.name}</span>
+      <span class="trial-time">${t.time}</span>
+    </button>`;
+  }).join('');
+}
+
 renderGrid();
 renderDayView();
+renderTrials();
 </script>
 </body>
 </html>
