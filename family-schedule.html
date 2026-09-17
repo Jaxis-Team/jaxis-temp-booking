@@ -84,9 +84,10 @@
 <div class="tabs">
   <button class="tab-btn" onclick="showWeek('w1',this)">W1 · 8/31</button>
   <button class="tab-btn" onclick="showWeek('w2',this)">W2 · 9/7</button>
-  <button class="tab-btn active" onclick="showDay('sep14',this)">Mon 9/14</button>
+  <button class="tab-btn" onclick="showDay('sep14',this)">Mon 9/14</button>
   <button class="tab-btn" onclick="showDay('sep15',this)">Tue 9/15</button>
-  <button class="tab-btn active" onclick="showDay('sep16',this)">Wed 9/16</button>
+  <button class="tab-btn" onclick="showDay('sep16',this)">Wed 9/16</button>
+  <button class="tab-btn active" onclick="showDay('sep17',this)">Thu 9/17</button>
   <span class="plan-divider">|</span>
   <button class="tab-btn plan-jay" onclick="showDay('jay-week',this)">🟢 Jay</button>
   <button class="tab-btn plan-lexi" onclick="showDay('lexi-week',this)">🟡 Lexi</button>
@@ -1131,7 +1132,7 @@
 </div>
 
 <!-- ===== SEP 14 ===== -->
-<div id="sep14" class="day-content active">
+<div id="sep14" class="day-content">
   <div class="day-label">Mon, Sep 14</div>
 
   <div class="block">
@@ -1325,7 +1326,7 @@
 </div>
 
 <!-- ===== SEP 16 ===== -->
-<div id="sep16" class="day-content active">
+<div id="sep16" class="day-content">
   <div class="day-label">Wed, Sep 16 — 🍳 Jay cooks dinner</div>
 
   <div class="block">
@@ -1426,6 +1427,119 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<!-- ===== SEP 17 ===== -->
+<div id="sep17" class="day-content active">
+  <div class="day-label">Thu, Sep 17 — 🏓 Jay Ping Pong</div>
+
+  <div class="block">
+    <div class="block-title">☀️ Morning</div>
+    <table>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>9:30</td>
+          <td>—</td>
+          <td>📚 Hannah→Jasper→AL→Kate<span class="d">🖥 (9:00–11:55)</span></td>
+          <td>🏃 Exercise 20min</td>
+          <td>🏃 Exercise 20min</td>
+        </tr>
+        <tr>
+          <td>9:50–10:50</td>
+          <td>Work<span class="d">💻</span></td>
+          <td>📚 (cont.)</td>
+          <td>🇬🇧 English AI</td>
+          <td>Duolingo Span+Chinese<span class="d">📱</span></td>
+        </tr>
+        <tr>
+          <td>10:50–11:50</td>
+          <td>Work<span class="d">💻</span></td>
+          <td>📚 (cont.)</td>
+          <td>Duolingo Ger+Chinese<span class="d">📱</span></td>
+          <td>🧮 Math AI</td>
+        </tr>
+        <tr>
+          <td>11:50–12</td>
+          <td>🛒 Buy lunch w/ Leroy</td>
+          <td>🛒 Buy lunch w/ Peggy</td>
+          <td>🎬 Reels prep + practice</td>
+          <td>📝 Spelling practice</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🍳 Lunch + Rest (12:00–1:30)</div>
+    <table>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <tbody>
+        <tr><td>12–1:30</td><td>🍽 Eat + rest</td><td>🍽 Eat + rest</td><td>🍽 Eat + rest</td><td>🍽 Eat + rest</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🌤 Afternoon</div>
+    <table>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1:30–2:30</td>
+          <td>Work<span class="d">💻</span></td>
+          <td>📚 Ruby→Ray→Isla<span class="d">🖥 (1:10–2:45)</span></td>
+          <td>GPT<span class="d">📱</span></td>
+          <td>🔬 Science AI</td>
+        </tr>
+        <tr>
+          <td>2:30–3:00</td>
+          <td>🍽 Prep dinner</td>
+          <td>Rest / editing<span class="d">🖥</span></td>
+          <td>🔬 Science AI</td>
+          <td>GPT<span class="d">📱</span></td>
+        </tr>
+        <tr>
+          <td>3:00–3:45</td>
+          <td>🍽 Prep dinner (cont.)</td>
+          <td>Rest / editing<span class="d">🖥</span></td>
+          <td>Free / prep 🏓</td>
+          <td>🎸 Ukulele</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🏓 Ping Pong + Evening</div>
+    <table>
+      <thead><tr><th></th><th>Peggy</th><th>Leroy</th><th>Jay</th><th>Lexi</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>4</td>
+          <td>🚗→🏓 w/ Jay</td>
+          <td>📚 Ariel→Chih<span class="d">🖥 (4:25–5:30)</span></td>
+          <td>🚗→🏓</td>
+          <td>🏃 Exercise 20min</td>
+        </tr>
+        <tr>
+          <td>5–7</td>
+          <td>☕ Work<span class="d">💻</span></td>
+          <td>📚 SS1→A→B→SS2→D→Baby<span class="d">🖥 (5:35–9)</span></td>
+          <td>🏓</td>
+          <td>📖 Read</td>
+        </tr>
+        <tr>
+          <td>7+</td>
+          <td>🚗 Home</td>
+          <td>📚 (cont.)</td>
+          <td>🏓 (till 10)</td>
+          <td>🍽→🚿→rest→📖</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Leroy full day — no exceptions today</p>
   </div>
 </div>
 
