@@ -319,6 +319,27 @@ names.forEach((name, i) => {
   panel.id = "panel-"+name;
 
   let html = '';
+  if (name === 'AL') {
+    html += `<div style="margin-bottom:16px;">
+      <a style="display:block;width:100%;text-align:center;text-decoration:none;background:#2D8CFF;color:#fff;padding:13px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:12px;box-sizing:border-box;" href="https://us02web.zoom.us/j/85445182933" target="_blank">🎥 進入教室 Enter Classroom</a>
+      <div style="font-size:12px;color:#889;margin:-8px 0 12px;">Meeting ID: 854 4518 2933</div>
+      <div style="background:#f9f9f9;border-radius:12px;padding:14px 16px;margin-bottom:12px;">
+        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">JINGS 資源</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a style="display:block;text-align:center;text-decoration:none;background:#2E7D4B;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
+          <a style="display:block;text-align:center;text-decoration:none;background:#4ECDC4;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="${PET_URL}" target="_blank">🐾 Pet Board</a>
+        </div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:12px;padding:14px 16px;margin-bottom:12px;">
+        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">課程管理</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a style="display:block;text-align:center;text-decoration:none;background:#7A5CB0;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+          <a style="display:block;text-align:center;text-decoration:none;background:#C77D3E;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+        </div>
+      </div>
+      <a style="display:block;text-align:center;text-decoration:none;background:#FF8C61;color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:10px;" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
+    </div>`;
+  }
   if (s.oldTerm.length) {
     html += `<div class="card"><span class="section-badge badge-old">舊期剩餘 Old Term Leftover（${s.oldTerm.length}）</span>${buildTable(s.oldTerm, s.points)}</div>`;
   }
