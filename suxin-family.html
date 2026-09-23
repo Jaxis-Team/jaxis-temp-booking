@@ -5,106 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>素欣家 — JAXIS 一對一課程追蹤</title>
 <style>
-  :root {
-    --bg: #F5EFE1;
-    --card: #fff;
-    --card-shadow: 0 1px 4px rgba(0,0,0,.06);
-    --zoom: #2D8CFF;
-    --makeup: #7A5CB0;
-    --leave: #C77D3E;
-    --pay-green: #2E7D4B;
-    --pay-yellow: #F2B90C;
-    --pay-yellow-text: #4A3800;
-    --yes-bg: #E4F5E9;
-    --yes-text: #1E7A44;
-    --pending-btn: #B02234;
-    --upcoming-bg: #E6F1FB;
-    --upcoming-text: #0C447C;
-    --text: #1f1e1b;
-    --text-sub: #6b6a63;
-    --text-muted: #9a988f;
-    --border: #e3e1d8;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "Times New Roman", Georgia, "PingFang TC", "Microsoft JhengHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    padding: 1.5rem 1rem 3rem;
-  }
-  .wrap { max-width: 700px; margin: 0 auto; }
-  h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
-  .sub-header { font-size: 13px; color: var(--text-sub); margin-bottom: 1.25rem; }
-  .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
-  .action-btn {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 8px 14px; border-radius: 8px; font-size: 13px;
-    text-decoration: none; color: #fff; font-weight: 500; border: none; cursor: pointer;
-  }
-  .btn-zoom { background: var(--zoom); }
-  .btn-makeup { background: var(--makeup); }
-  .btn-leave { background: var(--leave); }
-  .card {
-    background: var(--card);
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    padding: 1rem 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
-  .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .pay-btn {
-    display: block; text-align: center; padding: 10px 6px; border-radius: 8px;
-    font-size: 13px; font-weight: 600; text-decoration: none; color: #fff;
-    background: var(--pay-green);
-  }
-  .pay-btn.yellow { background: var(--pay-yellow); color: var(--pay-yellow-text); }
-  .pay-btn-wide { grid-column: span 3; }
-  .points-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
-  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 1px; }
-  .metric-value { font-size: 20px; font-weight: 700; }
-  .metric-value.ok { color: var(--pay-green); }
-  .metric-sm { font-size: 15px; font-weight: 600; }
-  .tabs { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
-  .tab-btn {
-    border: 1px solid var(--border); background: var(--card); padding: 7px 18px;
-    border-radius: 8px; font-size: 14px; cursor: pointer; color: var(--text-sub);
-    font-family: inherit;
-  }
-  .tab-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
-  .panel { display: none; }
-  .panel.active { display: block; }
-  .section-badge {
-    display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px;
-    border-radius: 6px; margin: 0.75rem 0 8px;
-  }
-  .badge-old { color: #854f0b; background: #faeeda; }
-  .badge-new { color: #0f6e56; background: #e1f5ee; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; padding: 8px 10px; font-size: 13px; border-bottom: 1px solid #f0ede5; }
-  th { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .02em; font-weight: 500; }
-  tr:last-child td { border-bottom: none; }
-  .att-yes {
-    display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
-    background: var(--yes-bg); color: var(--yes-text);
-  }
-  .att-upcoming {
-    display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
-    background: var(--upcoming-bg); color: var(--upcoming-text);
-  }
-  .att-makeup-btn {
-    display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
-    background: var(--pending-btn); color: #fff; text-decoration: none; cursor: pointer;
-  }
-  .att-makeup-btn:hover { opacity: .85; }
-  .empty-note { font-size: 13px; color: var(--text-muted); padding: 10px 0; }
-  .dl-btn {
-    margin-top: 1rem; border: 1px solid var(--border); background: var(--card);
-    padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer;
-    font-family: inherit;
-  }
-  .dl-btn:hover { background: #f0ede5; }
-  .footer { font-size: 11px; color: var(--text-muted); margin-top: 1.5rem; line-height: 1.7; }
+  :root{--bg:#F5EFE1;--card:#fff;--card-shadow:0 1px 4px rgba(0,0,0,.06);--zoom:#2D8CFF;--makeup:#7A5CB0;--leave:#C77D3E;--hub:#2E7D4B;--pet:#4ECDC4;--cs:#FF8C61;--pay-yellow:#F2B90C;--pay-yellow-text:#4A3800;--pay-green:#2E7D4B;--yes-bg:#E4F5E9;--yes-text:#1E7A44;--pending:#B02234;--upcoming-bg:#E6F1FB;--upcoming-text:#0C447C;--text:#1f1e1b;--text-sub:#6b6a63;--text-muted:#9a988f;--border:#e3e1d8;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Times New Roman",Georgia,"PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1rem 3rem;}
+  .wrap{max-width:700px;margin:0 auto;}
+  h1{font-size:22px;font-weight:700;margin-bottom:2px;}
+  .sub-header{font-size:13px;color:var(--text-sub);margin-bottom:1.25rem;}
+  .zoom-full{display:block;width:100%;text-align:center;text-decoration:none;background:var(--zoom);color:#fff;padding:13px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:6px;}
+  .zoom-full:hover{background:#1a6fd6;}
+  .zoom-id{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+  .section-box{background:var(--card);border-radius:12px;padding:14px 16px;box-shadow:var(--card-shadow);margin-bottom:12px;}
+  .section-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;}
+  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .btn-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  .abtn{display:block;text-align:center;text-decoration:none;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;}
+  .abtn-hub{background:var(--hub);color:#fff;}.abtn-pet{background:var(--pet);color:#fff;}
+  .abtn-makeup{background:var(--makeup);color:#fff;}.abtn-leave{background:var(--leave);color:#fff;}
+  .abtn-cs{background:var(--cs);color:#fff;}
+  .card{background:var(--card);border-radius:12px;box-shadow:var(--card-shadow);padding:1rem 1.25rem;margin-bottom:1rem;}
+  .card-title{font-size:14px;font-weight:600;margin-bottom:10px;}
+  .pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .pay-btn{display:block;text-align:center;padding:10px 6px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;background:var(--pay-yellow);color:var(--pay-yellow-text);}
+  .pay-btn-wide{grid-column:span 3;}
+  .points-row{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;}
+  .metric-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:1px;}
+  .metric-value{font-size:20px;font-weight:700;}.metric-value.ok{color:var(--pay-green);}
+  .metric-sm{font-size:15px;font-weight:600;}
+  .tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
+  .tab-btn{border:1px solid var(--border);background:var(--card);padding:7px 18px;border-radius:8px;font-size:14px;cursor:pointer;color:var(--text-sub);font-family:inherit;}
+  .tab-btn.active{background:var(--text);color:#fff;border-color:var(--text);}
+  .panel{display:none;}.panel.active{display:block;}
+  .class-info-btn{display:block;text-align:center;text-decoration:none;background:#1A3263;color:#FFD93D;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:700;margin-bottom:12px;}
+  .class-info-btn:hover{background:#122548;}
+  .section-badge{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:6px;margin:.75rem 0 8px;}
+  .badge-old{color:#854f0b;background:#faeeda;}.badge-new{color:#0f6e56;background:#e1f5ee;}
+  table{width:100%;border-collapse:collapse;}
+  th,td{text-align:left;padding:8px 10px;font-size:13px;border-bottom:1px solid #f0ede5;}
+  th{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.02em;font-weight:500;}
+  tr:last-child td{border-bottom:none;}
+  .att-yes{display:inline-block;padding:2px 10px;border-radius:5px;font-size:12px;font-weight:500;background:var(--yes-bg);color:var(--yes-text);}
+  .att-upcoming{display:inline-block;padding:2px 10px;border-radius:5px;font-size:12px;font-weight:500;background:var(--upcoming-bg);color:var(--upcoming-text);}
+  .att-makeup-btn{display:inline-block;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600;background:var(--pending);color:#fff;text-decoration:none;}
+  .att-makeup-btn:hover{opacity:.85;}
+  .empty-note{font-size:13px;color:var(--text-muted);padding:10px 0;}
+  .dl-btn{margin-top:1rem;border:1px solid var(--border);background:var(--card);padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;}
+  .dl-btn:hover{background:#f0ede5;}
+  .footer{font-size:11px;color:var(--text-muted);margin-top:1.5rem;line-height:1.7;}
 </style>
 </head>
 <body>
@@ -112,10 +58,24 @@
   <h1>素欣家</h1>
   <div class="sub-header">家長：素欣 ｜ 老師：安東尼老師 Teacher Anthony ｜ 共用點數卡（Katy · AL · Ariel · Kate）</div>
 
-  <div class="action-row">
-    <a class="action-btn btn-zoom" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 進入教室 (Kate)</a>
-    <a class="action-btn btn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
-    <a class="action-btn btn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+  <a class="zoom-full" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 一對一 ZOOM教室</a>
+  <div class="zoom-id">Meeting ID: 854 6893 7747</div>
+
+  <div class="section-box">
+    <div class="section-label">JINGS 資源</div>
+    <div class="btn-row">
+      <a class="abtn abtn-hub" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
+      <a class="abtn abtn-pet" href="https://js-english-taiwan.my.canva.site/jings-pets-in-training" target="_blank">🐾 Pet Board</a>
+    </div>
+  </div>
+
+  <div class="section-box">
+    <div class="section-label">課程管理</div>
+    <div class="btn-row-3">
+      <a class="abtn abtn-makeup" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
+      <a class="abtn abtn-leave" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
+      <a class="abtn abtn-cs" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
+    </div>
   </div>
 
   <div class="card">
@@ -127,7 +87,7 @@
       <a class="pay-btn" href="https://book.stripe.com/eVq9AUchy7633jGb048AE0e" target="_blank">100點</a>
       <a class="pay-btn" href="https://book.stripe.com/00wfZidlC61ZaM85FK8AE0f" target="_blank">50點</a>
       <a class="pay-btn" href="https://book.stripe.com/8x2bJ2bdubmjaM85FK8AE0g" target="_blank">20點</a>
-      <a class="pay-btn yellow pay-btn-wide" href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank">一對一課程40堂</a>
+      <a class="pay-btn pay-btn-wide" href="https://book.stripe.com/7sY6oIchyeyvbQc5FK8AE0b" target="_blank">一對一課程40堂</a>
     </div>
   </div>
 
@@ -145,16 +105,11 @@
   <div id="panels"></div>
 
   <button class="dl-btn" onclick="downloadSummary()">📥 下載 CSV 摘要</button>
-
-  <div class="footer">
-    此為手動追蹤系統，非即時連動預約平台。請於預約或出席變更時手動更新。<br>
-    最後更新：2026-09-11
-  </div>
+  <div class="footer">此為手動追蹤系統，非即時連動預約平台。請於預約或出席變更時手動更新。<br>最後更新：2026-09-23</div>
 </div>
 
 <script>
 const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
-
 const students = {
   "AL": {
     points: 6,
@@ -283,14 +238,12 @@ function fmt(t) {
   const dt = new Date(+y, +m-1, +day);
   return `${+m}/${+day}（${days[dt.getDay()]}）${time}`;
 }
-
 function attBadge(att) {
   if (att === "Yes") return '<span class="att-yes">✓ 已上課</span>';
   if (att === "Upcoming") return '<span class="att-upcoming">待上課</span>';
   if (att === "待補課") return '<a class="att-makeup-btn" href="'+MAKEUP_URL+'" target="_blank">補課去 →</a>';
   return att;
 }
-
 function buildTable(rows, pts) {
   if (!rows.length) return '<div class="empty-note">尚無排課</div>';
   let h = '<table><thead><tr><th>#</th><th>日期</th><th>點數</th><th>狀態</th></tr></thead><tbody>';
@@ -319,26 +272,8 @@ names.forEach((name, i) => {
   panel.id = "panel-"+name;
 
   let html = '';
-  if (name === 'AL') {
-    html += `<div style="margin-bottom:16px;">
-      <a style="display:block;width:100%;text-align:center;text-decoration:none;background:#2D8CFF;color:#fff;padding:13px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:12px;box-sizing:border-box;" href="https://us02web.zoom.us/j/85445182933" target="_blank">🎥 進入教室 Enter Classroom</a>
-      <div style="font-size:12px;color:#889;margin:-8px 0 12px;">Meeting ID: 854 4518 2933</div>
-      <div style="background:#f9f9f9;border-radius:12px;padding:14px 16px;margin-bottom:12px;">
-        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">JINGS 資源</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <a style="display:block;text-align:center;text-decoration:none;background:#2E7D4B;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://jings-training.netlify.app/" target="_blank">🏠 JINGS 訓練基地</a>
-          <a style="display:block;text-align:center;text-decoration:none;background:#4ECDC4;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://js-english-taiwan.my.canva.site/jings-pets-in-training" target="_blank">🐾 Pet Board</a>
-        </div>
-      </div>
-      <div style="background:#f9f9f9;border-radius:12px;padding:14px 16px;margin-bottom:12px;">
-        <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">課程管理</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <a style="display:block;text-align:center;text-decoration:none;background:#7A5CB0;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform" target="_blank">📝 補課登記</a>
-          <a style="display:block;text-align:center;text-decoration:none;background:#C77D3E;color:#fff;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;" href="https://forms.gle/vriQ4zbMYuq4w1N48" target="_blank">🙋 我要請假</a>
-        </div>
-      </div>
-      <a style="display:block;text-align:center;text-decoration:none;background:#FF8C61;color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:10px;" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
-    </div>`;
+  if (name === 'Katy') {
+    html += '<a class="class-info-btn" href="https://jaxis-team.github.io/jaxis-temp-booking/d.html" target="_blank">🏫 進階組共學資訊頁</a>';
   }
   if (s.oldTerm.length) {
     html += `<div class="card"><span class="section-badge badge-old">舊期剩餘 Old Term Leftover（${s.oldTerm.length}）</span>${buildTable(s.oldTerm, s.points)}</div>`;
@@ -364,10 +299,10 @@ function downloadSummary() {
   let csv = "Student,Term,Date,Points,Attendance\n";
   names.forEach(name => {
     const s = students[name];
-    s.oldTerm.forEach(r => { csv += `${name},Old Term Leftover,${fmt(r.time)},${s.points},${r.att}\n`; });
+    s.oldTerm.forEach(r => { csv += `${name},Old Term,${fmt(r.time)},${s.points},${r.att}\n`; });
     s.newTerm.forEach(r => { csv += `${name},New Term,${fmt(r.time)},${s.points},${r.att}\n`; });
   });
-  csv += `\n共用點數卡,,使用量,398 / 500\n共用點數卡,,剩餘,102\n共用點數卡,,到期日,2027-04-03\n`;
+  csv += "\n共用點數卡,,使用量,398 / 500\n共用點數卡,,剩餘,102\n共用點數卡,,到期日,2027-04-03\n";
   const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8;"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
