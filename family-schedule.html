@@ -84,11 +84,8 @@
 <div class="tabs">
   <button class="tab-btn" onclick="showWeek('w1',this)">W1 · 8/31</button>
   <button class="tab-btn" onclick="showWeek('w2',this)">W2 · 9/7</button>
-  <button class="tab-btn" onclick="showDay('sep14',this)">Mon 9/14</button>
-  <button class="tab-btn" onclick="showDay('sep15',this)">Tue 9/15</button>
-  <button class="tab-btn" onclick="showDay('sep16',this)">Wed 9/16</button>
-  <button class="tab-btn active" onclick="showDay('sep17',this)">Thu 9/17</button>
-  <button class="tab-btn" onclick="showDay('sep18',this)">Fri 9/18</button>
+  <button class="tab-btn" onclick="showWeek('w3',this)">W3 · 9/14</button>
+  <span class="plan-divider">|</span>
   <button class="tab-btn" onclick="showDay('sep21',this)">Mon 9/21</button>
   <button class="tab-btn" onclick="showDay('sep22',this)">Tue 9/22</button>
   <button class="tab-btn active" onclick="showDay('sep23',this)">Wed 9/23</button>
@@ -116,6 +113,17 @@
     <button class="sub-btn" onclick="showSub('w2','sep9',this)">Wed</button>
     <button class="sub-btn" onclick="showSub('w2','sep10',this)">Thu</button>
     <button class="sub-btn" onclick="showSub('w2','sep11',this)">Fri</button>
+  </div>
+</div>
+
+<!-- W3 sub-tabs -->
+<div id="w3" class="day-content">
+  <div class="sub-tabs">
+    <button class="sub-btn active" onclick="showSub('w3','sep14',this)">Mon</button>
+    <button class="sub-btn" onclick="showSub('w3','sep15',this)">Tue</button>
+    <button class="sub-btn" onclick="showSub('w3','sep16',this)">Wed</button>
+    <button class="sub-btn" onclick="showSub('w3','sep17',this)">Thu</button>
+    <button class="sub-btn" onclick="showSub('w3','sep18',this)">Fri</button>
   </div>
 </div>
 
@@ -1136,7 +1144,7 @@
 </div>
 
 <!-- ===== SEP 14 ===== -->
-<div id="sep14" class="day-content">
+<div id="sep14" class="day-content" data-week="w3">
   <div class="day-label">Mon, Sep 14</div>
 
   <div class="block">
@@ -1217,7 +1225,7 @@
 </div>
 
 <!-- ===== SEP 15 ===== -->
-<div id="sep15" class="day-content">
+<div id="sep15" class="day-content" data-week="w3">
   <div class="day-label">Tue, Sep 15 — 🏓 Ping Pong Day</div>
 
   <div class="block">
@@ -1330,7 +1338,7 @@
 </div>
 
 <!-- ===== SEP 16 ===== -->
-<div id="sep16" class="day-content">
+<div id="sep16" class="day-content" data-week="w3">
   <div class="day-label">Wed, Sep 16 — 🍳 Jay cooks dinner</div>
 
   <div class="block">
@@ -1548,7 +1556,7 @@
 </div>
 
 <!-- ===== SEP 18 ===== -->
-<div id="sep18" class="day-content">
+<div id="sep18" class="day-content" data-week="w3">
   <div class="day-label">Fri, Sep 18 — 🎬 Jay shoots reels · 🤸 Lexi Gym</div>
 
   <div class="block">
