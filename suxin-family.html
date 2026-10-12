@@ -62,8 +62,7 @@
 
   <a class="zoom-full" href="https://us02web.zoom.us/j/85468937747" target="_blank">🎥 一對一 ZOOM教室</a>
   <div class="zoom-id">Meeting ID: 854 6893 7747</div>
-  <a class="zoom-full" href="https://us02web.zoom.us/j/82279689320" target="_blank">🎥 週一三 KATY教室</a>
-  <div class="zoom-id">Meeting ID: 822 7968 9320</div>
+
 
   <div class="section-box">
     <div class="section-label">JINGS 資源</div>
@@ -279,6 +278,8 @@ names.forEach((name, i) => {
   let html = '';
   if (name === 'Katy') {
     html += '<a class="class-info-btn" href="https://jaxis-team.github.io/jaxis-temp-booking/d.html" target="_blank">🏫 進階組共學資訊頁</a>';
+    html += '<a class="zoom-full" href="https://us02web.zoom.us/j/82279689320" target="_blank">🎥 週一三 KATY教室</a>';
+    html += '<div class="zoom-id">Meeting ID: 822 7968 9320</div>';
   }
   if (s.oldTerm.length) {
     html += `<div class="card"><span class="section-badge badge-old">舊期剩餘 Old Term Leftover（${s.oldTerm.length}）</span>${buildTable(s.oldTerm, s.points)}</div>`;
