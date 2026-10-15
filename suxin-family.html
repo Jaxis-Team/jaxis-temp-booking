@@ -49,6 +49,7 @@
   .att-makeup-btn:hover{opacity:.85;}
   .att-madeup{display:inline-block;padding:2px 10px;border-radius:5px;font-size:12px;font-weight:500;background:#F3E8FB;color:#5B1A8A;}
   .att-madeup-note{font-size:11px;color:#7A5CB0;margin-left:4px;}
+  .att-unbooked{display:inline-block;padding:2px 10px;border-radius:5px;font-size:12px;font-weight:500;background:#F5F5F5;color:#999;}
   .empty-note{font-size:13px;color:var(--text-muted);padding:10px 0;}
   .dl-btn{margin-top:1rem;border:1px solid var(--border);background:var(--card);padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;}
   .dl-btn:hover{background:#f0ede5;}
@@ -95,12 +96,13 @@
   </div>
 
   <div class="card">
-    <div class="card-title">共用點數卡（目前使用中）</div>
+    <div class="card-title">共用點數卡</div>
     <div class="points-row">
-      <div><div class="metric-label">剩餘點數</div><div class="metric-value ok">102</div></div>
-      <div><div class="metric-label">使用量</div><div class="metric-sm">398 / 500</div></div>
-      <div><div class="metric-label">課卡</div><div class="metric-sm">500點 - $39,500</div></div>
-      <div><div class="metric-label">到期日</div><div class="metric-sm">2027-04-03</div></div>
+      <div><div class="metric-label">總剩餘點數</div><div class="metric-value ok">602</div></div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-sub);line-height:1.8;">
+      舊卡：398 / 500 已用（剩 102）· 到期 2027-04-03<br>
+      新卡：0 / 500 已用（剩 500）· 購於 10/14 · 到期 2027-04-14
     </div>
   </div>
 
@@ -147,6 +149,28 @@ const students = {
       { time: "2026-10-08 10:40", att: "Yes" },
       { time: "2026-10-13 10:40", att: "Yes" },
       { time: "2026-10-14 09:35", att: "Upcoming" }
+    ],
+    nextTerm: [
+      { time: "2026-10-22 10:40", att: "尚未預約" },
+      { time: "2026-10-27 10:40", att: "尚未預約" },
+      { time: "2026-10-28 09:35", att: "尚未預約" },
+      { time: "2026-10-29 10:40", att: "尚未預約" },
+      { time: "2026-11-03 10:40", att: "尚未預約" },
+      { time: "2026-11-04 09:35", att: "尚未預約" },
+      { time: "2026-11-05 10:40", att: "尚未預約" },
+      { time: "2026-11-10 10:40", att: "尚未預約" },
+      { time: "2026-11-11 09:35", att: "尚未預約" },
+      { time: "2026-11-12 10:40", att: "尚未預約" },
+      { time: "2026-11-17 10:40", att: "尚未預約" },
+      { time: "2026-11-18 09:35", att: "尚未預約" },
+      { time: "2026-11-19 10:40", att: "尚未預約" },
+      { time: "2026-11-24 10:40", att: "尚未預約" },
+      { time: "2026-11-25 09:35", att: "尚未預約" },
+      { time: "2026-11-26 10:40", att: "尚未預約" },
+      { time: "2026-12-01 10:40", att: "尚未預約" },
+      { time: "2026-12-02 09:35", att: "尚未預約" },
+      { time: "2026-12-03 10:40", att: "尚未預約" },
+      { time: "2026-12-08 10:40", att: "尚未預約" }
     ]
   },
   "Katy": {
@@ -185,6 +209,28 @@ const students = {
       { time: "2026-10-12 17:00", att: "Yes" },
       { time: "2026-10-13 17:00", att: "Yes" },
       { time: "2026-10-15 16:25", att: "Upcoming" }
+    ],
+    nextTerm: [
+      { time: "2026-10-22 16:25", att: "尚未預約" },
+      { time: "2026-10-26 17:00", att: "尚未預約" },
+      { time: "2026-10-27 17:00", att: "尚未預約" },
+      { time: "2026-10-29 16:25", att: "尚未預約" },
+      { time: "2026-11-02 17:00", att: "尚未預約" },
+      { time: "2026-11-03 17:00", att: "尚未預約" },
+      { time: "2026-11-05 16:25", att: "尚未預約" },
+      { time: "2026-11-09 17:00", att: "尚未預約" },
+      { time: "2026-11-10 17:00", att: "尚未預約" },
+      { time: "2026-11-12 16:25", att: "尚未預約" },
+      { time: "2026-11-16 17:00", att: "尚未預約" },
+      { time: "2026-11-17 17:00", att: "尚未預約" },
+      { time: "2026-11-19 16:25", att: "尚未預約" },
+      { time: "2026-11-23 17:00", att: "尚未預約" },
+      { time: "2026-11-24 17:00", att: "尚未預約" },
+      { time: "2026-11-26 16:25", att: "尚未預約" },
+      { time: "2026-11-30 17:00", att: "尚未預約" },
+      { time: "2026-12-01 17:00", att: "尚未預約" },
+      { time: "2026-12-03 16:25", att: "尚未預約" },
+      { time: "2026-12-07 17:00", att: "尚未預約" }
     ]
   },
   "Kate": {
@@ -245,6 +291,7 @@ function attBadge(att, note) {
   if (att === "Yes") return '<span class="att-yes">✓ 已上課</span>';
   if (att === "Upcoming") return '<span class="att-upcoming">待上課</span>';
   if (att === "已補課") return '<span class="att-madeup">✓ 已補課</span>' + (note ? '<span class="att-madeup-note">'+note+'</span>' : '');
+  if (att === "尚未預約") return '<span class="att-unbooked">尚未預約</span>';
   if (att === "待補課") return '<a class="att-makeup-btn" href="'+MAKEUP_URL+'" target="_blank">補課去 →</a>';
   return att;
 }
@@ -287,7 +334,10 @@ names.forEach((name, i) => {
   if (s.newTerm.length) {
     html += `<div class="card"><span class="section-badge badge-new">新期 New Term（${s.newTerm.length}）</span>${buildTable(s.newTerm, s.points)}</div>`;
   }
-  if (!s.oldTerm.length && !s.newTerm.length) {
+  if (s.nextTerm && s.nextTerm.length) {
+    html += `<div class="card"><span class="section-badge" style="color:#666;background:#f0f0f0">下期預排 Next Term（${s.nextTerm.length}）</span>${buildTable(s.nextTerm, s.points)}</div>`;
+  }
+  if (!s.oldTerm.length && !s.newTerm.length && !(s.nextTerm && s.nextTerm.length)) {
     html += '<div class="card"><div class="empty-note">目前無排課紀錄</div></div>';
   }
   panel.innerHTML = html;
@@ -307,8 +357,9 @@ function downloadSummary() {
     const s = students[name];
     s.oldTerm.forEach(r => { csv += `${name},Old Term,${fmt(r.time)},${s.points},${r.att}\n`; });
     s.newTerm.forEach(r => { csv += `${name},New Term,${fmt(r.time)},${s.points},${r.att}\n`; });
+    if (s.nextTerm) s.nextTerm.forEach(r => { csv += `${name},Next Term,${fmt(r.time)},${s.points},${r.att}\n`; });
   });
-  csv += "\n共用點數卡,,使用量,398 / 500\n共用點數卡,,剩餘,102\n共用點數卡,,到期日,2027-04-03\n";
+  csv += "\n共用點數卡,,總剩餘,602\n舊卡,,使用量,398 / 500（剩102）\n新卡,,使用量,0 / 500（剩500）\n";
   const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8;"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
