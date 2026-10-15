@@ -93,10 +93,10 @@
   <div class="card">
     <h2>Points Balance</h2>
     <div class="points-row">
-      <div class="points-num">0</div>
-      <div class="points-label">points remaining<br>100點 pass 已用完</div>
+      <div class="points-num" style="color:#1E7A44;">120</div>
+      <div class="points-label">points purchased<br>2026-10-15</div>
     </div>
-    <div class="meta">Used <b>120 / 120</b> · Expires <b>2026-10-26</b> · 6 points per class · 續課請於下方購買新課卡</div>
+    <div class="meta">已預約 <b>20 堂</b> × 6 點 = <b>120 點</b> · 剩餘 <b>0</b> 點 · 上一期 100點課卡已用畢</div>
   </div>
 
   <div class="card">
@@ -122,15 +122,15 @@
   </div>
 
   <div class="card">
-    <h2>下一期課程 — 每週二 20:30（20 堂）</h2>
-    <div class="meta" style="margin:-6px 0 12px;">⚠️ 尚未購買課卡，以下日期為<b>預留名額</b>，待課卡購買後正式預約。春節週 2027-02-16 已跳過。</div>
+    <h2>下一期課程 — 每週二 20:30（20 堂 · 已預約）</h2>
+    <div class="meta" style="margin:-6px 0 12px;">✅ 120點課卡已於 <b>2026-10-15</b> 購買，以下 20 堂已完成預約。春節週 2027-02-16 已跳過。</div>
     <table id="nextTable">
       <thead><tr><th>#</th><th>Date</th><th>Time</th><th>Status</th><th>備註</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
 
-  <footer>Internal manual tracking tool — not connected to any live booking platform.<br>Last updated: 2026-10-09</footer>
+  <footer>Internal manual tracking tool — not connected to any live booking platform.<br>Last updated: 2026-10-15</footer>
 </div>
 
 <script>
@@ -162,26 +162,26 @@ const term = [
 ];
 
 const nextTerm = [
-  ["2026-10-20","20:30","尚未預約",""],
-  ["2026-10-27","20:30","尚未預約",""],
-  ["2026-11-03","20:30","尚未預約",""],
-  ["2026-11-10","20:30","尚未預約",""],
-  ["2026-11-17","20:30","尚未預約",""],
-  ["2026-11-24","20:30","尚未預約",""],
-  ["2026-12-01","20:30","尚未預約",""],
-  ["2026-12-08","20:30","尚未預約",""],
-  ["2026-12-15","20:30","尚未預約",""],
-  ["2026-12-22","20:30","尚未預約",""],
-  ["2026-12-29","20:30","尚未預約",""],
-  ["2027-01-05","20:30","尚未預約",""],
-  ["2027-01-12","20:30","尚未預約",""],
-  ["2027-01-19","20:30","尚未預約",""],
-  ["2027-01-26","20:30","尚未預約",""],
-  ["2027-02-02","20:30","尚未預約",""],
-  ["2027-02-09","20:30","尚未預約",""],
-  ["2027-02-23","20:30","尚未預約",""],
-  ["2027-03-02","20:30","尚未預約",""],
-  ["2027-03-09","20:30","尚未預約",""]
+  ["2026-10-20","20:30","Upcoming",""],
+  ["2026-10-27","20:30","Upcoming",""],
+  ["2026-11-03","20:30","Upcoming",""],
+  ["2026-11-10","20:30","Upcoming",""],
+  ["2026-11-17","20:30","Upcoming",""],
+  ["2026-11-24","20:30","Upcoming",""],
+  ["2026-12-01","20:30","Upcoming",""],
+  ["2026-12-08","20:30","Upcoming",""],
+  ["2026-12-15","20:30","Upcoming",""],
+  ["2026-12-22","20:30","Upcoming",""],
+  ["2026-12-29","20:30","Upcoming",""],
+  ["2027-01-05","20:30","Upcoming",""],
+  ["2027-01-12","20:30","Upcoming",""],
+  ["2027-01-19","20:30","Upcoming",""],
+  ["2027-01-26","20:30","Upcoming",""],
+  ["2027-02-02","20:30","Upcoming",""],
+  ["2027-02-09","20:30","Upcoming",""],
+  ["2027-02-23","20:30","Upcoming",""],
+  ["2027-03-02","20:30","Upcoming",""],
+  ["2027-03-09","20:30","Upcoming",""]
 ];
 
 const MAKEUP_FORM="https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
@@ -213,7 +213,7 @@ fillTable();
   const tb=document.querySelector("#nextTable tbody");
   nextTerm.forEach((row,i)=>{
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td class="num">${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${statusCell(row[2])}</td><td class="note">尚未預約</td>`;
+    tr.innerHTML=`<td class="num">${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${statusCell(row[2])}</td><td class="note">待上課</td>`;
     tb.appendChild(tr);
   });
 })();
