@@ -130,7 +130,7 @@
     </table>
   </div>
 
-  <footer>Internal manual tracking tool — not connected to any live booking platform.<br>Last updated: 2026-10-23</footer>
+  <footer>Internal manual tracking tool — not connected to any live booking platform.<br>Last updated: 2026-10-26</footer>
 </div>
 
 <script>
@@ -163,7 +163,7 @@ const term = [
 
 const nextTerm = [
   ["2026-10-20","20:30","Yes",""],
-  ["2026-10-27","20:30","Upcoming",""],
+  ["2026-10-27","20:30","待補課",""],
   ["2026-11-03","20:30","Upcoming",""],
   ["2026-11-10","20:30","Upcoming",""],
   ["2026-11-17","20:30","Upcoming",""],
@@ -213,7 +213,7 @@ fillTable();
   const tb=document.querySelector("#nextTable tbody");
   nextTerm.forEach((row,i)=>{
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td class="num">${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${statusCell(row[2])}</td><td class="note">待上課</td>`;
+    tr.innerHTML=`<td class="num">${i+1}</td><td>${row[0]}</td><td>${row[1]}</td><td>${statusCell(row[2])}</td><td class="note">${row[3] || (row[2]==="Upcoming" ? "待上課" : "")}</td>`;
     tb.appendChild(tr);
   });
 })();
