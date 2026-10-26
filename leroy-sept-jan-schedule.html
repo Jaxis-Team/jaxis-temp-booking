@@ -489,7 +489,10 @@ function openModal(name, time, day, planDayOverride, refDateISO) {
     document.getElementById('modalOverlay').classList.add('show');
     return;
   }
-  const link = zoomLinks[name];
+  // One-off additions are labelled like "Ray (makeup for 10/26)". Look up the
+  // Zoom link and lesson plan by the plain name ("Ray") so they still show.
+  const baseName = name.replace(/\s*\([^)]*\)\s*$/, '');
+  const link = zoomLinks[name] || zoomLinks[baseName];
   if (name === 'Baby Class') {
     const rosterText = formatRoster(babyRosterData, day);
     zoomSection.innerHTML = `<div class="modal-section-title">Roster</div><div style="font-size:13px; color:#4a5a6a;">${rosterText}</div>`;
@@ -504,7 +507,7 @@ function openModal(name, time, day, planDayOverride, refDateISO) {
   }
 
   const planContent = document.getElementById('modalPlanContent');
-  let plans = lessonPlans[name];
+  let plans = lessonPlans[name] || lessonPlans[baseName];
   if (plans) {
     // planDayOverride is set by the Recurring Template grid, which always
     // shows that week's Wednesday topic regardless of which column was
@@ -680,6 +683,11 @@ const exceptions = {
   },
   "2026-10-26": {
     "Ray": { type: "cancel" },
+  },
+  "2026-10-27": {
+    additions: [
+      { time: "16:30–17:00", name: "Ray (makeup for 10/26)" },
+    ],
   },
 };
 
