@@ -84,6 +84,7 @@
   .badge.yes { background: #E4F5E9; color: #1E7A44; }
   .badge.up  { background: #eef1f4; color: #667; }
   .badge.pending { background: #FDE7EA; color: #B02234; }
+  .badge.makeup { background: #DCEAF7; color: #1A5FA8; }
   .term-head .tag.pending { background: #FDE7EA; color: #B02234; }
 
   .dl-btn {
@@ -267,13 +268,13 @@ const term3 = [
   { date: "2026-09-21", time: "13:45", status: "Yes" },
   { date: "2026-09-23", time: "14:45", status: "Yes" },
   { date: "2026-09-24", time: "13:45", status: "Yes" },
-  { date: "2026-09-28", time: "13:45", status: "待補課" },
+  { date: "2026-09-28", time: "13:45", status: "Makeup by 10/28" },
   { date: "2026-09-30", time: "14:45", status: "Yes" },
   { date: "2026-10-01", time: "13:45", status: "Yes" },
   { date: "2026-10-05", time: "13:45", status: "Yes" },
   { date: "2026-10-07", time: "14:45", status: "Yes" },
   { date: "2026-10-08", time: "13:45", status: "Yes" },
-  { date: "2026-10-12", time: "13:45", status: "待補課" },
+  { date: "2026-10-12", time: "13:45", status: "Makeup by 10/29" },
   { date: "2026-10-14", time: "14:45", status: "Yes" },
   { date: "2026-10-15", time: "13:45", status: "Yes" },
   { date: "2026-10-19", time: "13:45", status: "Yes" },
@@ -287,6 +288,7 @@ function badge(s) {
   if (s === 'Yes') return '<span class="badge yes">已完成 Yes</span>';
   if (s === '待補課') return '<a href="'+MAKEUP_URL+'" target="_blank" class="badge" style="background:#B02234;color:#fff;text-decoration:none;display:inline-block">補課去 →</a>';
   if (s === '待確認') return '<span class="badge pending">待確認 Pending</span>';
+  if (s.indexOf('Makeup') === 0) return '<span class="badge makeup">'+s.replace('Makeup','補課 Make-up')+'</span>';
   return '<span class="badge up">待上課 Upcoming</span>';
 }
 function render(rows, id) {
