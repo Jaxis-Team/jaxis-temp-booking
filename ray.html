@@ -167,10 +167,10 @@
   <a class="btn-cs" href="https://forms.gle/qPT5MzpHrH5GcXdPA" target="_blank">📩 客服聯絡表單</a>
 
   <div class="card pass-card">
-    <div class="pts">120 <span>點剩餘 points left</span></div>
+    <div class="pts zero">0 <span>點剩餘 points left</span></div>
     <div class="info">
       課卡：一對一專屬課卡(40堂)<br>
-      已使用 <b>120 / 240</b> · 有效期至 <b>2027-02-19</b>
+      已使用 <b>240 / 240</b> · 有效期至 <b>2027-02-19</b>
     </div>
   </div>
 
@@ -224,12 +224,27 @@
     </div>
   </div>
 
+  <div class="card">
+    <div class="term-head">
+      <h2>第四學期 New Term (Nov–Dec)</h2>
+      <span class="tag new">20 堂</span>
+    </div>
+    <table>
+      <thead><tr><th>日期 Date</th><th>時間 Time</th><th class="st">狀態 Status</th></tr></thead>
+      <tbody id="term4-body"></tbody>
+    </table>
+    <div style="font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6">
+      Mon/Thu 13:45–14:15 · Wed 14:45–15:20 ·
+      使用現有課卡剩餘點數（120點）預約。Booked with remaining points on the current card.
+    </div>
+  </div>
+
   <button class="dl-btn" onclick="downloadCSV()">⬇ 下載總表 Download CSV</button>
 
   <div class="footer">
     手動追蹤系統，未連接任何線上預約平台。每次預約或出席狀態變動後需重新整理此頁。<br>
     Manual tracking dashboard — not connected to any live booking platform.<br>
-    Updated: 2026-10-23
+    Updated: 2026-10-26
   </div>
 
 </div>
@@ -282,6 +297,28 @@ const term3 = [
   { date: "2026-10-22", time: "13:45", status: "Yes" },
   { date: "2026-10-26", time: "13:45", status: "Upcoming" }
 ];
+const term4 = [
+  { date: "2026-11-02", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-04", time: "14:45", status: "Upcoming" },
+  { date: "2026-11-05", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-09", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-11", time: "14:45", status: "Upcoming" },
+  { date: "2026-11-12", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-16", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-18", time: "14:45", status: "Upcoming" },
+  { date: "2026-11-19", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-23", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-25", time: "14:45", status: "Upcoming" },
+  { date: "2026-11-26", time: "13:45", status: "Upcoming" },
+  { date: "2026-11-30", time: "13:45", status: "Upcoming" },
+  { date: "2026-12-02", time: "14:45", status: "Upcoming" },
+  { date: "2026-12-03", time: "13:45", status: "Upcoming" },
+  { date: "2026-12-07", time: "13:45", status: "Upcoming" },
+  { date: "2026-12-09", time: "14:45", status: "Upcoming" },
+  { date: "2026-12-10", time: "13:45", status: "Upcoming" },
+  { date: "2026-12-14", time: "13:45", status: "Upcoming" },
+  { date: "2026-12-16", time: "14:45", status: "Upcoming" }
+];
 
 const MAKEUP_URL = "https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform";
 function badge(s) {
@@ -299,12 +336,14 @@ function render(rows, id) {
 render(oldTerm, 'old-body');
 render(newTerm, 'new-body');
 render(term3, 'term3-body');
+ render(term4, 'term4-body');
 
 function downloadCSV() {
   let csv = "Section,Date,Time,Status\n";
   oldTerm.forEach(r => csv += `Old Term,${r.date},${r.time},${r.status}\n`);
   newTerm.forEach(r => csv += `New Term,${r.date},${r.time},${r.status}\n`);
-  term3.forEach(r => csv += `New Term (Pending),${r.date},${r.time},${r.status}\n`);
+  term3.forEach(r => csv += `New Term,${r.date},${r.time},${r.status}\n`);
+  term4.forEach(r => csv += `New Term Nov-Dec,${r.date},${r.time},${r.status}\n`);
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
