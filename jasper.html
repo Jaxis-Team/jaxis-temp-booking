@@ -124,6 +124,11 @@
       <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
         <tbody id="tb-ww"></tbody></table>
     </div>
+    <div class="card">
+      <h2>Win Win — 下一期課程 Next Term <span class="batch-tag">· 11/11 – 1/13 · 待預約</span></h2>
+      <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
+        <tbody id="tb-wwnext"></tbody></table>
+    </div>
   </div>
 
   <button class="dl" onclick="exportCSV()">⬇ 下載課表 (CSV)</button>
@@ -155,6 +160,7 @@ const termNew = [
   {d:"2026-09-15",s:"yes"},{d:"2026-09-17",s:"yes"},{d:"2026-09-22",s:"yes"},{d:"2026-09-24",s:"yes"},
   {d:"2026-09-29",s:"yes"},{d:"2026-10-01",s:"yes"}
 ];
+const termWWNext = ["2026-11-11","2026-11-18","2026-11-25","2026-12-02","2026-12-09","2026-12-16","2026-12-23","2026-12-30","2027-01-06","2027-01-13"];
 const termWW = [
   {d:"2026-09-02",s:"yes"},{d:"2026-09-09",s:"missed"},{d:"2026-09-16",s:"yes"},{d:"2026-09-23",s:"yes"},
   {d:"2026-09-30",s:"yes"},{d:"2026-10-07",s:"yes"},{d:"2026-10-14",s:"yes"},{d:"2026-10-21",s:"yes"},
@@ -200,6 +206,11 @@ function showKid(kid){
       : (badge[r.s]||badge.up);
     tbW.insertAdjacentHTML("beforeend",
       `<tr><td>${r.d}</td><td>週${dow(r.d+"T12:00:00")}</td><td class="slots"><span>13:45</span><span>14:15</span></td><td>${st}</td></tr>`);
+  });
+  const tbWN=document.getElementById("tb-wwnext");
+  termWWNext.forEach(d=>{
+    tbWN.insertAdjacentHTML("beforeend",
+      `<tr><td>${d}</td><td>週${dow(d+"T12:00:00")}</td><td class="slots"><span>13:45</span><span>14:15</span></td><td><span class="badge" style="background:#eee;color:#888">待預約</span></td></tr>`);
   });
 })();
 
