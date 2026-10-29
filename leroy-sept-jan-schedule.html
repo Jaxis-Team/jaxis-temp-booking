@@ -618,6 +618,12 @@ const trialInfo = {
     "3. Assess whether he can follow simple spoken instructions",
     "4. Confirm phonics level before recommending SS vs Baby",
   ],
+  "Lesley": [
+    "Age: 7",
+    "English learning: never had an English class in her life",
+    "Level: always guesses — only knows very basic ABC phonics and super easy words like car, ball",
+    "Suggestion: just do a good class based on her level, then see how it goes. Nothing much left to test.",
+  ],
 };
 
 // Upcoming trial classes — not tied to the Mon–Fri grid, so these can fall
@@ -626,6 +632,7 @@ const trialInfo = {
 const trials = [
   { date: "2026-09-16", time: "20:30–21:00", name: "Eden" },
   { date: "2026-09-19", time: "09:30–10:00", name: "Dustin" },
+  { date: "2026-10-30", time: "20:30–21:00", name: "Lesley" },
 ];
 
 // Exceptions (cancellations / time changes / no-class / one-off additions) — keyed by ISO date.
@@ -702,6 +709,11 @@ const exceptions = {
       { time: "16:30–17:00", name: "Ray (makeup for 10/26)" },
     ],
   },
+  "2026-10-30": {
+    additions: [
+      { time: "20:30–21:00", name: "Lesley" },
+    ],
+  },
 };
 
 function renderWeek(offsetWeeks, containerId) {
@@ -739,7 +751,7 @@ function renderWeek(offsetWeeks, containerId) {
           <span class="wk-slot-name">${name}</span></div>`;
       }
     });
-    if (!hasSlot) html += `<div class="wk-empty">No classes</div>`;
+    if (!hasSlot && !(dayExceptions.additions && dayExceptions.additions.length)) html += `<div class="wk-empty">No classes</div>`;
 
     // One-off additions for this exact date (e.g. a final makeup class in an
     // otherwise-open slot) that aren't part of the recurring template.
