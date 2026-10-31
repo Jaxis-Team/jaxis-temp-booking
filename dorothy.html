@@ -51,6 +51,7 @@
   .b-up{background:var(--up-bg);color:var(--up)}
   .b-leave{background:#F5E3D2;color:var(--leave)}
   .tbd{color:var(--muted)}
+  .remark{color:var(--miss);font-size:12px;font-weight:700}
   .mkbtn{display:inline-block;margin-left:8px;background:var(--miss);color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px}
   .dlbtn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
     border:none;cursor:pointer;padding:11px 18px;border-radius:10px;font-size:14px;font-weight:700}
@@ -107,7 +108,7 @@
 
   <footer>
     手動追蹤表，未連結任何線上預約系統，點數與出席由人工更新，可能與實際系統略有延遲。<br>
-    Manual tracking sheet — not linked to any live booking platform. Last updated 2026-10-23.
+    Manual tracking sheet — not linked to any live booking platform. Last updated 2026-10-29.
   </footer>
 </div>
 
@@ -126,10 +127,10 @@
     {date:"2026-08-14",time:"9:00:00",status:"Yes"},
     {date:"2026-08-17",time:"9:35:00",status:"Yes"},
     {date:"2026-08-21",time:"9:00:00",status:"Yes"},
-    {date:"2026-08-24",time:"9:35:00",status:"Cancelled",makeup:"https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform"},
+    {date:"2026-08-24",time:"9:35:00",status:"Cancelled",remark:"補課 → 11/2 (一) 14:20"},
     {date:"2026-08-31",time:"14:20:00",status:"Yes"},
     {date:"2026-09-07",time:"14:20:00",status:"Yes"},
-    {date:"2026-09-14",time:"14:20:00",status:"Cancelled",makeup:"https://docs.google.com/forms/d/1WT4dLtC7vDA-d0vtCzwMAeuwIaJ9HvNEKE21Nsaa1jw/viewform"},
+    {date:"2026-09-14",time:"14:20:00",status:"Cancelled",remark:"補課 → 11/9 (一) 14:20"},
     {date:"2026-09-21",time:"14:20:00",status:"Yes"},
     {date:"2026-09-28",time:"14:20:00",status:"Yes"},
     {date:"2026-10-05",time:"14:20:00",status:"Yes"},
@@ -149,7 +150,8 @@
   function row(r,i){
     const t = r.time==="細節待確認" ? '<span class="tbd">細節待確認</span>' : r.time;
     const mk = r.makeup ? ` <a class="mkbtn" href="${r.makeup}" target="_blank">補課去</a>` : "";
-    return `<tr><td class="n">${i+1}</td><td>${r.date}</td><td>${t}</td><td>${badge(r.status)}${mk}</td></tr>`;
+    const rm = r.remark ? ` <span class="remark">${r.remark}</span>` : "";
+    return `<tr><td class="n">${i+1}</td><td>${r.date}</td><td>${t}</td><td>${badge(r.status)}${mk}${rm}</td></tr>`;
   }
   oldBody.innerHTML=oldTerm.map(row).join("");
   newBody.innerHTML=newTerm.map(row).join("");
