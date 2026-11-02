@@ -86,9 +86,9 @@
   <div class="card">
     <h2>點數 Points</h2>
     <div class="pts">
-      <div class="big" id="ptsRemain">80 <span>pts 剩餘</span></div>
+      <div class="big" id="ptsRemain">120 <span>pts 剩餘</span></div>
       <div class="bar"><i id="ptsBar"></i></div>
-      <div class="exp"><span id="ptsUsed">120</span>/<span id="ptsTotal">200</span> 已用 · 200點 · 到期 2027-04-30</div>
+      <div class="exp"><span id="ptsUsed">120</span>/<span id="ptsTotal">240</span> 已用 · 新卡200 + 舊卡結餘40 · 到期 2027-04-30</div>
     </div>
   </div>
 
@@ -166,7 +166,7 @@
     {date:"2027-03-29",time:"14:20:00",status:"Upcoming"},
     {date:"2027-04-05",time:"14:20:00",status:"Upcoming"},
   ];
-  const pts={used:120,total:200};
+  const pts={used:120,total:240};
 
   function badge(s){
     if(s==="Yes")     return '<span class="badge b-yes">Yes 已出席</span>';
