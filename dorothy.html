@@ -86,9 +86,9 @@
   <div class="card">
     <h2>點數 Points</h2>
     <div class="pts">
-      <div class="big" id="ptsRemain">40 <span>pts 剩餘</span></div>
+      <div class="big" id="ptsRemain">80 <span>pts 剩餘</span></div>
       <div class="bar"><i id="ptsBar"></i></div>
-      <div class="exp"><span id="ptsUsed">240</span>/<span id="ptsTotal">280</span> 已用 · 200點 · 到期 2026-10-10</div>
+      <div class="exp"><span id="ptsUsed">120</span>/<span id="ptsTotal">200</span> 已用 · 200點 · 到期 2027-04-30</div>
     </div>
   </div>
 
@@ -99,9 +99,15 @@
   </div>
 
   <div class="card">
-    <h2>新學期 New Term</h2>
+    <h2>新學期 (7/13–10/26)</h2>
     <table><thead><tr><th class="n">#</th><th>日期 Date</th><th>時間 Time</th><th>出席 Status</th></tr></thead>
     <tbody id="newBody"></tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>新學期 (11/16起) · 新課卡 New Term</h2>
+    <table><thead><tr><th class="n">#</th><th>日期 Date</th><th>時間 Time</th><th>出席 Status</th></tr></thead>
+    <tbody id="term3Body"></tbody></table>
   </div>
 
   <a class="dlbtn" onclick="downloadCSV()">⬇ 下載 Download CSV</a>
@@ -138,7 +144,29 @@
     {date:"2026-10-19",time:"14:20:00",status:"Yes"},
     {date:"2026-10-26",time:"14:20:00",status:"Yes"},
   ];
-  const pts={used:240,total:280};
+  const thirdTerm=[
+    {date:"2026-11-16",time:"14:20:00",status:"Upcoming"},
+    {date:"2026-11-23",time:"14:20:00",status:"Upcoming"},
+    {date:"2026-11-30",time:"14:20:00",status:"Upcoming"},
+    {date:"2026-12-07",time:"14:20:00",status:"Upcoming"},
+    {date:"2026-12-14",time:"14:20:00",status:"Upcoming"},
+    {date:"2026-12-21",time:"14:20:00",status:"Upcoming"},
+    {date:"2026-12-28",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-01-04",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-01-11",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-01-18",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-01-25",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-02-01",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-02-15",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-02-22",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-03-01",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-03-08",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-03-15",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-03-22",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-03-29",time:"14:20:00",status:"Upcoming"},
+    {date:"2027-04-05",time:"14:20:00",status:"Upcoming"},
+  ];
+  const pts={used:120,total:200};
 
   function badge(s){
     if(s==="Yes")     return '<span class="badge b-yes">Yes 已出席</span>';
@@ -155,6 +183,7 @@
   }
   oldBody.innerHTML=oldTerm.map(row).join("");
   newBody.innerHTML=newTerm.map(row).join("");
+  term3Body.innerHTML=thirdTerm.map(row).join("");
   const remain=pts.total-pts.used;
   ptsRemain.innerHTML=remain+' <span>pts 剩餘</span>';
   ptsUsed.textContent=pts.used; ptsTotal.textContent=pts.total;
@@ -163,10 +192,12 @@
   function downloadCSV(){
     let L=["Dorothy — JAXIS Class Tracker","家長,陳韋帆","老師,安東尼老師 Teacher Anthony",
       "Points used,"+pts.used,"Points total,"+pts.total,"Points remaining,"+remain,
-      "Pass expiration,2026-10-10","","Old Term - Leftover","#,Date,Time,Status"];
+      "Pass expiration,2027-04-30","","Old Term - Leftover","#,Date,Time,Status"];
     oldTerm.forEach((r,i)=>L.push([i+1,r.date,r.time,r.status].join(",")));
     L.push("","New Term","#,Date,Time,Status");
     newTerm.forEach((r,i)=>L.push([i+1,r.date,r.time,r.status].join(",")));
+    L.push("","New Term (11/16)","#,Date,Time,Status");
+    thirdTerm.forEach((r,i)=>L.push([i+1,r.date,r.time,r.status].join(",")));
     const blob=new Blob(["\uFEFF"+L.join("\n")],{type:"text/csv;charset=utf-8"});
     const a=document.createElement("a");a.href=URL.createObjectURL(blob);
     a.download="dorothy_summary.csv";a.click();
