@@ -111,6 +111,11 @@
       <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
         <tbody id="tb-next"></tbody></table>
     </div>
+    <div class="card">
+      <h2>再下一期課程 Following Term <span class="batch-tag">· 11/19 – 12/22 · 待預約</span></h2>
+      <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
+        <tbody id="tb-next2"></tbody></table>
+    </div>
   </div>
 
   <div id="view-winwin" style="display:none">
@@ -154,6 +159,7 @@ const term = [
   {d:"2026-08-18", s:"makeup"},
   {d:"2026-08-20", s:"makeup"}
 ];
+const termNext2 = ["2026-11-19","2026-11-24","2026-11-26","2026-12-01","2026-12-03","2026-12-08","2026-12-10","2026-12-15","2026-12-17","2026-12-22"];
 const termNext = [{d:"2026-10-15",s:"yes"},{d:"2026-10-20",s:"yes"},{d:"2026-10-22",s:"yes"},{d:"2026-10-27",s:"yes"},{d:"2026-10-29",s:"yes"},{d:"2026-11-03",s:"yes"},{d:"2026-11-05",s:"yes"},{d:"2026-11-10"},{d:"2026-11-12"},{d:"2026-11-17"}];
 const termNew = [
   {d:"2026-09-01",s:"yes"},{d:"2026-09-03",s:"yes"},{d:"2026-09-08",s:"yes"},{d:"2026-09-10",s:"yes"},
@@ -198,6 +204,11 @@ function showKid(kid){
   termNext.forEach(r=>{
     tbX.insertAdjacentHTML("beforeend",
       `<tr><td>${r.d}</td><td>週${dow(r.d+"T12:00:00")}</td><td class="slots"><span>09:35</span><span>10:05</span></td><td>${badge[r.s]||badge.up}</td></tr>`);
+  });
+  const tbX2=document.getElementById("tb-next2");
+  termNext2.forEach(d=>{
+    tbX2.insertAdjacentHTML("beforeend",
+      `<tr><td>${d}</td><td>週${dow(d+"T12:00:00")}</td><td class="slots"><span>09:35</span><span>10:05</span></td><td><span class="badge" style="background:#eee;color:#888">待預約</span></td></tr>`);
   });
   const tbW=document.getElementById("tb-ww");
   termWW.forEach(r=>{
