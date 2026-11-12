@@ -276,6 +276,28 @@ const students = {
       { time: "2026-10-29 11:15", att: "Yes" },
       { time: "2026-11-03 11:15", att: "Yes" },
       { time: "2026-11-05 11:15", att: "Yes" }
+    ],
+    nextTerm: [
+      { time: "2026-11-17 11:15", att: "待預約" },
+      { time: "2026-11-19 11:15", att: "待預約" },
+      { time: "2026-11-24 11:15", att: "待預約" },
+      { time: "2026-11-26 11:15", att: "待預約" },
+      { time: "2026-12-01 11:15", att: "待預約" },
+      { time: "2026-12-03 11:15", att: "待預約" },
+      { time: "2026-12-08 11:15", att: "待預約" },
+      { time: "2026-12-10 11:15", att: "待預約" },
+      { time: "2026-12-15 11:15", att: "待預約" },
+      { time: "2026-12-17 11:15", att: "待預約" },
+      { time: "2026-12-22 11:15", att: "待預約" },
+      { time: "2026-12-24 11:15", att: "待預約" },
+      { time: "2026-12-29 11:15", att: "待預約" },
+      { time: "2026-12-31 11:15", att: "待預約" },
+      { time: "2027-01-05 11:15", att: "待預約" },
+      { time: "2027-01-07 11:15", att: "待預約" },
+      { time: "2027-01-12 11:15", att: "待預約" },
+      { time: "2027-01-14 11:15", att: "待預約" },
+      { time: "2027-01-19 11:15", att: "待預約" },
+      { time: "2027-01-21 11:15", att: "待預約" }
     ]
   }
 };
@@ -292,6 +314,7 @@ function attBadge(att, note) {
   if (att === "Upcoming") return '<span class="att-upcoming">待上課</span>';
   if (att === "已補課") return '<span class="att-madeup">✓ 已補課</span>' + (note ? '<span class="att-madeup-note">'+note+'</span>' : '');
   if (att === "尚未預約") return '<span class="att-unbooked">尚未預約</span>';
+  if (att === "待預約") return '<span class="att-unbooked">待預約</span>';
   if (att === "待補課") return '<a class="att-makeup-btn" href="'+MAKEUP_URL+'" target="_blank">補課去 →</a>';
   return att;
 }
