@@ -98,11 +98,11 @@
   <div class="card">
     <div class="card-title">共用點數卡</div>
     <div class="points-row">
-      <div><div class="metric-label">總剩餘點數</div><div class="metric-value ok">362</div></div>
+      <div><div class="metric-label">總剩餘點數</div><div class="metric-value ok">202</div></div>
     </div>
     <div style="margin-top:10px;font-size:12px;color:var(--text-sub);line-height:1.8;">
       舊卡：500 / 500 已用（已用完）· 到期 2027-04-03<br>
-      新卡：138 / 500 已用（剩 362）· 購於 10/14 · 到期 2027-04-14
+      新卡：298 / 500 已用（剩 202）· 購於 10/14 · 到期 2027-04-14
     </div>
   </div>
 
@@ -278,26 +278,26 @@ const students = {
       { time: "2026-11-05 11:15", att: "Yes" }
     ],
     nextTerm: [
-      { time: "2026-11-17 11:15", att: "待預約" },
-      { time: "2026-11-19 11:15", att: "待預約" },
-      { time: "2026-11-24 11:15", att: "待預約" },
-      { time: "2026-11-26 11:15", att: "待預約" },
-      { time: "2026-12-01 11:15", att: "待預約" },
-      { time: "2026-12-03 11:15", att: "待預約" },
-      { time: "2026-12-08 11:15", att: "待預約" },
-      { time: "2026-12-10 11:15", att: "待預約" },
-      { time: "2026-12-15 11:15", att: "待預約" },
-      { time: "2026-12-17 11:15", att: "待預約" },
-      { time: "2026-12-22 11:15", att: "待預約" },
-      { time: "2026-12-24 11:15", att: "待預約" },
-      { time: "2026-12-29 11:15", att: "待預約" },
-      { time: "2026-12-31 11:15", att: "待預約" },
-      { time: "2027-01-05 11:15", att: "待預約" },
-      { time: "2027-01-07 11:15", att: "待預約" },
-      { time: "2027-01-12 11:15", att: "待預約" },
-      { time: "2027-01-14 11:15", att: "待預約" },
-      { time: "2027-01-19 11:15", att: "待預約" },
-      { time: "2027-01-21 11:15", att: "待預約" }
+      { time: "2026-11-17 11:15", att: "Upcoming" },
+      { time: "2026-11-19 11:15", att: "Upcoming" },
+      { time: "2026-11-24 11:15", att: "Upcoming" },
+      { time: "2026-11-26 11:15", att: "Upcoming" },
+      { time: "2026-12-01 11:15", att: "Upcoming" },
+      { time: "2026-12-03 11:15", att: "Upcoming" },
+      { time: "2026-12-08 11:15", att: "Upcoming" },
+      { time: "2026-12-10 11:15", att: "Upcoming" },
+      { time: "2026-12-15 11:15", att: "Upcoming" },
+      { time: "2026-12-17 11:15", att: "Upcoming" },
+      { time: "2026-12-22 11:15", att: "Upcoming" },
+      { time: "2026-12-24 11:15", att: "Upcoming" },
+      { time: "2026-12-29 11:15", att: "Upcoming" },
+      { time: "2026-12-31 11:15", att: "Upcoming" },
+      { time: "2027-01-05 11:15", att: "Upcoming" },
+      { time: "2027-01-07 11:15", att: "Upcoming" },
+      { time: "2027-01-12 11:15", att: "Upcoming" },
+      { time: "2027-01-14 11:15", att: "Upcoming" },
+      { time: "2027-01-19 11:15", att: "Upcoming" },
+      { time: "2027-01-21 11:15", att: "Upcoming" }
     ]
   }
 };
@@ -382,7 +382,7 @@ function downloadSummary() {
     s.newTerm.forEach(r => { csv += `${name},New Term,${fmt(r.time)},${s.points},${r.att}\n`; });
     if (s.nextTerm) s.nextTerm.forEach(r => { csv += `${name},Next Term,${fmt(r.time)},${s.points},${r.att}\n`; });
   });
-  csv += "\n共用點數卡,,總剩餘,362\n舊卡,,使用量,500 / 500（已用完）\n新卡,,使用量,138 / 500（剩362）\n";
+  csv += "\n共用點數卡,,總剩餘,202\n舊卡,,使用量,500 / 500（已用完）\n新卡,,使用量,298 / 500（剩202）\n";
   const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8;"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
