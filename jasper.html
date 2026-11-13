@@ -140,7 +140,7 @@
 
   <footer>
     此為人工追蹤紀錄，未連結任何線上預約系統。<br>
-    最後更新：2026-11-06 · 新學期課程已加入（Jasper 9/1–10/1 · Win Win 9/2–11/4）。
+    最後更新：2026-11-13 · 新學期課程已加入（Jasper 9/1–10/1 · Win Win 9/2–11/4）。
   </footer>
 </div>
 
@@ -160,7 +160,7 @@ const term = [
   {d:"2026-08-20", s:"makeup"}
 ];
 const termNext2 = ["2026-11-19","2026-11-24","2026-11-26","2026-12-01","2026-12-03","2026-12-08","2026-12-10","2026-12-15","2026-12-17","2026-12-22"];
-const termNext = [{d:"2026-10-15",s:"yes"},{d:"2026-10-20",s:"yes"},{d:"2026-10-22",s:"yes"},{d:"2026-10-27",s:"yes"},{d:"2026-10-29",s:"yes"},{d:"2026-11-03",s:"yes"},{d:"2026-11-05",s:"yes"},{d:"2026-11-10"},{d:"2026-11-12"},{d:"2026-11-17"}];
+const termNext = [{d:"2026-10-15",s:"yes"},{d:"2026-10-20",s:"yes"},{d:"2026-10-22",s:"yes"},{d:"2026-10-27",s:"yes"},{d:"2026-10-29",s:"yes"},{d:"2026-11-03",s:"yes"},{d:"2026-11-05",s:"yes"},{d:"2026-11-10",s:"yes"},{d:"2026-11-12",s:"yes"},{d:"2026-11-17"}];
 const termNew = [
   {d:"2026-09-01",s:"yes"},{d:"2026-09-03",s:"yes"},{d:"2026-09-08",s:"yes"},{d:"2026-09-10",s:"yes"},
   {d:"2026-09-15",s:"yes"},{d:"2026-09-17",s:"yes"},{d:"2026-09-22",s:"yes"},{d:"2026-09-24",s:"yes"},
@@ -220,7 +220,7 @@ function showKid(kid){
   });
   const tbWN=document.getElementById("tb-wwnext");
   termWWNext.forEach(d=>{
-    const st = d==="2026-12-16" ? badge.makeup : badge.up;
+    const st = d==="2026-12-16" ? badge.makeup : (d==="2026-11-11" ? badge.yes : badge.up);
     tbWN.insertAdjacentHTML("beforeend",
       `<tr><td>${d}</td><td>週${dow(d+"T12:00:00")}</td><td class="slots"><span>13:45</span><span>14:15</span></td><td>${st}</td></tr>`);
   });
