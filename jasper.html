@@ -70,8 +70,8 @@
     <div class="pts">
       <div class="pt active">
         <div class="lbl">點數餘額 Points Balance</div>
-        <div class="big">310 / 550</div>
-        <div class="sub">含舊卡結轉 50 點 · 已用 240 · 到期 2027-04-13</div>
+        <div class="big">190 / 550</div>
+        <div class="sub">含舊卡結轉 50 點 · 已用 360 · 到期 2027-04-13</div>
       </div>
       
     </div>
@@ -112,7 +112,7 @@
         <tbody id="tb-next"></tbody></table>
     </div>
     <div class="card">
-      <h2>再下一期課程 Following Term <span class="batch-tag">· 11/19 – 12/22 · 待預約</span></h2>
+      <h2>再下一期課程 Following Term <span class="batch-tag">· 11/19 – 12/22 · booked 2026-11-18</span></h2>
       <table><thead><tr><th>日期</th><th>星期</th><th>時段</th><th>狀態</th></tr></thead>
         <tbody id="tb-next2"></tbody></table>
     </div>
@@ -208,7 +208,7 @@ function showKid(kid){
   const tbX2=document.getElementById("tb-next2");
   termNext2.forEach(d=>{
     tbX2.insertAdjacentHTML("beforeend",
-      `<tr><td>${d}</td><td>週${dow(d+"T12:00:00")}</td><td class="slots"><span>09:35</span><span>10:05</span></td><td><span class="badge" style="background:#eee;color:#888">待預約</span></td></tr>`);
+      `<tr><td>${d}</td><td>週${dow(d+"T12:00:00")}</td><td class="slots"><span>09:35</span><span>10:05</span></td><td><span class="badge b-up">Upcoming</span></td></tr>`);
   });
   const tbW=document.getElementById("tb-ww");
   termWW.forEach(r=>{
