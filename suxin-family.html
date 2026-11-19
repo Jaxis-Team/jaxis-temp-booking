@@ -50,6 +50,7 @@
   .att-madeup{display:inline-block;padding:2px 10px;border-radius:5px;font-size:12px;font-weight:500;background:#F3E8FB;color:#5B1A8A;}
   .att-madeup-note{font-size:11px;color:#7A5CB0;margin-left:4px;}
   .att-unbooked{display:inline-block;padding:2px 10px;border-radius:5px;font-size:12px;font-weight:500;background:#F5F5F5;color:#999;}
+  .att-absent{display:inline-block;padding:2px 10px;border-radius:5px;font-size:12px;font-weight:500;background:#FFE8E8;color:#991111;}
   .empty-note{font-size:13px;color:var(--text-muted);padding:10px 0;}
   .dl-btn{margin-top:1rem;border:1px solid var(--border);background:var(--card);padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;}
   .dl-btn:hover{background:#f0ede5;}
@@ -162,8 +163,7 @@ const students = {
       { time: "2026-11-11 09:35", att: "Yes" },
       { time: "2026-11-12 10:40", att: "Yes" },
       { time: "2026-11-17 10:40", att: "Upcoming" },
-      { time: "2026-11-18 09:35", att: "Upcoming" },
-      { time: "2026-11-19 10:40", att: "Upcoming" },
+      { time: "2026-11-19 10:40", att: "Absent" },
       { time: "2026-11-24 10:40", att: "Upcoming" },
       { time: "2026-11-25 09:35", att: "Upcoming" },
       { time: "2026-11-26 10:40", att: "Upcoming" },
@@ -223,7 +223,7 @@ const students = {
       { time: "2026-11-12 16:25", att: "Yes" },
       { time: "2026-11-16 17:00", att: "Upcoming" },
       { time: "2026-11-17 17:00", att: "Upcoming" },
-      { time: "2026-11-19 16:25", att: "Upcoming" },
+      { time: "2026-11-19 16:25", att: "Absent" },
       { time: "2026-11-23 17:00", att: "Upcoming" },
       { time: "2026-11-24 17:00", att: "Upcoming" },
       { time: "2026-11-26 16:25", att: "Upcoming" },
@@ -279,7 +279,7 @@ const students = {
     ],
     nextTerm: [
       { time: "2026-11-17 11:15", att: "Upcoming" },
-      { time: "2026-11-19 11:15", att: "Upcoming" },
+      { time: "2026-11-19 11:15", att: "待補課" },
       { time: "2026-11-24 11:15", att: "Upcoming" },
       { time: "2026-11-26 11:15", att: "Upcoming" },
       { time: "2026-12-01 11:15", att: "Upcoming" },
@@ -315,6 +315,7 @@ function attBadge(att, note) {
   if (att === "已補課") return '<span class="att-madeup">✓ 已補課</span>' + (note ? '<span class="att-madeup-note">'+note+'</span>' : '');
   if (att === "尚未預約") return '<span class="att-unbooked">尚未預約</span>';
   if (att === "待預約") return '<span class="att-unbooked">待預約</span>';
+  if (att === "Absent") return '<span class="att-absent">缺席</span>';
   if (att === "待補課") return '<a class="att-makeup-btn" href="'+MAKEUP_URL+'" target="_blank">補課去 →</a>';
   return att;
 }
